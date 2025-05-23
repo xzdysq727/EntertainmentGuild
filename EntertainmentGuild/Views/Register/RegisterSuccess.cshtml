@@ -1,0 +1,14 @@
+﻿@model EntertainmentGuild.Models.RegisterSuccessViewModel
+
+@{
+    ViewData["Title"] = "Registration Successful";
+}
+
+<div class="container mt-5 text-center">
+    <h2 class="mb-4 text-success">🎉 Registration Successful!</h2>
+    <p>Your account has been created successfully as a <strong>@Model.Role</strong>.</p>
+
+    <a asp-controller="Login" asp-action="@Model.Role" class="btn btn-primary mt-3">
+        Return to Login Page
+    </a>
+</div>
