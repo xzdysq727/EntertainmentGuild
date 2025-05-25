@@ -7,14 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\image\**" />
     <Compile Remove="wwwroot\新文件夹1\**" />
+    <Content Remove="wwwroot\image\**" />
     <Content Remove="wwwroot\新文件夹1\**" />
+    <EmbeddedResource Remove="wwwroot\image\**" />
     <EmbeddedResource Remove="wwwroot\新文件夹1\**" />
+    <None Remove="wwwroot\image\**" />
     <None Remove="wwwroot\新文件夹1\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\image\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -41,10 +41,9 @@ namespace EntertainmentGuild.Controllers
                 return View("Register", model);
             }
 
-            // 添加角色
             await _userManager.AddToRoleAsync(user, model.Role);
 
-            // ✅ 注册成功后跳转到成功页面，并传入角色
+
             var successModel = new RegisterSuccessViewModel { Role = model.Role };
             return View("RegisterSuccess", successModel);
         }

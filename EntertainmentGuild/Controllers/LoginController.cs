@@ -27,7 +27,6 @@ public class LoginController : Controller
             return View(model.Role, model);
 
        
-        // 成功登录（根据角色跳转）
         switch (model.Role)
         {
             case "Admin": return RedirectToAction("Dashboard", "Admin");

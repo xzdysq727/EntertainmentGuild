@@ -10,7 +10,6 @@ namespace EntertainmentGuild.Data
         {
         }
 
-        // 你可以在这里添加其他数据表，例如：
-        // public DbSet<Product> Products { get; set; }
+   
     }
 }
