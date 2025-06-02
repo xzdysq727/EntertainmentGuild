@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Customer Home";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Search the things you want</h2>
+
+    <form method="get" class="d-flex justify-content-center mb-5">
+        <input type="text" name="query" class="form-control me-2" placeholder="Search..." style="max-width: 400px;" />
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </form>
+
+    <h4 class="mb-3">The best-selling products</h4>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <img src="/images/product1.jpg" class="img-fluid mb-2" style="height:150px;" />
+            <p>Product 1</p>
+        </div>
+        <div class="col-md-4">
+            <img src="/images/product2.jpg" class="img-fluid mb-2" style="height:150px;" />
+            <p>Product 2</p>
+        </div>
+        <div class="col-md-4">
+            <img src="/images/product3.jpg" class="img-fluid mb-2" style="height:150px;" />
+            <p>Product 3</p>
+        </div>
+    </div>
+</div>

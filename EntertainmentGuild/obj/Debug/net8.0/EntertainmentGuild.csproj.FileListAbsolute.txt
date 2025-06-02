@@ -134,4 +134,6 @@ C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debu
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debug\net8.0\EntertainmentGuild.pdb
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debug\net8.0\EntertainmentGuild.genruntimeconfig.cache
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debug\net8.0\ref\EntertainmentGuild.dll
+C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debug\net8.0\EntertainmentGuild.sourcelink.json
+C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

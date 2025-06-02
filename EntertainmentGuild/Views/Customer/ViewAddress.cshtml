@@ -1,0 +1,54 @@
+﻿@model List<EntertainmentGuild.Models.Address>
+
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Addresses";
+}
+
+<div class="container mt-4">
+    <h2>Saved Addresses</h2>
+    <hr />
+
+    @if (TempData["Deleted"] != null)
+    {
+        <div class="alert alert-success">@TempData["Deleted"]</div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Postal Code</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var addr in Model)
+                {
+                    <tr>
+                        <td>@addr.AddressLine</td>
+                        <td>@addr.City</td>
+                        <td>@addr.State</td>
+                        <td>@addr.PostalCode</td>
+                        <td>
+                            <form asp-action="DeleteAddress" method="post" style="display:inline">
+                                <input type="hidden" name="id" value="@addr.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info">No addresses found.</div>
+    }
+
+    <a class="btn btn-outline-primary mt-3" asp-action="Account">Back to Account</a>
+</div>

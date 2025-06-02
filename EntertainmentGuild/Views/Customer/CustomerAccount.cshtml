@@ -1,0 +1,52 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    ViewData["Title"] = "My Account";
+}
+
+<div class="container mt-4">
+    <h2>My Account</h2>
+    <hr />
+
+    @if (TempData["AddressSaved"] != null)
+    {
+        <div class="alert alert-success">@TempData["AddressSaved"]</div>
+    }
+
+    <div class="mb-4">
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>User Name:</strong> @Model.UserName</p>
+    </div>
+
+    <div class="mb-4">
+        <h5>Shipping Address</h5>
+        <form method="post" asp-action="AddAddress">
+            <div class="mb-3">
+                <label for="Address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="Address" name="Address" required />
+            </div>
+            <div class="mb-3">
+                <label for="City" class="form-label">City</label>
+                <input type="text" class="form-control" id="City" name="City" required />
+            </div>
+            <div class="mb-3">
+                <label for="State" class="form-label">State</label>
+                <input type="text" class="form-control" id="State" name="State" required />
+            </div>
+            <div class="mb-3">
+                <label for="PostalCode" class="form-label">Postal Code</label>
+                <input type="text" class="form-control" id="PostalCode" name="PostalCode" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Save Address</button>
+            <a asp-action="ViewAddress" class="btn btn-secondary mt-3">View Saved Address</a>
+
+        </form>
+    </div>
+
+    <div>
+        <h5>Security</h5>
+        <a class="btn btn-outline-secondary" asp-action="ChangePassword">Change Password</a>
+
+    </div>
+</div>

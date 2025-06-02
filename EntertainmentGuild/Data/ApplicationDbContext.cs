@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using EntertainmentGuild.Models;
 
 namespace EntertainmentGuild.Data
 {
@@ -10,6 +11,7 @@ namespace EntertainmentGuild.Data
         {
         }
 
-   
+        public DbSet<Address> Addresses { get; set; } // 👈 添加地址表
     }
 }
+
