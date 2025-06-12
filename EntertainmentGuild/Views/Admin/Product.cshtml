@@ -1,0 +1,151 @@
+﻿@model List<EntertainmentGuild.Models.Product>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Product Management";
+    var selectedCategory = ViewBag.SelectedCategory as string;
+    var selectedSubCategory = ViewBag.SelectedSubCategory as string;
+}
+
+<div class="row mt-4">
+    <!-- ✅ 左侧分类栏 -->
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white"><strong>Categories</strong></div>
+            <div class="card-body p-2">
+                <ul class="list-group list-group-flush">
+                    @foreach (var category in new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" })
+                    {
+                        <li class="list-group-item bg-light">
+                            <a asp-action="Product" asp-route-category="@category"
+                               class="fw-bold @(selectedCategory == category ? "text-primary" : "text-dark")">@category</a>
+                            <ul class="list-unstyled ms-3 mt-1">
+                                @foreach (var sub in GetSubCategories(category))
+                                {
+                                    <li>
+                                        <a asp-action="Product" asp-route-category="@category" asp-route-subCategory="@sub"
+                                           class="text-decoration-none @(selectedSubCategory == sub ? "text-primary fw-bold" : "text-muted")">
+                                            @sub
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ 商品列表 + 添加表单 -->
+    <div class="col-md-9">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Product Manager</h5>
+            </div>
+
+            <div class="card-body">
+                <!-- 商品列表 -->
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>SubCategory</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>@p.Name</td>
+                                <td>@p.Price.ToString("C")</td>
+                                <td>@p.Category</td>
+                                <td>@p.SubCategory</td>
+                                <td>
+                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <hr />
+
+                <!-- 添加商品 -->
+                <h5 class="mt-4">Add Product</h5>
+                <form asp-action="AddProduct" method="post" class="row g-2">
+                    <div class="col-md-3">
+                        <input name="Name" class="form-control" placeholder="Product Name" required />
+                    </div>
+                    <div class="col-md-2">
+                        <input name="Price" type="number" step="0.01" class="form-control" placeholder="Price" required />
+                    </div>
+                    <div class="col-md-3">
+                        <select id="category" name="Category" class="form-select" required>
+                            <option value="">Select Category</option>
+                            <option>Clothing</option>
+                            <option>Pants</option>
+                            <option>Skirts</option>
+                            <option>Hats</option>
+                            <option>Shoes</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="subCategory" name="SubCategory" class="form-select" required>
+                            <option value="">Select SubCategory</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success w-100">Add</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const subCategoryMap = {
+            "Clothing": ["Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit"],
+            "Pants": ["Long Pants", "Shorts", "Cargo Pants", "Dress Pants"],
+            "Skirts": ["Dress", "Mini Skirt", "Long Skirt"],
+            "Hats": ["Baseball Cap", "Bucket Hat"],
+            "Shoes": ["Sneakers", "Skate Shoes", "High Heels", "Slippers"]
+        };
+
+        const categorySelect = document.getElementById('category');
+        const subCategorySelect = document.getElementById('subCategory');
+
+        categorySelect.addEventListener('change', function () {
+            const selected = categorySelect.value;
+            const subs = subCategoryMap[selected] || [];
+            subCategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
+            for (let item of subs) {
+                const option = document.createElement('option');
+                option.value = item;
+                option.text = item;
+                subCategorySelect.appendChild(option);
+            }
+        });
+    </script>
+}
+
+@functions {
+    private List<string> GetSubCategories(string category)
+    {
+        return category switch
+        {
+            "Clothing" => new List<string> { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" },
+            "Pants" => new List<string> { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" },
+            "Skirts" => new List<string> { "Dress", "Mini Skirt", "Long Skirt" },
+            "Hats" => new List<string> { "Baseball Cap", "Bucket Hat" },
+            "Shoes" => new List<string> { "Sneakers", "Skate Shoes", "High Heels", "Slippers" },
+            _ => new List<string>()
+        };
+    }
+}

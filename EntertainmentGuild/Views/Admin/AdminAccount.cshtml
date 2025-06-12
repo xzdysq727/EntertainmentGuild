@@ -1,0 +1,39 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Account";
+}
+
+<h2>Admin Account</h2>
+
+<div class="card p-3 mb-4">
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>UserName:</strong> @Model.UserName</p>
+</div>
+
+<h4>Change Password</h4>
+
+@if (TempData["ChangeSuccess"] != null)
+{
+    <div class="alert alert-success">@TempData["ChangeSuccess"]</div>
+}
+@if (TempData["ChangeError"] != null)
+{
+    <div class="alert alert-danger">@TempData["ChangeError"]</div>
+}
+
+<form asp-action="ChangePassword" method="post">
+    <div class="mb-3">
+        <label for="CurrentPassword">Current Password</label>
+        <input type="password" name="CurrentPassword" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="NewPassword">New Password</label>
+        <input type="password" name="NewPassword" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label for="ConfirmPassword">Confirm New Password</label>
+        <input type="password" name="ConfirmPassword" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Change Password</button>
+</form>

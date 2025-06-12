@@ -17,7 +17,7 @@ namespace EntertainmentGuild.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm New Password")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
     }
 }

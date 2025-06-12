@@ -44,6 +44,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Admin/AdminAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5BY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Admin/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Admin/Product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUHJvZHVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -82,6 +94,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/_CustomerLayout.cshtml]

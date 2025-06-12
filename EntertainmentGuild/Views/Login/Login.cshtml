@@ -1,4 +1,5 @@
 ﻿@model LoginViewModel
+
 @{
     ViewData["Title"] = $"{Model.Role} Login";
 }
@@ -11,14 +12,19 @@
 
         <div class="form-group mb-3">
             <label asp-for="Email" class="form-label"></label>
-            <input asp-for="Email" class="form-control" />
+            <input asp-for="Email" type="email" autocomplete="email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
         <div class="form-group mb-3">
             <label asp-for="Password" class="form-label"></label>
-            <input asp-for="Password" class="form-control" />
+            <input asp-for="Password" type="password" autocomplete="current-password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="RememberMe" class="form-check-input" />
+            <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
         </div>
 
         <div class="d-grid mb-3">
@@ -35,4 +41,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-

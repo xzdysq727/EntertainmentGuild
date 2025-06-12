@@ -53,13 +53,14 @@ namespace EntertainmentGuild.Controllers
                 return View("Login", model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
             if (result.Succeeded)
             {
                 switch (model.Role)
                 {
                     case "Admin":
-                        return RedirectToAction("Dashboard", "Admin");
+                        return RedirectToAction("Product", "Admin");
                     case "Employee":
                         return RedirectToAction("Dashboard", "Employee");
                     case "Customer":

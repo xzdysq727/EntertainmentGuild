@@ -12,6 +12,8 @@ namespace EntertainmentGuild.Data
         }
 
         public DbSet<Address> Addresses { get; set; } // 👈 添加地址表
+        public DbSet<Product> Products { get; set; }
+
     }
 }
 

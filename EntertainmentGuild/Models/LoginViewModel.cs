@@ -12,5 +12,7 @@ public class LoginViewModel
     public string Password { get; set; }
 
     public string Role { get; set; } // "Customer", "Employee", "Admin"
+
+    public bool RememberMe { get; set; }
 }
 
