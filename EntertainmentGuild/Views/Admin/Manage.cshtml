@@ -1,0 +1,59 @@
+﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Manage Users";
+    var currentRole = ViewBag.Role as string ?? "Customer";
+}
+
+<div class="row mt-4">
+    <!-- ✅ 左侧选择角色 -->
+    <div class="col-md-3">
+        <div class="list-group">
+            <a asp-action="Manage" asp-route-role="Customer"
+               class="list-group-item list-group-item-action @(currentRole == "Customer" ? "active" : "")">
+                View Customers
+            </a>
+            <a asp-action="Manage" asp-route-role="Employee"
+               class="list-group-item list-group-item-action @(currentRole == "Employee" ? "active" : "")">
+                View Employees
+            </a>
+        </div>
+    </div>
+
+    <!-- ✅ 右侧显示账户 -->
+    <div class="col-md-9">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <strong>@currentRole Accounts</strong>
+            </div>
+            <div class="card-body">
+                @if (Model.Count == 0)
+                {
+                    <p>No @currentRole accounts found.</p>
+                }
+                else
+                {
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Email</th>
+                                <th>UserName</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                <tr>
+                                    <td>@user.Email</td>
+                                    <td>@user.UserName</td>
+                                    <td>@user.Id</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</div>

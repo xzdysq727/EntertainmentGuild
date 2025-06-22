@@ -7,7 +7,7 @@
 }
 
 <div class="row mt-4">
-    <!-- ✅ 左侧分类栏 -->
+    <!-- ✅ 分类导航 -->
     <div class="col-md-3">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white"><strong>Categories</strong></div>
@@ -44,27 +44,31 @@
             </div>
 
             <div class="card-body">
-                <!-- 商品列表 -->
-                <table class="table table-hover">
+                <!-- 商品表格 -->
+                <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>Name</th>
+                            <th>Name & Image</th>
                             <th>Price</th>
                             <th>Category</th>
                             <th>SubCategory</th>
-                            <th>Action</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var p in Model)
                         {
                             <tr>
-                                <td>@p.Name</td>
-                                <td>@p.Price.ToString("C")</td>
-                                <td>@p.Category</td>
-                                <td>@p.SubCategory</td>
                                 <td>
-                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" class="d-inline">
+                                    <strong>@p.Name</strong><br />
+                                    <img src="@p.ImageUrl" alt="Image" class="img-thumbnail mt-1" style="width: 80px;" />
+                                </td>
+                                <td>@p.Price.ToString("C")</td>
+                                <td><span class="badge bg-secondary">@p.Category</span></td>
+                                <td><span class="badge bg-info text-dark">@p.SubCategory</span></td>
+                                <td>
+                                    <a asp-action="EditProduct" asp-route-id="@p.Id" class="btn btn-sm btn-warning me-1">Edit</a>
+                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" style="display:inline;">
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     </form>
                                 </td>
@@ -77,7 +81,7 @@
 
                 <!-- 添加商品 -->
                 <h5 class="mt-4">Add Product</h5>
-                <form asp-action="AddProduct" method="post" class="row g-2">
+                <form asp-action="AddProduct" method="post" class="row g-2" enctype="multipart/form-data">
                     <div class="col-md-3">
                         <input name="Name" class="form-control" placeholder="Product Name" required />
                     </div>

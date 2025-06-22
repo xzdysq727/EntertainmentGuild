@@ -1,0 +1,117 @@
+﻿@model EntertainmentGuild.Models.Product
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Edit Product";
+}
+
+<div class="container mt-5">
+    <h3 class="mb-4">Edit Product</h3>
+
+    <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row">
+            <!-- 左侧图片预览 + 上传 -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label class="form-label">Product Image</label>
+                    <div>
+                        <img id="imagePreview" src="@Model.ImageUrl" class="img-thumbnail mb-2" style="max-width: 100%; height: auto;" />
+                    </div>
+                    <input type="file" name="ImageFile" class="form-control" onchange="previewImage(this)" />
+                </div>
+            </div>
+
+            <!-- 右侧表单字段 -->
+            <div class="col-md-6">
+                <div class="form-group mb-2">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="Price"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="Category">Category</label>
+                    <select asp-for="Category" class="form-select" id="categorySelect">
+                        <option value="">Select Category</option>
+                        <option>Clothing</option>
+                        <option>Pants</option>
+                        <option>Skirts</option>
+                        <option>Hats</option>
+                        <option>Shoes</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-2">
+                    <label asp-for="SubCategory">SubCategory</label>
+                    <select asp-for="SubCategory" class="form-select" id="subCategorySelect">
+                        <option value="">Select SubCategory</option>
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success">💾 Save Changes</button>
+                    <a asp-action="Product" class="btn btn-secondary ms-2">↩ Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const subCategoryMap = {
+            "Clothing": ["Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit"],
+            "Pants": ["Long Pants", "Shorts", "Cargo Pants", "Dress Pants"],
+            "Skirts": ["Dress", "Mini Skirt", "Long Skirt"],
+            "Hats": ["Baseball Cap", "Bucket Hat"],
+            "Shoes": ["Sneakers", "Skate Shoes", "High Heels", "Slippers"]
+        };
+
+        const categorySelect = document.getElementById('categorySelect');
+        const subCategorySelect = document.getElementById('subCategorySelect');
+
+        function updateSubCategories(selectedCategory, selectedSub) {
+            const subs = subCategoryMap[selectedCategory] || [];
+            subCategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
+            for (const sub of subs) {
+                const option = document.createElement('option');
+                option.value = sub;
+                option.text = sub;
+                if (sub === selectedSub) option.selected = true;
+                subCategorySelect.appendChild(option);
+            }
+        }
+
+        categorySelect.addEventListener('change', () => {
+            updateSubCategories(categorySelect.value, "");
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateSubCategories("@Model.Category", "@Model.SubCategory");
+        });
+
+        // ✅ 图片预览功能
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => preview.src = e.target.result;
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

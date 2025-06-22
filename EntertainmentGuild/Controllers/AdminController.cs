@@ -72,5 +72,61 @@ namespace EntertainmentGuild.Controllers
 
             return RedirectToAction("Product", new { category = product?.Category ?? "" });
         }
+
+        // [GET] 进入编辑页面
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            if (product == null) return NotFound();
+
+            return View("EditProduct", product);
+        }
+
+        // [POST] 保存编辑
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(Product model, IFormFile? ImageFile)
+        {
+            if (!ModelState.IsValid)
+                return View("EditProduct", model);
+
+            var product = await _context.Products.FindAsync(model.Id);
+            if (product == null) return NotFound();
+
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.Description = model.Description;
+            product.Category = model.Category;
+            product.SubCategory = model.SubCategory;
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                var ext = Path.GetExtension(ImageFile.FileName);
+                var fileName = $"{Guid.NewGuid()}{ext}";
+                var savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", fileName);
+                var relativePath = $"/images/products/{fileName}";
+
+                using (var stream = new FileStream(savePath, FileMode.Create))
+                {
+                    await ImageFile.CopyToAsync(stream);
+                }
+
+                product.ImageUrl = relativePath;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Product", new { category = product.Category });
+        }
+        // AdminController.cs
+
+        [HttpGet]
+        public async Task<IActionResult> Manage(string role = "Customer")
+        {
+            var users = await _userManager.GetUsersInRoleAsync(role);
+            ViewBag.Role = role;
+            return View("Manage", users);
+        }
+
+
     }
 }
