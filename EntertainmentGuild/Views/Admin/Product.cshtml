@@ -6,11 +6,18 @@
     var selectedSubCategory = ViewBag.SelectedSubCategory as string;
 }
 
-<div class="row mt-4">
-    <!-- ✅ 分类导航 -->
+<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
+    <h4>Product Manager</h4>
+    <a class="btn btn-warning" asp-action="TopProducts">Edit Top Products</a>
+</div>
+
+<div class="row">
+    <!-- Sidebar: Category Navigation -->
     <div class="col-md-3">
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white"><strong>Categories</strong></div>
+            <div class="card-header bg-primary text-white">
+                <strong>Categories</strong>
+            </div>
             <div class="card-body p-2">
                 <ul class="list-group list-group-flush">
                     @foreach (var category in new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" })
@@ -36,23 +43,20 @@
         </div>
     </div>
 
-    <!-- ✅ 商品列表 + 添加表单 -->
+    <!-- Main Content: Product Table + Add Form -->
     <div class="col-md-9">
         <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Product Manager</h5>
-            </div>
-
             <div class="card-body">
-                <!-- 商品表格 -->
-                <table class="table table-hover align-middle">
+                <!-- Product Table -->
+                <table class="table table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>Name & Image</th>
+                            <th>Image</th>
+                            <th>Name</th>
                             <th>Price</th>
                             <th>Category</th>
                             <th>SubCategory</th>
-                            <th>Actions</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -60,15 +64,18 @@
                         {
                             <tr>
                                 <td>
-                                    <strong>@p.Name</strong><br />
-                                    <img src="@p.ImageUrl" alt="Image" class="img-thumbnail mt-1" style="width: 80px;" />
+                                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                    {
+                                        <img src="@p.ImageUrl" alt="Image" width="60" height="60" class="rounded" />
+                                    }
                                 </td>
+                                <td>@p.Name</td>
                                 <td>@p.Price.ToString("C")</td>
-                                <td><span class="badge bg-secondary">@p.Category</span></td>
-                                <td><span class="badge bg-info text-dark">@p.SubCategory</span></td>
+                                <td>@p.Category</td>
+                                <td>@p.SubCategory</td>
                                 <td>
-                                    <a asp-action="EditProduct" asp-route-id="@p.Id" class="btn btn-sm btn-warning me-1">Edit</a>
-                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" style="display:inline;">
+                                    <a asp-action="EditProduct" asp-route-id="@p.Id" class="btn btn-sm btn-warning me-2">Edit</a>
+                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" class="d-inline">
                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                     </form>
                                 </td>
@@ -78,10 +85,9 @@
                 </table>
 
                 <hr />
-
-                <!-- 添加商品 -->
+                <!-- Add Product Form -->
                 <h5 class="mt-4">Add Product</h5>
-                <form asp-action="AddProduct" method="post" class="row g-2" enctype="multipart/form-data">
+                <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-2">
                     <div class="col-md-3">
                         <input name="Name" class="form-control" placeholder="Product Name" required />
                     </div>
@@ -91,11 +97,10 @@
                     <div class="col-md-3">
                         <select id="category" name="Category" class="form-select" required>
                             <option value="">Select Category</option>
-                            <option>Clothing</option>
-                            <option>Pants</option>
-                            <option>Skirts</option>
-                            <option>Hats</option>
-                            <option>Shoes</option>
+                            @foreach (var cat in new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" })
+                            {
+                                <option value="@cat">@cat</option>
+                            }
                         </select>
                     </div>
                     <div class="col-md-2">

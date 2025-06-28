@@ -1,44 +1,48 @@
 ﻿@model List<Microsoft.AspNetCore.Identity.IdentityUser>
+@using EntertainmentGuild.Models
+
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Manage Users";
-    var currentRole = ViewBag.Role as string ?? "Customer";
+    var role = ViewBag.Role as string ?? "Customer";
+    var disabledList = ViewBag.DisabledUsers as List<DisabledUser> ?? new();
 }
 
 <div class="row mt-4">
-    <!-- ✅ 左侧选择角色 -->
+    <!-- 左侧角色切换 -->
     <div class="col-md-3">
         <div class="list-group">
             <a asp-action="Manage" asp-route-role="Customer"
-               class="list-group-item list-group-item-action @(currentRole == "Customer" ? "active" : "")">
+               class="list-group-item list-group-item-action @(role == "Customer" ? "active" : "")">
                 View Customers
             </a>
             <a asp-action="Manage" asp-route-role="Employee"
-               class="list-group-item list-group-item-action @(currentRole == "Employee" ? "active" : "")">
+               class="list-group-item list-group-item-action @(role == "Employee" ? "active" : "")">
                 View Employees
             </a>
         </div>
     </div>
 
-    <!-- ✅ 右侧显示账户 -->
+    <!-- 右侧启用用户 -->
     <div class="col-md-9">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <strong>@currentRole Accounts</strong>
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                <strong>@role - Active Users</strong>
             </div>
             <div class="card-body">
-                @if (Model.Count == 0)
+                @if (!Model.Any())
                 {
-                    <p>No @currentRole accounts found.</p>
+                    <p>No active @role accounts found.</p>
                 }
                 else
                 {
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-light">
+                    <table class="table table-striped table-hover">
+                        <thead>
                             <tr>
                                 <th>Email</th>
-                                <th>UserName</th>
-                                <th>ID</th>
+                                <th>Username</th>
+                                <th>User ID</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,6 +52,54 @@
                                     <td>@user.Email</td>
                                     <td>@user.UserName</td>
                                     <td>@user.Id</td>
+                                    <td>
+                                        <form asp-action="ToggleDisable" method="post" class="d-inline">
+                                            <input type="hidden" name="userId" value="@user.Id" />
+                                            <button class="btn btn-sm btn-danger">Disable</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+
+        <!-- 禁用用户部分 -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-danger text-white">
+                <strong>@role - Disabled Users</strong>
+            </div>
+            <div class="card-body">
+                @if (!disabledList.Any())
+                {
+                    <p>No disabled @role users.</p>
+                }
+                else
+                {
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>User ID</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in disabledList)
+                            {
+                                <tr>
+                                    <td>@user.Email</td>
+                                    <td>@user.UserName</td>
+                                    <td>@user.UserId</td>
+                                    <td>
+                                        <form asp-action="ToggleDisable" method="post" class="d-inline">
+                                            <input type="hidden" name="userId" value="@user.UserId" />
+                                            <button class="btn btn-sm btn-success">Enable</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             }
                         </tbody>

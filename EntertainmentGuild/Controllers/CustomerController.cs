@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using EntertainmentGuild.Data;
+using EntertainmentGuild.Models;
+using EntertainmentGuild.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using EntertainmentGuild.Models;
-using EntertainmentGuild.Data;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace EntertainmentGuild.Controllers
 {
@@ -22,9 +23,15 @@ namespace EntertainmentGuild.Controllers
         }
 
         // 首页
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var vm = new TopProductsViewModel
+            {
+                Carousel = await _context.CarouselTopProducts.ToListAsync(),
+                Recommendations = await _context.RecommendedTopProducts.ToListAsync()
+            };
+
+            return View(vm);
         }
 
         // 显示账户信息页面

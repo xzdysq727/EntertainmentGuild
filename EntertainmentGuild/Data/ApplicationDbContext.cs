@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using EntertainmentGuild.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using EntertainmentGuild.Models;
 
 namespace EntertainmentGuild.Data
 {
@@ -11,9 +11,14 @@ namespace EntertainmentGuild.Data
         {
         }
 
-        public DbSet<Address> Addresses { get; set; } // 👈 添加地址表
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<CarouselTopProduct> CarouselTopProducts { get; set; }
+
+        public DbSet<RecommendedTopProduct> RecommendedTopProducts { get; set; }
+
+        public DbSet<DisabledUser> DisabledUsers { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
     }
 }
-

@@ -41,10 +41,10 @@ namespace EntertainmentGuild.Controllers
                 return View("Register", model);
             }
 
-            await _userManager.AddToRoleAsync(user, model.Role);
+            await _userManager.AddToRoleAsync(user, "Customer");
 
 
-            var successModel = new RegisterSuccessViewModel { Role = model.Role };
+            var successModel = new RegisterSuccessViewModel { Role = "Customer" };
             return View("RegisterSuccess", successModel);
         }
     }

@@ -3,10 +3,6 @@ wwwroot\favicon.ico
 wwwroot\images\admin.png
 wwwroot\images\customer.png
 wwwroot\images\employee.png
-wwwroot\images\products\451e86e1-8b51-4f4d-b8a7-bf6cf57f3804.png
-wwwroot\images\products\8d8d314db419afdb5de114ed5cb7e085.png
-wwwroot\images\products\a3518252-a4d3-4c82-a1ff-baa717be481b.png
-wwwroot\images\products\b8fb2162-cd44-400b-9663-cb0eb0762328.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -65,6 +61,15 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\images\products\8d8d314db419afdb5de114ed5cb7e085.png
+wwwroot\images\products\b8fb2162-cd44-400b-9663-cb0eb0762328.png
+wwwroot\images\products\a3518252-a4d3-4c82-a1ff-baa717be481b.png
+wwwroot\images\products\451e86e1-8b51-4f4d-b8a7-bf6cf57f3804.png
+wwwroot\images\products\d6dbcdfe-44c1-47c4-8ce7-2754af72f8ee.png
+wwwroot\images\products\6661574d-acf3-414d-a099-3c02a44b9440.png
+wwwroot\images\products\806d417b-b728-4922-81d5-50cdd9107a96.png
+wwwroot\images\products\d8730d94-cfb4-475d-9637-4a6bf1dcc22f.png
+wwwroot\images\products\854749ad-3f74-4e56-8a07-d8656956106f.png
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\wwwroot\css\site.css
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\wwwroot\favicon.ico
 C:\Users\11947\OneDrive\IT\T3\web\EntertainmentGuild\EntertainmentGuild\wwwroot\js\site.js

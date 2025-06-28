@@ -1,7 +1,10 @@
-﻿using EntertainmentGuild.Models;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using EntertainmentGuild.Data;
+using EntertainmentGuild.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EntertainmentGuild.Controllers
 {
@@ -9,13 +12,18 @@ namespace EntertainmentGuild.Controllers
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly ApplicationDbContext _context;
 
-        public LoginController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public LoginController(SignInManager<IdentityUser> signInManager,
+                               UserManager<IdentityUser> userManager,
+                               ApplicationDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _context = context;
         }
 
+        // ✅ GET: Login pages by role
         [HttpGet]
         public IActionResult Customer()
         {
@@ -34,6 +42,7 @@ namespace EntertainmentGuild.Controllers
             return View("Login", new LoginViewModel { Role = "Admin" });
         }
 
+        // ✅ POST: Perform login
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -47,25 +56,32 @@ namespace EntertainmentGuild.Controllers
                 return View("Login", model);
             }
 
+            // ✅ Check if user is disabled
+            var disabledUser = await _context.DisabledUsers.FindAsync(user.Id);
+            if (disabledUser != null)
+            {
+                ModelState.AddModelError("", "Your account has been disabled.");
+                return View("Login", model);
+            }
+
+            // ✅ Check role
             if (!await _userManager.IsInRoleAsync(user, model.Role))
             {
                 ModelState.AddModelError("", $"This user is not a {model.Role}.");
                 return View("Login", model);
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
-
+            // ✅ Try login with RememberMe
+            var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                switch (model.Role)
+                return model.Role switch
                 {
-                    case "Admin":
-                        return RedirectToAction("Product", "Admin");
-                    case "Employee":
-                        return RedirectToAction("Dashboard", "Employee");
-                    case "Customer":
-                        return RedirectToAction("Index", "Customer");
-                }
+                    "Admin" => RedirectToAction("Product", "Admin"),
+                    "Employee" => RedirectToAction("Dashboard", "Employee"),
+                    "Customer" => RedirectToAction("Index", "Customer"),
+                    _ => RedirectToAction("Customer") // fallback
+                };
             }
 
             ModelState.AddModelError("", "Invalid login attempt.");
