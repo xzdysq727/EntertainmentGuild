@@ -20,7 +20,7 @@ namespace EntertainmentGuild.Controllers
             _userManager = userManager;
         }
 
-        // 商品页面
+        // 商品页
         public async Task<IActionResult> Product(string category = null, string subCategory = null)
         {
             var products = _context.Products.AsQueryable();
@@ -34,21 +34,55 @@ namespace EntertainmentGuild.Controllers
 
             return View(await products.ToListAsync());
         }
-        [HttpGet]
-        public async Task<IActionResult> Account()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            return View("AdminAccount", user);
-        }
 
         [HttpPost]
-        public async Task<IActionResult> AddProduct(Product product)
+        public async Task<IActionResult> AddProduct(Product product, IFormFile? ImageFile)
         {
             if (ModelState.IsValid)
             {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    using var ms = new MemoryStream();
+                    await ImageFile.CopyToAsync(ms);
+                    product.ImageData = ms.ToArray();
+                    product.ImageMimeType = ImageFile.ContentType;
+                }
+
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
             }
+
+            return RedirectToAction("Product", new { category = product.Category });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditProduct(int id)
+        {
+            var product = await _context.Products.FindAsync(id);
+            return product == null ? NotFound() : View("EditProduct", product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProduct(Product model, IFormFile? ImageFile)
+        {
+            var product = await _context.Products.FindAsync(model.Id);
+            if (product == null) return NotFound();
+
+            product.Name = model.Name;
+            product.Price = model.Price;
+            product.Description = model.Description;
+            product.Category = model.Category;
+            product.SubCategory = model.SubCategory;
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await ImageFile.CopyToAsync(ms);
+                product.ImageData = ms.ToArray();
+                product.ImageMimeType = ImageFile.ContentType;
+            }
+
+            await _context.SaveChangesAsync();
             return RedirectToAction("Product", new { category = product.Category });
         }
 
@@ -64,32 +98,15 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product");
         }
 
+        // 管理员账户页
         [HttpGet]
-        public async Task<IActionResult> EditProduct(int id)
+        public async Task<IActionResult> Account()
         {
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
-            return View("EditProduct", product);
+            var user = await _userManager.GetUserAsync(User);
+            return View("AdminAccount", user);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditProduct(Product model)
-        {
-            var product = await _context.Products.FindAsync(model.Id);
-            if (product == null) return NotFound();
-
-            product.Name = model.Name;
-            product.Price = model.Price;
-            product.Description = model.Description;
-            product.ImageUrl = model.ImageUrl;
-            product.Category = model.Category;
-            product.SubCategory = model.SubCategory;
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Product", new { category = product.Category });
-        }
-
-        // ✅ 用户管理
+        // 用户管理
         [HttpGet]
         public async Task<IActionResult> Manage(string role = "Customer")
         {
@@ -101,7 +118,6 @@ namespace EntertainmentGuild.Controllers
 
             ViewBag.Role = role;
             ViewBag.DisabledUsers = disabled;
-
             return View(activeUsers);
         }
 
@@ -121,6 +137,7 @@ namespace EntertainmentGuild.Controllers
             {
                 var roles = await _userManager.GetRolesAsync(user);
                 var role = roles.FirstOrDefault() ?? "Customer";
+
                 _context.DisabledUsers.Add(new DisabledUser
                 {
                     UserId = user.Id,
@@ -135,7 +152,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Manage", new { role = "Customer" });
         }
 
-        // ✅ 顶部产品页 (方法一 ViewModel)
+        // Top Products 管理
         [HttpGet]
         public async Task<IActionResult> TopProducts()
         {
@@ -147,7 +164,64 @@ namespace EntertainmentGuild.Controllers
             return View(vm);
         }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> AddTopProductHandler(IFormCollection form, IFormFile? ImageFile)
+        {
+            var sectionType = form["SectionType"];
+            var name = form["Name"];
+            var price = decimal.Parse(form["Price"]);
+            var category = form["Category"];
+            var subCategory = form["SubCategory"];
+            var description = form["Description"];
+
+            byte[]? imageBytes = null;
+            string? mimeType = null;
+
+            if (ImageFile != null && ImageFile.Length > 0)
+            {
+                using var ms = new MemoryStream();
+                await ImageFile.CopyToAsync(ms);
+                imageBytes = ms.ToArray();
+                mimeType = ImageFile.ContentType;
+            }
+
+            if (sectionType == "Carousel")
+            {
+                if (await _context.CarouselTopProducts.CountAsync() >= 4)
+                    return RedirectToAction("TopProducts");
+
+                _context.CarouselTopProducts.Add(new CarouselTopProduct
+                {
+                    Name = name,
+                    Price = price,
+                    Category = category,
+                    SubCategory = subCategory,
+                    Description = description,
+                    ImageData = imageBytes,
+                    ImageMimeType = mimeType
+                });
+            }
+            else if (sectionType == "Recommendation")
+            {
+                if (await _context.RecommendedTopProducts.CountAsync() >= 2)
+                    return RedirectToAction("TopProducts");
+
+                _context.RecommendedTopProducts.Add(new RecommendedTopProduct
+                {
+                    Name = name,
+                    Price = price,
+                    Category = category,
+                    SubCategory = subCategory,
+                    Description = description,
+                    ImageData = imageBytes,
+                    ImageMimeType = mimeType
+                });
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("TopProducts");
+        }
+
         [HttpPost]
         public async Task<IActionResult> DeleteCarouselTopProduct(int id)
         {
@@ -171,77 +245,5 @@ namespace EntertainmentGuild.Controllers
             }
             return RedirectToAction("TopProducts");
         }
-
-        [HttpPost]
-        public async Task<IActionResult> AddTopProductHandler(IFormCollection form, IFormFile? ImageFile)
-        {
-            var sectionType = form["SectionType"];
-            var name = form["Name"];
-            var price = decimal.Parse(form["Price"]);
-            var category = form["Category"];
-            var subCategory = form["SubCategory"];
-            var description = form["Description"];
-
-            string imageUrl = "";
-            if (ImageFile != null && ImageFile.Length > 0)
-            {
-                var ext = Path.GetExtension(ImageFile.FileName);
-                var fileName = $"{Guid.NewGuid()}{ext}";
-                var savePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/products", fileName);
-                var relativePath = $"/images/products/{fileName}";
-
-                using (var stream = new FileStream(savePath, FileMode.Create))
-                {
-                    await ImageFile.CopyToAsync(stream);
-                }
-
-                imageUrl = relativePath;
-            }
-
-            if (sectionType == "Carousel")
-            {
-                if (await _context.CarouselTopProducts.CountAsync() >= 4)
-                {
-                    TempData["Error"] = "Only 4 Carousel items allowed.";
-                    return RedirectToAction("TopProducts");
-                }
-
-                var newItem = new CarouselTopProduct
-                {
-                    Name = name,
-                    Price = price,
-                    Category = category,
-                    SubCategory = subCategory,
-                    Description = description,
-                    ImageUrl = imageUrl
-                };
-
-                _context.CarouselTopProducts.Add(newItem);
-            }
-            else if (sectionType == "Recommendation")
-            {
-                if (await _context.RecommendedTopProducts.CountAsync() >= 2)
-                {
-                    TempData["Error"] = "Only 2 Recommended items allowed.";
-                    return RedirectToAction("TopProducts");
-                }
-
-                var newItem = new RecommendedTopProduct
-                {
-                    Name = name,
-                    Price = price,
-                    Category = category,
-                    SubCategory = subCategory,
-                    Description = description,
-                    ImageUrl = imageUrl
-                };
-
-                _context.RecommendedTopProducts.Add(newItem);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction("TopProducts");
-        }
-
     }
 }

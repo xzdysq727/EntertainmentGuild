@@ -22,7 +22,9 @@ namespace EntertainmentGuild.Models
 
         [Required]
         [Display(Name = "Image URL")]
-        public string ImageUrl { get; set; } = string.Empty;
+        public byte[]? ImageData { get; set; }
+        public string? ImageMimeType { get; set; } 
+
 
         [Required]
         [MaxLength(1000)]

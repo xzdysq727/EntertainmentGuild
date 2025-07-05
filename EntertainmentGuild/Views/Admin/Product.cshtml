@@ -1,54 +1,97 @@
-﻿@model List<EntertainmentGuild.Models.Product>
+﻿@model IEnumerable<EntertainmentGuild.Models.Product>
+
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Product Management";
-    var selectedCategory = ViewBag.SelectedCategory as string;
-    var selectedSubCategory = ViewBag.SelectedSubCategory as string;
+    ViewData["Title"] = "Manage Products";
+
+    var category = ViewBag.SelectedCategory as string;
+    var subCategory = ViewBag.SelectedSubCategory as string;
+
+    var subCategoryMap = new Dictionary<string, List<string>> {
+        { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
+        { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
+        { "Skirts", new() { "Dress", "Mini Skirt", "Long Skirt" } },
+        { "Hats", new() { "Baseball Cap", "Bucket Hat" } },
+        { "Shoes", new() { "Sneakers", "Skate Shoes", "High Heels", "Slippers" } }
+    };
 }
 
-<div class="d-flex justify-content-between align-items-center mt-4 mb-2">
-    <h4>Product Manager</h4>
-    <a class="btn btn-warning" asp-action="TopProducts">Edit Top Products</a>
-</div>
-
-<div class="row">
-    <!-- Sidebar: Category Navigation -->
-    <div class="col-md-3">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <strong>Categories</strong>
-            </div>
-            <div class="card-body p-2">
-                <ul class="list-group list-group-flush">
-                    @foreach (var category in new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" })
-                    {
-                        <li class="list-group-item bg-light">
-                            <a asp-action="Product" asp-route-category="@category"
-                               class="fw-bold @(selectedCategory == category ? "text-primary" : "text-dark")">@category</a>
-                            <ul class="list-unstyled ms-3 mt-1">
-                                @foreach (var sub in GetSubCategories(category))
-                                {
-                                    <li>
-                                        <a asp-action="Product" asp-route-category="@category" asp-route-subCategory="@sub"
-                                           class="text-decoration-none @(selectedSubCategory == sub ? "text-primary fw-bold" : "text-muted")">
-                                            @sub
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-                    }
-                </ul>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- ✅ 左侧分类选择 -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">Categories</div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach (var kv in subCategoryMap)
+                        {
+                            <li>
+                                <strong>@kv.Key</strong>
+                                <ul class="list-unstyled ms-3">
+                                    @foreach (var sub in kv.Value)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Product", "Admin", new { category = kv.Key, subCategory = sub })"
+                                               class="@(sub == subCategory ? "fw-bold text-primary" : "text-dark") text-decoration-none">
+                                                @sub
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Main Content: Product Table + Add Form -->
-    <div class="col-md-9">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <!-- Product Table -->
-                <table class="table table-hover">
+        <!-- ✅ 右侧商品列表 -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Products List</h4>
+                <a href="@Url.Action("TopProducts", "Admin")" class="btn btn-sm btn-outline-info">Edit Top Products</a>
+            </div>
+
+            <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-3 mb-4 border rounded p-3 bg-light">
+                <div class="col-md-3">
+                    <input name="Name" class="form-control" placeholder="Name" required />
+                </div>
+                <div class="col-md-2">
+                    <input name="Price" type="number" step="0.01" class="form-control" placeholder="Price" required />
+                </div>
+                <div class="col-md-2">
+                    <select name="Category" class="form-select" id="categorySelect" required>
+                        <option value="">Category</option>
+                        @foreach (var cat in subCategoryMap.Keys)
+                        {
+                            <option>@cat</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="SubCategory" class="form-select" id="subCategorySelect" required>
+                        <option value="">SubCategory</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="file" name="ImageFile" accept="image/*" class="form-control" />
+                </div>
+                <div class="col-md-12">
+                    <textarea name="Description" class="form-control" placeholder="Description (optional)" rows="2"></textarea>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success w-100">Add</button>
+                </div>
+            </form>
+
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No products found.</p>
+            }
+            else
+            {
+                <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -56,63 +99,41 @@
                             <th>Price</th>
                             <th>Category</th>
                             <th>SubCategory</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var p in Model)
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
-                                    @if (!string.IsNullOrEmpty(p.ImageUrl))
+                                    @if (item.ImageData != null)
                                     {
-                                        <img src="@p.ImageUrl" alt="Image" width="60" height="60" class="rounded" />
+                                        <img src="@Url.Action("ProductImage", "Image", new { id = item.Id })" width="60" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">No Image</span>
                                     }
                                 </td>
-                                <td>@p.Name</td>
-                                <td>@p.Price.ToString("C")</td>
-                                <td>@p.Category</td>
-                                <td>@p.SubCategory</td>
+                                <td>@item.Name</td>
+                                <td>@item.Price.ToString("C")</td>
+                                <td>@item.Category</td>
+                                <td>@item.SubCategory</td>
+                                <td>@item.Description</td>
                                 <td>
-                                    <a asp-action="EditProduct" asp-route-id="@p.Id" class="btn btn-sm btn-warning me-2">Edit</a>
-                                    <form asp-action="DeleteProduct" asp-route-id="@p.Id" method="post" class="d-inline">
-                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                    <a asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                    <form asp-action="DeleteProduct" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button class="btn btn-sm btn-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-
-                <hr />
-                <!-- Add Product Form -->
-                <h5 class="mt-4">Add Product</h5>
-                <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-2">
-                    <div class="col-md-3">
-                        <input name="Name" class="form-control" placeholder="Product Name" required />
-                    </div>
-                    <div class="col-md-2">
-                        <input name="Price" type="number" step="0.01" class="form-control" placeholder="Price" required />
-                    </div>
-                    <div class="col-md-3">
-                        <select id="category" name="Category" class="form-select" required>
-                            <option value="">Select Category</option>
-                            @foreach (var cat in new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" })
-                            {
-                                <option value="@cat">@cat</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select id="subCategory" name="SubCategory" class="form-select" required>
-                            <option value="">Select SubCategory</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-success w-100">Add</button>
-                    </div>
-                </form>
-            </div>
+            }
         </div>
     </div>
 </div>
@@ -127,34 +148,19 @@
             "Shoes": ["Sneakers", "Skate Shoes", "High Heels", "Slippers"]
         };
 
-        const categorySelect = document.getElementById('category');
-        const subCategorySelect = document.getElementById('subCategory');
+        const categorySelect = document.getElementById('categorySelect');
+        const subCategorySelect = document.getElementById('subCategorySelect');
 
         categorySelect.addEventListener('change', function () {
             const selected = categorySelect.value;
             const subs = subCategoryMap[selected] || [];
-            subCategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
-            for (let item of subs) {
+            subCategorySelect.innerHTML = '<option value="">SubCategory</option>';
+            for (let sub of subs) {
                 const option = document.createElement('option');
-                option.value = item;
-                option.text = item;
+                option.value = sub;
+                option.text = sub;
                 subCategorySelect.appendChild(option);
             }
         });
     </script>
-}
-
-@functions {
-    private List<string> GetSubCategories(string category)
-    {
-        return category switch
-        {
-            "Clothing" => new List<string> { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" },
-            "Pants" => new List<string> { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" },
-            "Skirts" => new List<string> { "Dress", "Mini Skirt", "Long Skirt" },
-            "Hats" => new List<string> { "Baseball Cap", "Bucket Hat" },
-            "Shoes" => new List<string> { "Sneakers", "Skate Shoes", "High Heels", "Slippers" },
-            _ => new List<string>()
-        };
-    }
 }

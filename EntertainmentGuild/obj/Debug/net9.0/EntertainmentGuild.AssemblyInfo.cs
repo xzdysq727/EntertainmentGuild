@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EntertainmentGuild")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0491909f0bf994ce297b2a8edc13f0d2060c141")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aee403c0ea4c1890f32433c9868b5675b3402724")]
 [assembly: System.Reflection.AssemblyProductAttribute("EntertainmentGuild")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EntertainmentGuild")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

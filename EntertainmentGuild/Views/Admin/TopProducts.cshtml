@@ -1,13 +1,22 @@
 ﻿@model EntertainmentGuild.ViewModels.TopProductsViewModel
+
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Top Products Management";
+
+    var subCategoryMap = new Dictionary<string, List<string>> {
+        { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
+        { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
+        { "Skirts", new() { "Dress", "Mini Skirt", "Long Skirt" } },
+        { "Hats", new() { "Baseball Cap", "Bucket Hat" } },
+        { "Shoes", new() { "Sneakers", "Skate Shoes", "High Heels", "Slippers" } }
+    };
 }
 
 <div class="container mt-4">
     <h3 class="mb-4">Manage Top Products</h3>
 
-    <!-- ✅ 添加模块 -->
+    <!-- ✅ 添加表单 -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white">
             <strong>Add Top Product</strong>
@@ -22,31 +31,30 @@
                 </div>
                 <div class="col-md-2">
                     <select id="category" name="Category" class="form-select" required>
-                        <option value="">Category</option>
-                        <option>Clothing</option>
-                        <option>Pants</option>
-                        <option>Skirts</option>
-                        <option>Hats</option>
-                        <option>Shoes</option>
+                        <option value="">Select Category</option>
+                        @foreach (var c in subCategoryMap.Keys)
+                        {
+                            <option value="@c">@c</option>
+                        }
                     </select>
                 </div>
                 <div class="col-md-2">
                     <select id="subCategory" name="SubCategory" class="form-select" required>
-                        <option value="">SubCategory</option>
+                        <option value="">Select SubCategory</option>
                     </select>
                 </div>
                 <div class="col-md-3">
                     <select name="SectionType" class="form-select" required>
-                        <option value="">Section</option>
+                        <option value="">Select Section</option>
                         <option value="Carousel">Carousel</option>
                         <option value="Recommendation">Recommendation</option>
                     </select>
                 </div>
                 <div class="col-md-12">
-                    <input name="ImageFile" type="file" class="form-control" accept="image/*" />
+                    <input name="ImageFile" type="file" accept="image/*" class="form-control" />
                 </div>
                 <div class="col-md-12">
-                    <textarea name="Description" class="form-control" placeholder="Description (optional)" rows="2"></textarea>
+                    <textarea name="Description" class="form-control" rows="2" placeholder="Description (optional)"></textarea>
                 </div>
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-success w-100">Add</button>
@@ -55,9 +63,9 @@
         </div>
     </div>
 
-    <!-- ✅ Carousel 模块 -->
+    <!-- ✅ Carousel 商品列表 -->
     <div class="card shadow-sm mb-4">
-        <div class="card-header bg-info text-white">
+        <div class="card-header bg-info text-white d-flex justify-content-between">
             <strong>🖼️ Carousel Products (Max 4)</strong>
         </div>
         <div class="card-body">
@@ -67,7 +75,7 @@
             }
             else
             {
-                <table class="table table-bordered">
+                <table class="table table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -84,9 +92,14 @@
                         {
                             <tr>
                                 <td>
-                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    @if (item.ImageData != null && item.ImageMimeType != null)
                                     {
-                                        <img src="@item.ImageUrl" alt="Image" width="60" />
+                                        var base64 = Convert.ToBase64String(item.ImageData);
+                                        <img src="data:@item.ImageMimeType;base64,@base64" width="60" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">No image</span>
                                     }
                                 </td>
                                 <td>@item.Name</td>
@@ -108,7 +121,7 @@
         </div>
     </div>
 
-    <!-- ✅ Recommendation 模块 -->
+    <!-- ✅ 推荐商品列表 -->
     <div class="card shadow-sm">
         <div class="card-header bg-warning text-dark">
             <strong>⭐ Recommended Products (Max 2)</strong>
@@ -120,7 +133,7 @@
             }
             else
             {
-                <table class="table table-bordered">
+                <table class="table table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -137,9 +150,14 @@
                         {
                             <tr>
                                 <td>
-                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    @if (item.ImageData != null && item.ImageMimeType != null)
                                     {
-                                        <img src="@item.ImageUrl" alt="Image" width="60" />
+                                        var base64 = Convert.ToBase64String(item.ImageData);
+                                        <img src="data:@item.ImageMimeType;base64,@base64" width="60" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">No image</span>
                                     }
                                 </td>
                                 <td>@item.Name</td>
@@ -164,26 +182,19 @@
 
 @section Scripts {
     <script>
-        const subCategoryMap = {
-            "Clothing": ["Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit"],
-            "Pants": ["Long Pants", "Shorts", "Cargo Pants", "Dress Pants"],
-            "Skirts": ["Dress", "Mini Skirt", "Long Skirt"],
-            "Hats": ["Baseball Cap", "Bucket Hat"],
-            "Shoes": ["Sneakers", "Skate Shoes", "High Heels", "Slippers"]
-        };
+        const subCategoryMap = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(subCategoryMap));
+        const categorySelect = document.getElementById("category");
+        const subCategorySelect = document.getElementById("subCategory");
 
-        const categorySelect = document.getElementById('category');
-        const subCategorySelect = document.getElementById('subCategory');
-
-        categorySelect.addEventListener('change', function () {
+        categorySelect.addEventListener("change", () => {
             const selected = categorySelect.value;
             const subs = subCategoryMap[selected] || [];
             subCategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
-            for (let item of subs) {
-                const option = document.createElement('option');
-                option.value = item;
-                option.text = item;
-                subCategorySelect.appendChild(option);
+            for (let s of subs) {
+                const opt = document.createElement("option");
+                opt.value = s;
+                opt.textContent = s;
+                subCategorySelect.appendChild(opt);
             }
         });
     </script>

@@ -1,4 +1,5 @@
 ﻿@model EntertainmentGuild.ViewModels.TopProductsViewModel
+
 @{
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
     ViewData["Title"] = "Home";
@@ -29,10 +30,7 @@
                         <ul class="list-unstyled mt-2">
                             @foreach (var category in categories)
                             {
-                                <li>
-                                    <a href="@Url.Action("Search", "Customer", new { category = category })"
-                                       class="text-dark text-decoration-none">@category</a>
-                                </li>
+                                <li><a href="@Url.Action("Search", "Customer", new { category = category })" class="text-dark text-decoration-none">@category</a></li>
                             }
                         </ul>
                     </div>
@@ -43,10 +41,7 @@
                                 var allSubs = subCategoryMap.SelectMany(kv => kv.Value).OrderBy(_ => random.Next()).Take(6).ToList();
                                 foreach (var sub in allSubs)
                                 {
-                                    <li>
-                                        <a href="@Url.Action("Search", "Customer", new { subCategory = sub })"
-                                           class="text-muted text-decoration-none">@sub</a>
-                                    </li>
+                                    <li><a href="@Url.Action("Search", "Customer", new { subCategory = sub })" class="text-muted text-decoration-none">@sub</a></li>
                                 }
                             }
                         </ul>
@@ -65,14 +60,14 @@
             {
                 var item = carousel.ElementAtOrDefault(i);
                 <div class="carousel-item @(i == 0 ? "active" : "")">
-                    @if (item != null && !string.IsNullOrEmpty(item.ImageUrl))
+                    @if (item?.ImageData != null)
                     {
-                        <img src="@item.ImageUrl" class="d-block mx-auto" alt="@item.Name" style="max-height: 320px;" />
+                        <img src="/Image/Carousel/@item.Id" class="d-block mx-auto" alt="@item.Name" style="max-height: 320px;" />
                     }
                     else
                     {
                         <div class="d-flex justify-content-center align-items-center" style="height: 300px; background: #f5f5f5;">
-                            <h4 class="text-muted">暂无商品</h4>
+                            <h4 class="text-muted">No product</h4>
                         </div>
                     }
                 </div>
@@ -99,7 +94,16 @@
             {
                 <div class="col-md-6 mb-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="@rec.ImageUrl" class="card-img-top" alt="@rec.Name" style="height: 200px; object-fit: cover;" />
+                        @if (rec.ImageData != null)
+                        {
+                            <img src="/Image/Recommendation/@rec.Id" class="card-img-top" alt="@rec.Name" style="height: 200px; object-fit: cover;" />
+                        }
+                        else
+                        {
+                            <div class="d-flex justify-content-center align-items-center" style="height: 200px; background: #f5f5f5;">
+                                <span class="text-muted">No image</span>
+                            </div>
+                        }
                         <div class="card-body">
                             <h5 class="card-title">@rec.Name</h5>
                             <p class="card-text">@rec.Description</p>

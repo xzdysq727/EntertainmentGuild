@@ -17,9 +17,12 @@
                 <div class="mb-3">
                     <label class="form-label">Product Image</label>
                     <div>
-                        <img id="imagePreview" src="@Model.ImageUrl" class="img-thumbnail mb-2" style="max-width: 100%; height: auto;" />
+                        <img id="imagePreview"
+                             src="/Image/Product/@Model.Id"
+                             class="img-thumbnail mb-2"
+                             style="max-width: 100%; height: auto;" />
                     </div>
-                    <input type="file" name="ImageFile" class="form-control" onchange="previewImage(this)" />
+                    <input type="file" name="ImageFile" class="form-control" onchange="previewImage(this)" accept="image/*" />
                 </div>
             </div>
 
@@ -115,4 +118,3 @@
         }
     </script>
 }
-
