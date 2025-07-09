@@ -1,0 +1,104 @@
+﻿@model List<EntertainmentGuild.Models.Cart>
+
+@{
+    ViewData["Title"] = "Your Cart";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3>Your Shopping Cart</h3>
+    <hr />
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">Your cart is empty.</div>
+    }
+    else
+    {
+        <form asp-action="Checkout" asp-controller="Customer" method="post">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th><input type="checkbox" id="selectAll" /></th>
+                        <th>Image</th>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Added</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <input type="checkbox"
+                                       name="selectedCartIds"
+                                       value="@item.Id"
+                                       class="select-item form-check-input"
+                                       data-price="@item.Product?.Price.ToString("F2")" />
+                            </td>
+                            <td>
+                                @if (item.Product?.ImageData != null)
+                                {
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Product.ImageData)" width="80" />
+                                }
+                                else
+                                {
+                                    <span class="text-muted">No image</span>
+                                }
+                            </td>
+                            <td>@item.Product?.Name</td>
+                            <td>@item.Product?.Category / @item.Product?.SubCategory</td>
+                            <td>$@item.Product?.Price.ToString("F2")</td>
+                            <td>@item.AddedAt.ToString("g")</td>
+                            <td>
+                                <form asp-action="DeleteFromCart" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div>
+                    <strong>Total:</strong>
+                    <span id="totalPrice" class="text-primary fs-5">$0.00</span>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </form>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const checkboxes = document.querySelectorAll('.select-item');
+        const totalPriceSpan = document.getElementById('totalPrice');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateTotal);
+        });
+
+        document.getElementById('selectAll').addEventListener('change', function () {
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            updateTotal();
+        });
+
+        function updateTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseFloat(cb.dataset.price);
+                }
+            });
+            totalPriceSpan.textContent = "$" + total.toFixed(2);
+        }
+    </script>
+}

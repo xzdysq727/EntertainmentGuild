@@ -1,0 +1,47 @@
+﻿@model List<EntertainmentGuild.Models.CreditCard>
+@using EntertainmentGuild.Models
+@if (TempData["CardDeleted"] != null)
+{
+    <div class="alert alert-success">@TempData["CardDeleted"]</div>
+}
+
+@{
+    ViewData["Title"] = "Your Saved Cards";
+}
+
+<h2>Your Saved Cards</h2>
+
+@if (!Model.Any())
+{
+    <p>No cards saved yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Card Holder</th>
+                <th>Card Number</th>
+                <th>Expiry</th>
+                <th>Card Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var card in Model)
+            {
+                <tr>
+                    <td>@card.CardHolder</td>
+                    <td>**** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)</td>
+                    <td>@card.ExpiryMonth/@card.ExpiryYear</td>
+                    <td>@card.CardType</td>
+                    <td>
+                        <form method="post" asp-action="DeleteCard" asp-route-id="@card.Id" onsubmit="return confirm('Are you sure you want to delete this card?');">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

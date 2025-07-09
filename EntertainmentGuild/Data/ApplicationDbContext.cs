@@ -20,5 +20,12 @@ namespace EntertainmentGuild.Data
         public DbSet<DisabledUser> DisabledUsers { get; set; }
 
         public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CreditCard> CreditCards { get; set; }
+
+
+
     }
 }

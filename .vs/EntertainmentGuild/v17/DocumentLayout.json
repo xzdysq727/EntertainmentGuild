@@ -3,132 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\checkout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\imagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\imagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\editproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\editproduct.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\topproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\topproducts.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\topproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\topproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\carouseltopproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\carouseltopproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\recommendedtopproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\recommendedtopproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\shared\\_adminlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\register\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\register\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\login\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\viewcards.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\viewcards.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\shared\\_customerlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\shared\\_customerlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\topproductsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\topproductsviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\customeraccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\customeraccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\creditcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\creditcard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\manage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\manage.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\cart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\cart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\disableduser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\disableduser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\product.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\adminaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\adminaccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\logoutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\admin\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\admin\\changepassword.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\models\\changepasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\models\\changepasswordviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\customeraccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\customeraccount.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\viewaddress.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\viewaddress.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|c:\\users\\11947\\onedrive\\it\\t3\\web\\entertainmentguild\\entertainmentguild\\views\\customer\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5CAE1142-1483-43F1-A8DE-0B80B096097C}|EntertainmentGuild\\EntertainmentGuild.csproj|solutionrelative:entertainmentguild\\views\\customer\\productdetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -141,397 +53,132 @@
           "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Product.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\Product.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\Product.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\Product.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAwBMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T06:24:56.131Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TopProducts.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\TopProducts.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\TopProducts.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\TopProducts.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\TopProducts.cshtml",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAQwMEAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-04T10:13:34.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TopProduct.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\TopProduct.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\TopProduct.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\TopProduct.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\TopProduct.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAYwBQAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T01:07:07.8Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Product.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\Product.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\Product.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\Product.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\Product.cshtml",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAmwKYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T06:41:52.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Index.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\Index.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Index.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\Index.cshtml",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAowGEAAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-27T04:58:04.117Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-28T09:30:32.913Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ImageController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\ImageController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\ImageController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\ImageController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\ImageController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAIwAsAAAAfAAAAAAAAAA==",
+              "Title": "Order.cs",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\Order.cs",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\Order.cs",
+              "RelativeToolTip": "EntertainmentGuild\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA+wAMAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-04T10:24:06.038Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-08T08:32:33.14Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "EditProduct.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\EditProduct.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\EditProduct.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\EditProduct.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\EditProduct.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG8AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-12T05:15:46.682Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "CarouselTopProduct.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\CarouselTopProduct.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\CarouselTopProduct.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\CarouselTopProduct.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\CarouselTopProduct.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAAwBUAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T23:55:44.38Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\AdminController.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAcwG4AAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T06:29:22.677Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "RecommendedTopProduct.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\RecommendedTopProduct.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\RecommendedTopProduct.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\RecommendedTopProduct.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\RecommendedTopProduct.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAADwvxQAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T23:56:16.775Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Login\\Login.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Login\\Login.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Login\\Login.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Login\\Login.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAABDAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-10T03:42:50.883Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "RegisterController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\RegisterController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\RegisterController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\RegisterController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\RegisterController.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAkwCoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-28T09:23:21.57Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "_AdminLayout.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Shared\\_AdminLayout.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Shared\\_AdminLayout.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Shared\\_AdminLayout.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T06:40:07.073Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Register\\Register.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Register\\Register.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Register\\Register.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Register\\Register.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAADYAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-28T09:19:58.555Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "_CustomerLayout.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Shared\\_CustomerLayout.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Shared\\_CustomerLayout.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Shared\\_CustomerLayout.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Shared\\_CustomerLayout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T04:40:55.149Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CustomerController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\CustomerController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\CustomerController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\CustomerController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\CustomerController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T09:44:58.443Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "TopProductsViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\TopProductsViewModel.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\TopProductsViewModel.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\TopProductsViewModel.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\TopProductsViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-27T01:18:49.169Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T06:25:30.312Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\LoginViewModel.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\LoginViewModel.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\LoginViewModel.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\LoginViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-10T03:43:37.485Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\LoginController.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAkwE0AAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T06:47:43.106Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "Manage.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\Manage.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\Manage.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\Manage.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\Manage.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-13T09:15:22.863Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "DisabledUser.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\DisabledUser.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\DisabledUser.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\DisabledUser.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\DisabledUser.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T04:49:14.601Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "AdminAccount.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\AdminAccount.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\AdminAccount.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\AdminAccount.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\AdminAccount.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T06:42:23.397Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\appsettings.json",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\appsettings.json",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\appsettings.json",
-              "RelativeToolTip": "EntertainmentGuild\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-10T03:50:37.6Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "LogoutController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\LogoutController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\LogoutController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\LogoutController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\LogoutController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T04:53:14.586Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "ChangePassword.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\ChangePassword.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Admin\\ChangePassword.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Admin\\ChangePassword.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Admin\\ChangePassword.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T06:43:04.791Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "ChangePasswordViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\ChangePasswordViewModel.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\ChangePasswordViewModel.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\ChangePasswordViewModel.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Models\\ChangePasswordViewModel.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAIBPwBcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T04:37:23.961Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Program.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Program.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Program.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-02T04:53:48.669Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 3,
               "Title": "CustomerAccount.cshtml",
               "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\CustomerAccount.cshtml",
               "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\CustomerAccount.cshtml",
               "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\CustomerAccount.cshtml",
               "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\CustomerAccount.cshtml",
-              "ViewState": "AgIAACEAAAAAAAAAAABIwDMAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAowDQAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T04:39:08.323Z"
+              "WhenOpened": "2025-07-08T08:46:24.51Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "ViewAddress.cshtml",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ViewAddress.cshtml",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\ViewAddress.cshtml",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ViewAddress.cshtml",
-              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\ViewAddress.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAABIwCEAAAArAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "ViewCards.cshtml",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ViewCards.cshtml",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\ViewCards.cshtml",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ViewCards.cshtml",
+              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\ViewCards.cshtml",
+              "ViewState": "AgIAABcAAAAAAAAAAAAqwCYAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-02T04:17:22.979Z"
+              "WhenOpened": "2025-07-08T09:25:19.01Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "EntertainmentGuild\\Controllers\\HomeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAEAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "CreditCard.cs",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\CreditCard.cs",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Models\\CreditCard.cs",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Models\\CreditCard.cs",
+              "RelativeToolTip": "EntertainmentGuild\\Models\\CreditCard.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-30T10:39:59.924Z"
+              "WhenOpened": "2025-07-08T08:48:28.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Checkout.cshtml",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Checkout.cshtml",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\Checkout.cshtml",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Checkout.cshtml",
+              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\Checkout.cshtml",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAAAFgAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T07:36:44.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "EntertainmentGuild\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAUwB8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-08T07:40:03.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomerController.cs",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\CustomerController.cs",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Controllers\\CustomerController.cs",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Controllers\\CustomerController.cs",
+              "RelativeToolTip": "EntertainmentGuild\\Controllers\\CustomerController.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAqwIEAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-30T09:44:58.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Product.cshtml",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Product.cshtml",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\Product.cshtml",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Product.cshtml",
+              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\Product.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEUAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T04:44:30.252Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Cart.cshtml",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Cart.cshtml",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\Cart.cshtml",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\Cart.cshtml",
+              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\Cart.cshtml",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAcwFQAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T06:35:32.999Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ProductDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ProductDetails.cshtml",
+              "RelativeDocumentMoniker": "EntertainmentGuild\\Views\\Customer\\ProductDetails.cshtml",
+              "ToolTip": "C:\\Users\\11947\\OneDrive\\IT\\T3\\web\\EntertainmentGuild\\EntertainmentGuild\\Views\\Customer\\ProductDetails.cshtml",
+              "RelativeToolTip": "EntertainmentGuild\\Views\\Customer\\ProductDetails.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-08T05:51:24.201Z"
             }
           ]
         }
