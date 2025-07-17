@@ -1,7 +1,6 @@
-﻿using EntertainmentGuild.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace EntertainmentGuild.ViewModels
+namespace EntertainmentGuild.Models
 {
     public class TopProductsViewModel
     {

@@ -15,7 +15,7 @@
     }
     else
     {
-        <form asp-action="Checkout" asp-controller="Customer" method="post">
+        <form asp-action="Checkout" asp-controller="Customer" method="post" id="checkoutForm">
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                     <tr>
@@ -100,5 +100,17 @@
             });
             totalPriceSpan.textContent = "$" + total.toFixed(2);
         }
+
+        // Prevent form submission if no item selected
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            const selected = Array.from(checkboxes).filter(cb => cb.checked);
+            if (selected.length === 0) {
+                e.preventDefault();
+                alert("Please select at least one item.");
+            }
+        });
+
+        // Initial total update
+        updateTotal();
     </script>
 }

@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using EntertainmentGuild.Models;
 using EntertainmentGuild.Data;
 using EntertainmentGuild.ViewModels;
+using EntertainmentGuild.Models.Admin;
+using EntertainmentGuild.Models;
 
 namespace EntertainmentGuild.Controllers
 {

@@ -1,4 +1,5 @@
-﻿@model EntertainmentGuild.ViewModels.TopProductsViewModel
+﻿@using EntertainmentGuild.Models.Admin
+@model TopProductsViewModel
 
 @{
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
@@ -14,8 +15,8 @@
     };
     var random = new Random();
 
-    var carousel = Model.Carousel ?? new List<EntertainmentGuild.Models.CarouselTopProduct>();
-    var recommendations = Model.Recommendations ?? new List<EntertainmentGuild.Models.RecommendedTopProduct>();
+    var carousel = Model.Carousel ?? new List<CarouselTopProduct>();
+    var recommendations = Model.Recommendations ?? new List<RecommendedTopProduct>();
 }
 
 <!-- ✅ 顶部搜索栏 -->
@@ -116,6 +117,45 @@
         }
     </div>
 </div>
+
+
+<div class="container mb-5">
+    <h5 class="fw-bold mb-3 text-uppercase text-secondary">Shop by Category</h5>
+    <div class="row text-center">
+        <div class="col-4 col-sm-3 col-md-2 mb-4">
+            <a href="@Url.Action("Product", "Customer", new { category = "Clothing" })" class="text-decoration-none text-dark">
+                <i class="bi bi-shirt fs-1"></i>
+                <div class="mt-2">Clothing</div>
+            </a>
+        </div>
+        <div class="col-4 col-sm-3 col-md-2 mb-4">
+            <a href="@Url.Action("Product", "Customer", new { category = "Pants" })" class="text-decoration-none text-dark">
+                <i class="bi bi-sliders2 fs-1"></i>
+                <div class="mt-2">Pants</div>
+            </a>
+        </div>
+        <div class="col-4 col-sm-3 col-md-2 mb-4">
+            <a href="@Url.Action("Product", "Customer", new { category = "Skirts" })" class="text-decoration-none text-dark">
+                <i class="bi bi-reception-4 fs-1"></i>
+                <div class="mt-2">Skirts</div>
+            </a>
+        </div>
+        <div class="col-4 col-sm-3 col-md-2 mb-4">
+            <a href="@Url.Action("Product", "Customer", new { category = "Hats" })" class="text-decoration-none text-dark">
+                <i class="bi bi-hat fs-1"></i>
+                <div class="mt-2">Hats</div>
+            </a>
+        </div>
+        <div class="col-4 col-sm-3 col-md-2 mb-4">
+            <a href="@Url.Action("Product", "Customer", new { category = "Shoes" })" class="text-decoration-none text-dark">
+                <i class="bi bi-box-seam fs-1"></i>
+                <div class="mt-2">Shoes</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
 
 @section Scripts {
     <script>

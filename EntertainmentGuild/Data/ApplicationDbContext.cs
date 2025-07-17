@@ -25,7 +25,8 @@ namespace EntertainmentGuild.Data
 
         public DbSet<CreditCard> CreditCards { get; set; }
 
+        public DbSet<OrderItem> OrderItems { get; set; }
 
-
+        public DbSet<Order> Orders { get; set; }
     }
 }

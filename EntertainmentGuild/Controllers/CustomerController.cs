@@ -222,13 +222,18 @@ namespace EntertainmentGuild.Controllers
             {
                 UserEmail = user.Email,
                 Addresses = addresses,
-                CartItems = cartItems.Select(c => new CartItemViewModel { Product = c.Product }).ToList(),
+                CartItems = cartItems.Select(c => new CartItemViewModel
+                {
+                    CartId = c.Id,                // ✅ 关键：保留购物车项 ID
+                    Product = c.Product
+                }).ToList(),
                 Cards = cards,
                 Subtotal = subtotal,
                 Tax = tax
             };
             return View(vm);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Checkout(List<int> selectedCartIds)
@@ -243,11 +248,81 @@ namespace EntertainmentGuild.Controllers
                 UserEmail = user.Email,
                 Addresses = addresses,
                 Cards = cards,
-                CartItems = selectedCartItems.Select(ci => new CartItemViewModel { Product = ci.Product }).ToList(),
+                CartItems = selectedCartItems.Select(ci => new CartItemViewModel
+                {
+                    CartId = ci.Id,                // ✅ 关键：保留购物车项 ID
+                    Product = ci.Product
+                }).ToList(),
                 Subtotal = selectedCartItems.Sum(ci => ci.Product.Price),
                 Tax = selectedCartItems.Sum(ci => ci.Product.Price) * 0.1m
             };
             return View("Checkout", vm);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PayNow(List<int> SelectedCartIds)
+        {
+            var userId = _userManager.GetUserId(User);
+
+            var cartItems = await _context.Carts
+                .Include(c => c.Product)
+                .Where(c => c.UserId == userId && SelectedCartIds.Contains(c.Id))
+                .ToListAsync();
+
+            if (!cartItems.Any())
+            {
+                TempData["Error"] = "Your cart is empty.";
+                return RedirectToAction("Cart");
+            }
+
+            decimal subtotal = cartItems.Sum(c => c.Product.Price);
+            decimal shipping = 10;
+            decimal tax = subtotal * 0.1m;
+            decimal total = subtotal + shipping + tax;
+
+            var order = new Order
+            {
+                UserId = userId,
+                Subtotal = subtotal,
+                ShippingFee = shipping,
+                Tax = tax,
+                Total = total,
+                ShippingMethod = "Standard",
+                PaymentMethod = "Card",
+                AddressId = 1,
+                Items = cartItems.Select(c => new OrderItem
+                {
+                    ProductId = c.ProductId,
+                    Quantity = 1
+                }).ToList()
+            };
+
+            _context.Orders.Add(order);
+            _context.Carts.RemoveRange(cartItems); // ✅ 只移除选中的
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Success");
+        }
+
+        [HttpGet]
+        public IActionResult Success()
+        {
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> History()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            var orders = await _context.Orders
+                .Include(o => o.Items)
+                .ThenInclude(i => i.Product)
+                .Where(o => o.UserId == user.Id)
+                .OrderByDescending(o => o.Id)
+                .ToListAsync();
+
+            return View("History", orders);
+        }
+
     }
 }

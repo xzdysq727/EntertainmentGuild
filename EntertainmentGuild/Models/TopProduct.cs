@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EntertainmentGuild.Models
+namespace EntertainmentGuild.Models.Admin
 {
     public class TopProduct
     {
