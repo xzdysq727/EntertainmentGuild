@@ -35,15 +35,29 @@ namespace EntertainmentGuild.Controllers
         }
 
         [HttpGet]
-        public IActionResult Product(string? subCategory)
+        public IActionResult Product(string? category, string? subCategory)
         {
-            var products = _context.Products.ToList();
+            var products = _context.Products.ToList(); 
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                products = products
+                    .Where(p => !string.IsNullOrEmpty(p.Category) &&
+                                p.Category.Trim().Equals(category.Trim(), StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
             if (!string.IsNullOrEmpty(subCategory))
             {
-                products = products.Where(p => !string.IsNullOrEmpty(p.SubCategory) &&
-                    string.Equals(p.SubCategory.Trim(), subCategory.Trim(), StringComparison.OrdinalIgnoreCase)).ToList();
+                products = products
+                    .Where(p => !string.IsNullOrEmpty(p.SubCategory) &&
+                                p.SubCategory.Trim().Equals(subCategory.Trim(), StringComparison.OrdinalIgnoreCase))
+                    .ToList();
             }
+
+            ViewBag.SelectedCategory = category;
             ViewBag.SelectedSubCategory = subCategory;
+
             return View(products);
         }
 
@@ -118,14 +132,14 @@ namespace EntertainmentGuild.Controllers
             TempData["CardSaved"] = "Card added successfully.";
             return RedirectToAction("Account");
         }
+
         [HttpPost]
         public async Task<IActionResult> DeleteCard(int id)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            var card = await _context.CreditCards
-                .FirstOrDefaultAsync(c => c.Id == id && c.UserId == user.Id);
+            var card = await _context.CreditCards.FirstOrDefaultAsync(c => c.Id == id && c.UserId == user.Id);
 
             if (card != null)
             {
@@ -137,7 +151,6 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("ViewCards");
         }
 
-
         [HttpGet]
         public async Task<IActionResult> ViewCards()
         {
@@ -145,7 +158,7 @@ namespace EntertainmentGuild.Controllers
             var cards = await _context.CreditCards
                                       .Where(c => c.UserId == user.Id)
                                       .ToListAsync();
-            return View(cards);  
+            return View(cards);
         }
 
         [HttpGet]
@@ -178,14 +191,49 @@ namespace EntertainmentGuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int productId)
+        public IActionResult AddToCart(int productId, int quantity)
         {
-            var user = await _userManager.GetUserAsync(User);
-            var cartItem = new Cart { UserId = user.Id, ProductId = productId };
-            _context.Carts.Add(cartItem);
-            await _context.SaveChangesAsync();
+            var product = _context.Products.FirstOrDefault(p => p.Id == productId);
+            if (product == null)
+            {
+                TempData["CartMessage"] = "Product not found.";
+                return RedirectToAction("Product");
+            }
+
+            if (quantity > product.Quantity)
+            {
+                TempData["CartMessage"] = "Requested quantity exceeds available stock.";
+                return RedirectToAction("ProductDetails", new { id = productId });
+            }
+
+            var userId = _userManager.GetUserId(User);
+
+            // 👇 先查有没有已存在相同商品在购物车
+            var existingCartItem = _context.Carts
+                .FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
+
+            if (existingCartItem != null)
+            {
+                existingCartItem.Quantity += quantity;
+                _context.Carts.Update(existingCartItem);
+            }
+            else
+            {
+                var cartItem = new Cart
+                {
+                    ProductId = productId,
+                    Quantity = quantity,
+                    UserId = userId
+                };
+                _context.Carts.Add(cartItem);
+            }
+
+            _context.SaveChanges();
+
+            TempData["CartMessage"] = $"{quantity} item(s) added to cart!";
             return RedirectToAction("ProductDetails", new { id = productId });
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Cart()
@@ -224,7 +272,7 @@ namespace EntertainmentGuild.Controllers
                 Addresses = addresses,
                 CartItems = cartItems.Select(c => new CartItemViewModel
                 {
-                    CartId = c.Id,                // ✅ 关键：保留购物车项 ID
+                    CartId = c.Id,
                     Product = c.Product
                 }).ToList(),
                 Cards = cards,
@@ -233,7 +281,6 @@ namespace EntertainmentGuild.Controllers
             };
             return View(vm);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Checkout(List<int> selectedCartIds)
@@ -250,7 +297,7 @@ namespace EntertainmentGuild.Controllers
                 Cards = cards,
                 CartItems = selectedCartItems.Select(ci => new CartItemViewModel
                 {
-                    CartId = ci.Id,                // ✅ 关键：保留购物车项 ID
+                    CartId = ci.Id,
                     Product = ci.Product
                 }).ToList(),
                 Subtotal = selectedCartItems.Sum(ci => ci.Product.Price),
@@ -298,7 +345,7 @@ namespace EntertainmentGuild.Controllers
             };
 
             _context.Orders.Add(order);
-            _context.Carts.RemoveRange(cartItems); // ✅ 只移除选中的
+            _context.Carts.RemoveRange(cartItems);
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Success");
@@ -309,11 +356,11 @@ namespace EntertainmentGuild.Controllers
         {
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> History()
         {
             var user = await _userManager.GetUserAsync(User);
-
             var orders = await _context.Orders
                 .Include(o => o.Items)
                 .ThenInclude(i => i.Product)
@@ -323,6 +370,5 @@ namespace EntertainmentGuild.Controllers
 
             return View("History", orders);
         }
-
     }
 }

@@ -4,7 +4,6 @@ using EntertainmentGuild.Data;
 using EntertainmentGuild.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace EntertainmentGuild.Controllers
 {
@@ -23,7 +22,7 @@ namespace EntertainmentGuild.Controllers
             _context = context;
         }
 
-        // ✅ GET: Login pages by role
+        // ✅ GET: Role-based login pages
         [HttpGet]
         public IActionResult Customer()
         {
@@ -71,14 +70,14 @@ namespace EntertainmentGuild.Controllers
                 return View("Login", model);
             }
 
-            // ✅ Try login with RememberMe
+            // ✅ Try login
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
                 return model.Role switch
                 {
                     "Admin" => RedirectToAction("Product", "Admin"),
-                    "Employee" => RedirectToAction("Dashboard", "Employee"),
+                    "Employee" => RedirectToAction("Product", "Employee"),
                     "Customer" => RedirectToAction("Index", "Customer"),
                     _ => RedirectToAction("Customer") // fallback
                 };

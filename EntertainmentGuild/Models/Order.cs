@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace EntertainmentGuild.Models
 {
@@ -7,6 +9,10 @@ namespace EntertainmentGuild.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public IdentityUser User { get; set; }  
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public decimal Subtotal { get; set; }
         public decimal ShippingFee { get; set; }

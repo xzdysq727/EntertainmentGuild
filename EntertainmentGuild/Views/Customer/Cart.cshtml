@@ -24,6 +24,8 @@
                         <th>Product</th>
                         <th>Category</th>
                         <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
                         <th>Added</th>
                         <th>Action</th>
                     </tr>
@@ -37,7 +39,7 @@
                                        name="selectedCartIds"
                                        value="@item.Id"
                                        class="select-item form-check-input"
-                                       data-price="@item.Product?.Price.ToString("F2")" />
+                                       data-price="@((item.Product?.Price ?? 0) * item.Quantity)" />
                             </td>
                             <td>
                                 @if (item.Product?.ImageData != null)
@@ -52,6 +54,8 @@
                             <td>@item.Product?.Name</td>
                             <td>@item.Product?.Category / @item.Product?.SubCategory</td>
                             <td>$@item.Product?.Price.ToString("F2")</td>
+                            <td>@item.Quantity</td>
+                            <td>$@(item.Product?.Price * item.Quantity).ToString("F2")</td>
                             <td>@item.AddedAt.ToString("g")</td>
                             <td>
                                 <form asp-action="DeleteFromCart" method="post" class="d-inline">
@@ -95,7 +99,7 @@
             let total = 0;
             checkboxes.forEach(cb => {
                 if (cb.checked) {
-                    total += parseFloat(cb.dataset.price);
+                    total += parseFloat(cb.dataset.price || 0);
                 }
             });
             totalPriceSpan.textContent = "$" + total.toFixed(2);

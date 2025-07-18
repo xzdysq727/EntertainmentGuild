@@ -22,8 +22,9 @@ namespace EntertainmentGuild.Models
 
 
         public byte[]? ImageData { get; set; } 
-        public string? ImageMimeType { get; set; } 
+        public string? ImageMimeType { get; set; }
 
+        public int Quantity { get; set; } 
 
     }
 }

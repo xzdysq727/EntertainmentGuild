@@ -1,0 +1,103 @@
+﻿@using EntertainmentGuild.Models.Admin
+@model IEnumerable<Product>
+
+@{
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    ViewData["Title"] = "Product Management";
+
+    var selectedCategory = ViewBag.SelectedCategory as string;
+    var selectedSubCategory = ViewBag.SelectedSubCategory as string;
+
+    var subCategoryMap = new Dictionary<string, List<string>> {
+        { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
+        { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
+        { "Skirts", new() { "Dress", "Mini Skirt", "Long Skirt" } },
+        { "Hats", new() { "Baseball Cap", "Bucket Hat" } },
+        { "Shoes", new() { "Sneakers", "Skate Shoes", "High Heels", "Slippers" } }
+    };
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- ✅ 左侧分类栏 -->
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">Categories</div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        @foreach (var kv in subCategoryMap)
+                        {
+                            <li>
+                                <strong>@kv.Key</strong>
+                                <ul class="list-unstyled ms-3">
+                                    @foreach (var sub in kv.Value)
+                                    {
+                                        <li>
+                                            <a href="@Url.Action("Product", "Employee", new { subCategory = sub })"
+                                               class="@(sub == selectedSubCategory ? "fw-bold text-primary" : "text-dark") text-decoration-none">
+                                                @sub
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <hr />
+                    <a href="@Url.Action("Product", "Employee")" class="btn btn-sm btn-outline-secondary w-100">Show All</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ 右侧商品展示区 -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Manage Products</h4>
+            </div>
+
+            @if (!Model.Any())
+            {
+                <p class="text-muted">No products found for this category.</p>
+            }
+            else
+            {
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100 shadow-sm">
+                                @if (item.ImageData != null)
+                                {
+                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.ImageData)"
+                                         class="card-img-top" style="height: 200px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <img src="/images/placeholder.png" class="card-img-top" />
+                                }
+
+                                <div class="card-body">
+                                    <h6 class="card-title text-truncate">@item.Name</h6>
+                                    <p class="card-text text-truncate">@item.Description</p>
+                                    <p class="card-text fw-bold">$@item.Price.ToString("F2")</p>
+
+
+                                    <form asp-action="UpdateQuantity" asp-controller="Employee" method="post" class="mt-3">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <label for="qty-@item.Id" class="form-label">Quantity:</label>
+                                        <div class="input-group input-group-sm">
+                                            <input type="number" id="qty-@item.Id" name="newQuantity" class="form-control"
+                                                   min="0" max="999" value="@item.Quantity" />
+                                            <button type="submit" class="btn btn-outline-success">Save</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -16,5 +16,7 @@ namespace EntertainmentGuild.Models
 
         // 可选：导航属性
         public Product Product { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

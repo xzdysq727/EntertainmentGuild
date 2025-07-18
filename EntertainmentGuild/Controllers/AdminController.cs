@@ -246,5 +246,26 @@ namespace EntertainmentGuild.Controllers
             }
             return RedirectToAction("TopProducts");
         }
+        [HttpPost]
+        public async Task<IActionResult> AddUser(string Email, string Password, string Role)
+        {
+            var user = new IdentityUser
+            {
+                UserName = Email,
+                Email = Email,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, Password);
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Role);
+            }
+
+            return RedirectToAction("Manage");
+        }
+
     }
 }
+
+
