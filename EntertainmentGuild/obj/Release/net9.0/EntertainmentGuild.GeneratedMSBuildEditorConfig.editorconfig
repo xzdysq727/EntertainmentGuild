@@ -68,20 +68,52 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVG9wUHJvZHVjdHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Cart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ2FydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Checkout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ2hlY2tvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/CustomerAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcQ3VzdG9tZXJBY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/History.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcSGlzdG9yeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUHJvZHVjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ProductDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUHJvZHVjdERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Success.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcU3VjY2Vzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ViewAddress.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcVmlld0FkZHJlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ViewCards.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcVmlld0NhcmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Employee/Product.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcUHJvZHVjdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Home/Index.cshtml]
@@ -114,6 +146,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/_CustomerLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9DdXN0b21lckxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/_EmployeeLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9FbXBsb3llZUxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Shared/_ValidationScriptsPartial.cshtml]

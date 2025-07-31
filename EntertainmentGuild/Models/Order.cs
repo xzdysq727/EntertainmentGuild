@@ -11,7 +11,7 @@ namespace EntertainmentGuild.Models
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
-        public IdentityUser User { get; set; }  
+        public IdentityUser User { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public decimal Subtotal { get; set; }
@@ -23,5 +23,19 @@ namespace EntertainmentGuild.Models
         public int AddressId { get; set; }
 
         public List<OrderItem> Items { get; set; } = new();
+
+        public string UserEmail { get; set; }
+        [NotMapped]
+        public ICollection<OrderItem> OrderItems => Items;
+        [NotMapped]
+        public DateTime OrderDate => CreatedAt;
+
+        public string? ShippingStatus { get; set; }
+
+        public string? Courier { get; set; }
+
+        public string? TrackingNumber { get; set; }
+
+        public string? Remarks { get; set; }
     }
 }

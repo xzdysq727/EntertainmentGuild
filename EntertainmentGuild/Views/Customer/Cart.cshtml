@@ -15,7 +15,7 @@
     }
     else
     {
-        <form asp-action="Checkout" asp-controller="Customer" method="post" id="checkoutForm">
+        <form asp-controller="Customer" method="post" id="checkoutForm">
             <table class="table table-bordered table-striped align-middle">
                 <thead class="table-light">
                     <tr>
@@ -27,7 +27,6 @@
                         <th>Quantity</th>
                         <th>Subtotal</th>
                         <th>Added</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,12 +56,6 @@
                             <td>@item.Quantity</td>
                             <td>$@(item.Product?.Price * item.Quantity).ToString("F2")</td>
                             <td>@item.AddedAt.ToString("g")</td>
-                            <td>
-                                <form asp-action="DeleteFromCart" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <button class="btn btn-sm btn-danger">Delete</button>
-                                </form>
-                            </td>
                         </tr>
                     }
                 </tbody>
@@ -73,8 +66,19 @@
                     <strong>Total:</strong>
                     <span id="totalPrice" class="text-primary fs-5">$0.00</span>
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Checkout</button>
+                <div class="d-flex gap-2">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            formaction="@Url.Action("DeleteSelectedFromCart", "Customer")"
+                            formmethod="post">
+                        Delete Selected
+                    </button>
+                    <button type="submit"
+                            class="btn btn-primary"
+                            formaction="@Url.Action("Checkout", "Customer")"
+                            formmethod="post">
+                        Checkout
+                    </button>
                 </div>
             </div>
         </form>
@@ -105,7 +109,6 @@
             totalPriceSpan.textContent = "$" + total.toFixed(2);
         }
 
-        // Prevent form submission if no item selected
         document.getElementById('checkoutForm').addEventListener('submit', function (e) {
             const selected = Array.from(checkboxes).filter(cb => cb.checked);
             if (selected.length === 0) {
@@ -114,7 +117,6 @@
             }
         });
 
-        // Initial total update
         updateTotal();
     </script>
 }

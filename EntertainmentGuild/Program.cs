@@ -45,3 +45,4 @@ using (var scope = app.Services.CreateScope())
 
 // ✅ 启动应用程序（必须在最后一行）
 app.Run();
+

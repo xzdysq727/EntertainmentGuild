@@ -1,6 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\EntertainmentGuild",
+    "\\EntertainmentGuild\\Controllers",
+    "\\EntertainmentGuild\\Data",
+    "\\EntertainmentGuild\\Models",
+    "\\EntertainmentGuild\\Pages",
+    "\\EntertainmentGuild\\Views"
   ],
+  "SelectedNode": "\\EntertainmentGuild\\Controllers\\HomeController.cs",
   "PreviewInSolutionExplorer": false
 }

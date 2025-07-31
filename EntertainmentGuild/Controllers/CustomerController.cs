@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace EntertainmentGuild.Controllers
 {
     [Authorize(Roles = "Customer")]
@@ -24,15 +25,72 @@ namespace EntertainmentGuild.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? keyword)
         {
             var vm = new TopProductsViewModel
             {
                 Carousel = await _context.CarouselTopProducts.ToListAsync(),
                 Recommendations = await _context.RecommendedTopProducts.ToListAsync()
             };
+
+            // 随机展示 8 个商品
+            ViewBag.RandomProducts = await _context.Products
+                .Where(p => !string.IsNullOrEmpty(p.Name))
+                .OrderBy(p => Guid.NewGuid())
+                .Take(8)
+                .ToListAsync();
+
+            // 如果用户输入了搜索关键词
+            if (!string.IsNullOrWhiteSpace(keyword))
+            {
+                var results = await _context.Products
+                    .Where(p =>
+                        (!string.IsNullOrEmpty(p.Name) && p.Name.Contains(keyword)) ||
+                        (!string.IsNullOrEmpty(p.Description) && p.Description.Contains(keyword)) ||
+                        (!string.IsNullOrEmpty(p.SubCategory) && p.SubCategory.Contains(keyword)))
+                    .ToListAsync();
+
+                ViewBag.Keyword = keyword;
+                ViewBag.SearchResults = results;
+            }
+
             return View(vm);
         }
+
+        [HttpGet]
+        public IActionResult Search(string keyword)
+        {
+            ViewBag.Keyword = keyword;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return View("Search", new List<Product>());
+            }
+
+            var results = _context.Products
+                .Where(p =>
+                    EF.Functions.Like(p.Name, $"%{keyword}%") ||
+                    EF.Functions.Like(p.Description, $"%{keyword}%") ||
+                    EF.Functions.Like(p.SubCategory, $"%{keyword}%"))
+                .ToList();
+
+            return View("Search", results);
+        }
+
+        [HttpGet]
+        public JsonResult GetRandomProducts()
+        {
+            var products = _context.Products
+                .Where(p => !string.IsNullOrEmpty(p.Name))
+                .OrderBy(p => Guid.NewGuid())
+                .Select(p => p.Name)
+                .Take(6)
+                .ToList();
+
+            return Json(products);
+        }
+
+
 
         [HttpGet]
         public IActionResult Product(string? category, string? subCategory)
@@ -244,17 +302,19 @@ namespace EntertainmentGuild.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteFromCart(int id)
+        public async Task<IActionResult> DeleteSelectedFromCart(List<int> selectedCartIds)
         {
             var user = await _userManager.GetUserAsync(User);
-            var item = await _context.Carts.FirstOrDefaultAsync(c => c.Id == id && c.UserId == user.Id);
-            if (item != null)
-            {
-                _context.Carts.Remove(item);
-                await _context.SaveChangesAsync();
-            }
+            var itemsToDelete = await _context.Carts
+                .Where(c => selectedCartIds.Contains(c.Id) && c.UserId == user.Id)
+                .ToListAsync();
+
+            _context.Carts.RemoveRange(itemsToDelete);
+            await _context.SaveChangesAsync();
+
             return RedirectToAction("Cart");
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Checkout()
@@ -286,9 +346,17 @@ namespace EntertainmentGuild.Controllers
         public async Task<IActionResult> Checkout(List<int> selectedCartIds)
         {
             var user = await _userManager.GetUserAsync(User);
-            var selectedCartItems = await _context.Carts.Include(c => c.Product).Where(c => selectedCartIds.Contains(c.Id) && c.UserId == user.Id).ToListAsync();
+
+            var selectedCartItems = await _context.Carts
+                .Include(c => c.Product)
+                .Where(c => selectedCartIds.Contains(c.Id) && c.UserId == user.Id)
+                .ToListAsync();
+
             var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).ToListAsync();
             var cards = await _context.CreditCards.Where(c => c.UserId == user.Id).ToListAsync();
+
+            decimal subtotal = selectedCartItems.Sum(ci => (ci.Product.Price * ci.Quantity));
+            decimal tax = subtotal * 0.1m;
 
             var vm = new CheckoutViewModel
             {
@@ -298,18 +366,22 @@ namespace EntertainmentGuild.Controllers
                 CartItems = selectedCartItems.Select(ci => new CartItemViewModel
                 {
                     CartId = ci.Id,
-                    Product = ci.Product
+                    Product = ci.Product,
+                    Quantity = ci.Quantity     // ✅ 加上数量
                 }).ToList(),
-                Subtotal = selectedCartItems.Sum(ci => ci.Product.Price),
-                Tax = selectedCartItems.Sum(ci => ci.Product.Price) * 0.1m
+                Subtotal = subtotal,
+                Tax = tax
             };
+
             return View("Checkout", vm);
         }
 
+
         [HttpPost]
-        public async Task<IActionResult> PayNow(List<int> SelectedCartIds)
+        public async Task<IActionResult> PayNow(List<int> SelectedCartIds, int AddressId, int CardId, string ShippingMethod)
         {
-            var userId = _userManager.GetUserId(User);
+            var user = await _userManager.GetUserAsync(User);
+            var userId = user.Id;
 
             var cartItems = await _context.Carts
                 .Include(c => c.Product)
@@ -322,25 +394,27 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction("Cart");
             }
 
-            decimal subtotal = cartItems.Sum(c => c.Product.Price);
-            decimal shipping = 10;
+            decimal subtotal = cartItems.Sum(c => c.Product.Price * c.Quantity);
+            decimal shippingFee = decimal.Parse(ShippingMethod); // 👈 注意这里接收的值就是金额数字 0 / 8 / 15
             decimal tax = subtotal * 0.1m;
-            decimal total = subtotal + shipping + tax;
+            decimal total = subtotal + shippingFee + tax;
 
             var order = new Order
             {
                 UserId = userId,
+                UserEmail = user.Email,
+                AddressId = AddressId,
                 Subtotal = subtotal,
-                ShippingFee = shipping,
+                ShippingFee = shippingFee,
                 Tax = tax,
                 Total = total,
-                ShippingMethod = "Standard",
+                ShippingMethod = shippingFee == 0 ? "Standard" :
+                                 shippingFee == 8 ? "Express" : "Next-Day Delivery",
                 PaymentMethod = "Card",
-                AddressId = 1,
                 Items = cartItems.Select(c => new OrderItem
                 {
                     ProductId = c.ProductId,
-                    Quantity = 1
+                    Quantity = c.Quantity
                 }).ToList()
             };
 
@@ -350,6 +424,8 @@ namespace EntertainmentGuild.Controllers
 
             return RedirectToAction("Success");
         }
+
+
 
         [HttpGet]
         public IActionResult Success()
@@ -370,5 +446,20 @@ namespace EntertainmentGuild.Controllers
 
             return View("History", orders);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewShipping(int id)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Items)  
+                    .ThenInclude(i => i.Product)
+                .FirstOrDefaultAsync(o => o.Id == id);
+
+            if (order == null)
+                return NotFound();
+
+            return View(order);  
+        }
+
     }
 }

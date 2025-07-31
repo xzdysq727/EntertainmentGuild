@@ -1,0 +1,67 @@
+﻿@model EntertainmentGuild.Models.Order
+
+@{
+    ViewData["Title"] = $"Edit Shipping Information - Order #{Model.Id}";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h3>Edit Shipping Information - Order #@Model.Id</h3>
+
+    <!-- ✅ 成功消息提示 -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <form asp-action="EditShippingStatus" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ShippingMethod" />
+
+        <!-- Shipping Method (只读展示) -->
+        <div class="mb-3">
+            <label class="form-label">Shipping Method (Customer Selected)</label>
+            <input type="text" class="form-control" value="@Model.ShippingMethod" readonly />
+        </div>
+
+        <!-- Shipping Status -->
+        <div class="mb-3">
+            <label asp-for="ShippingStatus" class="form-label"></label>
+            <select class="form-select" asp-for="ShippingStatus">
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <!-- Courier -->
+        <div class="mb-3">
+            <label asp-for="Courier" class="form-label"></label>
+            <select class="form-select" asp-for="Courier">
+                <option value="">-- Select Courier --</option>
+                <option value="SF Express">SF Express</option>
+                <option value="J&T Express">J&T Express</option>
+                <option value="Ninja Van">Ninja Van</option>
+            </select>
+        </div>
+
+        <!-- Tracking Number -->
+        <div class="mb-3">
+            <label asp-for="TrackingNumber" class="form-label"></label>
+            <input asp-for="TrackingNumber" class="form-control" placeholder="Enter tracking number" />
+        </div>
+
+        <!-- Remarks -->
+        <div class="mb-3">
+            <label asp-for="Remarks" class="form-label">Remarks (optional)</label>
+            <textarea asp-for="Remarks" class="form-control" placeholder="Any additional info..."></textarea>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-action="ManageOrders" asp-route-userEmail="@Model.UserEmail" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

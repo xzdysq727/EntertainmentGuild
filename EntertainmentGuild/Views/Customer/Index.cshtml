@@ -6,54 +6,28 @@
     ViewData["Title"] = "Home";
 
     var categories = new[] { "Clothing", "Pants", "Skirts", "Hats", "Shoes" };
-    var subCategoryMap = new Dictionary<string, List<string>> {
-        { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
-        { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
-        { "Skirts", new() { "Dress", "Mini Skirt", "Long Skirt" } },
-        { "Hats", new() { "Baseball Cap", "Bucket Hat" } },
-        { "Shoes", new() { "Sneakers", "Skate Shoes", "High Heels", "Slippers" } }
+    var icons = new Dictionary<string, string> {
+        { "Clothing", "cloth.png" }, { "Pants", "pant.png" }, { "Skirts", "skrit.png" },
+        { "Hats", "hat.png" }, { "Shoes", "shoes.jpg" }
     };
-    var random = new Random();
-
     var carousel = Model.Carousel ?? new List<CarouselTopProduct>();
     var recommendations = Model.Recommendations ?? new List<RecommendedTopProduct>();
 }
 
-<!-- ✅ 顶部搜索栏 -->
+<!-- ✅ 搜索栏 -->
 <div class="container-fluid bg-white py-3 shadow-sm position-relative">
     <div class="container d-flex align-items-center">
-        <form asp-action="Search" method="get" class="flex-grow-1 me-3 position-relative">
+        <form asp-controller="Customer" asp-action="Search" method="get" class="flex-grow-1 me-3 position-relative">
             <input type="text" class="form-control rounded-pill px-4" placeholder="Search item or brand..." id="searchInput" name="keyword" autocomplete="off" />
-            <div id="categoryPopup" class="bg-white border rounded shadow-sm position-absolute w-100 mt-1 p-3" style="display: none; z-index: 2000;">
-                <div class="row">
-                    <div class="col-md-6">
-                        <strong>Categories</strong>
-                        <ul class="list-unstyled mt-2">
-                            @foreach (var category in categories)
-                            {
-                                <li><a href="@Url.Action("Search", "Customer", new { category = category })" class="text-dark text-decoration-none">@category</a></li>
-                            }
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <strong>Popular Subcategories</strong>
-                        <ul class="list-unstyled mt-2">
-                            @{
-                                var allSubs = subCategoryMap.SelectMany(kv => kv.Value).OrderBy(_ => random.Next()).Take(6).ToList();
-                                foreach (var sub in allSubs)
-                                {
-                                    <li><a href="@Url.Action("Search", "Customer", new { subCategory = sub })" class="text-muted text-decoration-none">@sub</a></li>
-                                }
-                            }
-                        </ul>
-                    </div>
-                </div>
+            <!-- 🔍 数据库建议弹窗 -->
+            <div id="suggestionPopup" class="bg-white border rounded shadow-sm position-absolute w-100 mt-1" style="display: none; z-index: 2000;">
+                <ul id="suggestionList" class="list-unstyled mb-0 p-2"></ul>
             </div>
         </form>
     </div>
 </div>
 
-<!-- ✅ 轮播图 Carousel（加高） -->
+<!-- ✅ 轮播图 -->
 <div class="container mt-4">
     <div id="carouselTop" class="carousel slide mb-4" data-bs-ride="carousel">
         <div class="carousel-inner rounded shadow-sm">
@@ -85,7 +59,7 @@
         </button>
     </div>
 
-    <!-- ✅ 推荐模块（加高） -->
+    <!-- ✅ 推荐商品 -->
     <div class="row">
         <h5 class="mb-3">Recommended Products</h5>
         @if (!recommendations.Any())
@@ -124,24 +98,48 @@
     </div>
 </div>
 
-<!-- ✅ 分类图标导航 -->
+<!-- ✅ 分类导航 -->
 <div class="container mb-5">
     <h5 class="fw-bold mb-3 text-uppercase text-secondary">Shop by Category</h5>
     <div class="row text-center">
-        @{
-            var icons = new Dictionary<string, string> {
-                { "Clothing", "cloth.png" }, { "Pants", "pant.png" }, { "Skirts", "skrit.png" },
-                { "Hats", "hat.png" }, { "Shoes", "shoes.jpg" }
-                };
-            foreach (var category in categories)
-            {
-                <div class="col-4 col-sm-3 col-md-2 mb-4">
-                    <a href="@Url.Action("Product", "Customer", new { category = category })" class="text-decoration-none text-dark">
-                        <img src="~/images/@icons[category]" alt="@category" class="img-fluid" style="height: 80px;" />
-                        <div class="mt-2">@category</div>
-                    </a>
+        @foreach (var category in categories)
+        {
+            <div class="col-4 col-sm-3 col-md-2 mb-4">
+                <a href="@Url.Action("Product", "Customer", new { category = category })" class="text-decoration-none text-dark">
+                    <img src="~/images/@icons[category]" alt="@category" class="img-fluid" style="height: 80px;" />
+                    <div class="mt-2">@category</div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- ✅ 随机推荐商品 -->
+<div class="container mt-5 mb-5">
+    <h5 class="fw-bold mb-3 text-uppercase text-secondary">You May Also Like</h5>
+    <div class="row">
+        @foreach (var product in ViewBag.RandomProducts as List<EntertainmentGuild.Models.Product>)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (product.ImageData != null)
+                    {
+                        <img src="data:image/png;base64,@Convert.ToBase64String(product.ImageData)" class="card-img-top" style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="d-flex justify-content-center align-items-center" style="height: 200px; background: #f5f5f5;">
+                            <span class="text-muted">No Image</span>
+                        </div>
+                    }
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title">@product.Name</h6>
+                        <p class="text-muted small">@product.Category > @product.SubCategory</p>
+                        <p class="fw-bold text-primary mt-auto">@product.Price.ToString("C")</p>
+                        <a class="btn btn-sm btn-outline-primary w-100 mt-2" href="@Url.Action("ProductDetails", "Customer", new { id = product.Id })">View Details</a>
+                    </div>
                 </div>
-            }
+            </div>
         }
     </div>
 </div>
@@ -149,9 +147,23 @@
 @section Scripts {
     <script>
         const searchInput = document.getElementById("searchInput");
-        const popup = document.getElementById("categoryPopup");
+        const popup = document.getElementById("suggestionPopup");
+        const list = document.getElementById("suggestionList");
 
-        searchInput.addEventListener("focus", () => popup.style.display = "block");
+        searchInput.addEventListener("focus", async () => {
+            const res = await fetch("/Customer/GetRandomProducts");
+            const data = await res.json();
+
+            list.innerHTML = "";
+            data.forEach(name => {
+                const li = document.createElement("li");
+                li.innerHTML = `<a href="/Customer/Search?keyword=${encodeURIComponent(name)}" class="d-block py-2 px-3 text-decoration-none text-dark">${name}</a>`;
+                list.appendChild(li);
+            });
+
+            popup.style.display = "block";
+        });
+
         document.addEventListener("click", function (e) {
             if (!searchInput.contains(e.target) && !popup.contains(e.target)) {
                 popup.style.display = "none";

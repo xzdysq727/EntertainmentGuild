@@ -79,7 +79,6 @@
                 @foreach (var item in Model.CartItems)
                 {
                     <input type="hidden" name="SelectedCartIds" value="@item.CartId" />
-
                 }
 
                 <div class="mt-4">
@@ -93,12 +92,13 @@
                 <ul class="list-group mb-3">
                     @foreach (var item in Model.CartItems)
                     {
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
                             <div>
                                 <strong>@item.Product.Name</strong><br />
-                                <small class="text-muted">@item.Product.Category - @item.Product.SubCategory</small>
+                                <small class="text-muted">@item.Product.Category - @item.Product.SubCategory</small><br />
+                                <small>Qty: @item.Quantity x @item.Product.Price.ToString("C")</small>
                             </div>
-                            <span>@item.Product.Price.ToString("C")</span>
+                            <span>@(item.Product.Price* item.Quantity).ToString("C")</span>
                         </li>
                     }
                 </ul>

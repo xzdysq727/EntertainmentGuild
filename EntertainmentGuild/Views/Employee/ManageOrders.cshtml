@@ -1,0 +1,74 @@
+﻿@model List<EntertainmentGuild.Models.Order>
+@{
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+    ViewData["Title"] = "Manage Orders";
+    var customers = ViewBag.Customers as List<Microsoft.AspNetCore.Identity.IdentityUser>;
+    var selectedEmail = ViewBag.SelectedEmail as string;
+}
+
+<div class="container mt-4">
+    <h2>Customer Order History</h2>
+    <hr />
+
+    <div class="row">
+        <!-- ✅ 左侧选择顾客 -->
+        <div class="col-md-3 border-end">
+            <h5>Customers</h5>
+            @foreach (var customer in customers)
+            {
+                <div class="mb-2">
+                    <a class="btn btn-outline-primary w-100 @(customer.Email == selectedEmail ? "active" : "")"
+                       asp-controller="Employee"
+                       asp-action="ManageOrders"
+                       asp-route-userEmail="@customer.Email">
+                        @customer.Email
+                    </a>
+                </div>
+            }
+        </div>
+
+        <!-- ✅ 右侧订单详情 -->
+        <div class="col-md-9">
+            @if (string.IsNullOrEmpty(selectedEmail))
+            {
+                <p class="text-muted">Please select a customer to view their orders.</p>
+            }
+            else if (!Model.Any())
+            {
+                <p class="text-muted">This customer has no orders.</p>
+            }
+            else
+            {
+                foreach (var order in Model)
+                {
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header">
+                            <strong>Order ID:</strong> @order.Id<br />
+                            <strong>Date:</strong> @order.OrderDate.ToString("yyyy-MM-dd HH:mm")
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                @foreach (var item in order.OrderItems)
+                                {
+                                    <li class="list-group-item">
+                                        <strong>@item.Product.Name</strong> —
+                                        Quantity: @item.Quantity —
+                                        Price: $@item.Product.Price.ToString("F2")
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-footer text-end">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               asp-controller="Employee"
+                               asp-action="EditShippingStatus"
+                               asp-route-id="@order.Id">
+                                Edit Shipping Status
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>

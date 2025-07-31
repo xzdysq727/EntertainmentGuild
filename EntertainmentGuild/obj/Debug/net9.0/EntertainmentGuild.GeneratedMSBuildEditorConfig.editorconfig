@@ -100,6 +100,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcUHJvZHVjdERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Search.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcU2VhcmNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/Success.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcU3VjY2Vzcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -110,6 +114,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ViewCards.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcVmlld0NhcmRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Customer/ViewShipping.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJcVmlld1NoaXBwaW5nLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Employee/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Employee/EditShippingStatus.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRWRpdFNoaXBwaW5nU3RhdHVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Employee/ManageOrders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcTWFuYWdlT3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/11947/OneDrive/IT/T3/web/EntertainmentGuild/EntertainmentGuild/Views/Employee/Product.cshtml]

@@ -1,4 +1,4 @@
-﻿@model LoginViewModel
+﻿@model EntertainmentGuild.ViewModels.LoginViewModel
 
 @{
     ViewData["Title"] = $"{Model.Role} Login";
@@ -6,6 +6,15 @@
 
 <div class="container mt-5" style="max-width: 500px;">
     <h2 class="text-center mb-4">@Model.Role Login</h2>
+
+    <!-- 🔴 Login error popup -->
+    @if (TempData["LoginError"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["LoginError"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
     <form asp-action="Login" method="post">
         <input type="hidden" asp-for="Role" />
@@ -32,7 +41,7 @@
         </div>
 
         <p class="text-center">
-            Don't have a cusromer account?
+            Don't have a customer account?
             <a asp-controller="Register" asp-action="Index">Register here</a>
         </p>
     </form>

@@ -4,6 +4,7 @@ using EntertainmentGuild.Data;
 using EntertainmentGuild.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using EntertainmentGuild.ViewModels;
 
 namespace EntertainmentGuild.Controllers
 {
@@ -22,7 +23,7 @@ namespace EntertainmentGuild.Controllers
             _context = context;
         }
 
-        // ✅ GET: Role-based login pages
+        // GET: Login pages for each role
         [HttpGet]
         public IActionResult Customer()
         {
@@ -41,36 +42,37 @@ namespace EntertainmentGuild.Controllers
             return View("Login", new LoginViewModel { Role = "Admin" });
         }
 
-        // ✅ POST: Perform login
+        // POST: Perform login
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("Login", model);
 
+            // Check if user exists
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError("", "User does not exist.");
-                return View("Login", model);
+                TempData["LoginError"] = "User does not exist.";
+                return RedirectToAction(model.Role);
             }
 
-            // ✅ Check if user is disabled
+            // Check if user is disabled
             var disabledUser = await _context.DisabledUsers.FindAsync(user.Id);
             if (disabledUser != null)
             {
-                ModelState.AddModelError("", "Your account has been disabled.");
-                return View("Login", model);
+                TempData["LoginError"] = "Your account has been disabled.";
+                return RedirectToAction(model.Role);
             }
 
-            // ✅ Check role
+            // Check role
             if (!await _userManager.IsInRoleAsync(user, model.Role))
             {
-                ModelState.AddModelError("", $"This user is not a {model.Role}.");
-                return View("Login", model);
+                TempData["LoginError"] = $"This user is not a {model.Role}.";
+                return RedirectToAction(model.Role);
             }
 
-            // ✅ Try login
+            // Attempt login
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
@@ -83,8 +85,8 @@ namespace EntertainmentGuild.Controllers
                 };
             }
 
-            ModelState.AddModelError("", "Invalid login attempt.");
-            return View("Login", model);
+            TempData["LoginError"] = "Invalid login attempt.";
+            return RedirectToAction(model.Role);
         }
     }
 }

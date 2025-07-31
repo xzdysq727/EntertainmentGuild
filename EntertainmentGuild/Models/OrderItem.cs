@@ -1,5 +1,4 @@
-﻿
-using EntertainmentGuild.Models;
+﻿using EntertainmentGuild.Models;
 
 namespace EntertainmentGuild.Models
 {

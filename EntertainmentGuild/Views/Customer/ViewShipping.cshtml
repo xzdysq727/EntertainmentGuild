@@ -1,0 +1,102 @@
+﻿@model EntertainmentGuild.Models.Order
+@{
+    ViewData["Title"] = "Shipping Info";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    string status = Model.ShippingStatus?.ToLower() ?? "pending";
+    bool isPending = status == "pending";
+    bool isShipped = status == "shipped";
+    bool isDelivered = status == "delivered";
+}
+
+<style>
+    .shipping-card {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .status-stepper {
+        display: flex;
+        justify-content: space-between;
+        margin: 30px 0;
+        position: relative;
+    }
+
+        .status-stepper::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background-color: #ccc;
+            z-index: 0;
+        }
+
+    .status-step {
+        position: relative;
+        z-index: 1;
+        width: 33%;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .status-circle {
+        width: 16px;
+        height: 16px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin: 0 auto 8px;
+    }
+
+    .status-active .status-circle {
+        background-color: #007bff;
+    }
+
+    .status-active {
+        font-weight: bold;
+        color: #007bff;
+    }
+</style>
+
+<div class="container mt-5">
+    <h3>Shipping Info - Order #@Model.Id</h3>
+    <div class="shipping-card mt-3">
+
+        <!-- Stepper Indicator -->
+        <div class="status-stepper">
+            <div class="status-step @(isPending ? "status-active" : "")">
+                <div class="status-circle"></div>
+                Pending
+            </div>
+            <div class="status-step @(isShipped ? "status-active" : "")">
+                <div class="status-circle"></div>
+                Shipped
+            </div>
+            <div class="status-step @(isDelivered ? "status-active" : "")">
+                <div class="status-circle"></div>
+                Delivered
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Shipping Method:</strong> @Model.ShippingMethod</p>
+                <p><strong>Courier:</strong> @(string.IsNullOrWhiteSpace(Model.Courier) ? "N/A" : Model.Courier)</p>
+                <p><strong>Tracking Number:</strong> @(string.IsNullOrWhiteSpace(Model.TrackingNumber) ? "N/A" : Model.TrackingNumber)</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Status:</strong> <span class="text-primary">@(string.IsNullOrWhiteSpace(Model.ShippingStatus) ? "Pending" : Model.ShippingStatus)</span></p>
+                <p><strong>Order Date:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+                <p><strong>Remarks:</strong> @(string.IsNullOrWhiteSpace(Model.Remarks) ? "None" : Model.Remarks)</p>
+            </div>
+        </div>
+
+        <div class="text-end">
+            <a asp-action="History" class="btn btn-outline-secondary">Back to Order History</a>
+        </div>
+    </div>
+</div>
