@@ -5,99 +5,130 @@
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<div class="container mt-4">
-    <h3>Your Shopping Cart</h3>
-    <hr />
+<div class="container mt-4 mb-5">
+    <h3 class="fw-bold mb-4" style="color: #b29b4b;">🛒 Your Shopping Cart</h3>
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info">Your cart is empty.</div>
+        <div class="alert alert-warning">Your cart is empty.</div>
     }
     else
     {
         <form asp-controller="Customer" method="post" id="checkoutForm">
-            <table class="table table-bordered table-striped align-middle">
-                <thead class="table-light">
-                    <tr>
-                        <th><input type="checkbox" id="selectAll" /></th>
-                        <th>Image</th>
-                        <th>Product</th>
-                        <th>Category</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Subtotal</th>
-                        <th>Added</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead class="bg-light text-secondary">
                         <tr>
-                            <td>
-                                <input type="checkbox"
-                                       name="selectedCartIds"
-                                       value="@item.Id"
-                                       class="select-item form-check-input"
-                                       data-price="@((item.Product?.Price ?? 0) * item.Quantity)" />
-                            </td>
-                            <td>
-                                @if (item.Product?.ImageData != null)
-                                {
-                                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Product.ImageData)" width="80" />
-                                }
-                                else
-                                {
-                                    <span class="text-muted">No image</span>
-                                }
-                            </td>
-                            <td>@item.Product?.Name</td>
-                            <td>@item.Product?.Category / @item.Product?.SubCategory</td>
-                            <td>$@item.Product?.Price.ToString("F2")</td>
-                            <td>@item.Quantity</td>
-                            <td>$@(item.Product?.Price * item.Quantity).ToString("F2")</td>
-                            <td>@item.AddedAt.ToString("g")</td>
+                            <th><input type="checkbox" id="selectAll" /></th>
+                            <th>Image</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Subtotal</th>
+                            <th>Added</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="align-middle">
+                                <td>
+                                    <input type="checkbox"
+                                           name="selectedCartIds"
+                                           value="@item.Id"
+                                           class="form-check-input select-item"
+                                           data-price="@((item.Product?.Price ?? 0) * item.Quantity)" />
+                                </td>
+                                <td>
+                                    @if (item.Product?.ImageData != null)
+                                    {
+                                        <img src="data:image/png;base64,@Convert.ToBase64String(item.Product.ImageData)"
+                                             class="rounded shadow-sm"
+                                             style="width: 80px; height: 80px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <div class="text-muted">No image</div>
+                                    }
+                                </td>
+                                <td class="fw-semibold">@item.Product?.Name</td>
+                                <td>@item.Product?.Category > @item.Product?.SubCategory</td>
+                                <td style="color: #a38b30;">¥@item.Product?.Price.ToString("F2")</td>
+                                <td>@item.Quantity</td>
+                                <td style="color: #a38b30;">¥@(item.Product?.Price * item.Quantity).ToString("F2")</td>
+                                <td><small>@item.AddedAt.ToString("g")</small></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <div>
-                    <strong>Total:</strong>
-                    <span id="totalPrice" class="text-primary fs-5">$0.00</span>
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
+                <div class="mb-3 mb-md-0">
+                    <strong>Total: </strong>
+                    <span id="totalPrice" class="fs-4 fw-bold" style="color: #b29b4b;">¥0.00</span>
                 </div>
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-3">
                     <button type="submit"
-                            class="btn btn-danger"
+                            class="btn btn-outline-danger px-4"
                             formaction="@Url.Action("DeleteSelectedFromCart", "Customer")"
                             formmethod="post">
-                        Delete Selected
+                        🗑 Delete Selected
                     </button>
                     <button type="submit"
-                            class="btn btn-primary"
+                            class="btn btn-warning px-4 text-white"
                             formaction="@Url.Action("Checkout", "Customer")"
-                            formmethod="post">
-                        Checkout
+                            formmethod="post"
+                            style="background-color: #b29b4b; border: none;">
+                        💳 Checkout
                     </button>
                 </div>
             </div>
         </form>
     }
 </div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>
 
 @section Scripts {
     <script>
         const checkboxes = document.querySelectorAll('.select-item');
         const totalPriceSpan = document.getElementById('totalPrice');
-
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', updateTotal);
-        });
-
-        document.getElementById('selectAll').addEventListener('change', function () {
-            checkboxes.forEach(cb => cb.checked = this.checked);
-            updateTotal();
-        });
 
         function updateTotal() {
             let total = 0;
@@ -106,8 +137,15 @@
                     total += parseFloat(cb.dataset.price || 0);
                 }
             });
-            totalPriceSpan.textContent = "$" + total.toFixed(2);
+            totalPriceSpan.textContent = "¥" + total.toFixed(2);
         }
+
+        document.getElementById('selectAll').addEventListener('change', function () {
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            updateTotal();
+        });
+
+        checkboxes.forEach(cb => cb.addEventListener('change', updateTotal));
 
         document.getElementById('checkoutForm').addEventListener('submit', function (e) {
             const selected = Array.from(checkboxes).filter(cb => cb.checked);

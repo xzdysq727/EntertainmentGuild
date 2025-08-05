@@ -14,7 +14,7 @@ namespace EntertainmentGuild.Models
 
         public DateTime AddedAt { get; set; } = DateTime.Now;
 
-        // 可选：导航属性
+   
         public Product Product { get; set; }
 
         public int Quantity { get; set; }

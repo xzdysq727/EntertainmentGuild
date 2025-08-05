@@ -99,7 +99,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product");
         }
 
-        // 管理员账户页
+
         [HttpGet]
         public async Task<IActionResult> Account()
         {
@@ -107,7 +107,6 @@ namespace EntertainmentGuild.Controllers
             return View("AdminAccount", user);
         }
 
-        // 用户管理
         [HttpGet]
         public async Task<IActionResult> Manage(string role = "Customer")
         {
@@ -153,7 +152,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Manage", new { role = "Customer" });
         }
 
-        // Top Products 管理
+
         [HttpGet]
         public async Task<IActionResult> TopProducts()
         {

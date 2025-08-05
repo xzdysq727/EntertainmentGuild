@@ -17,24 +17,115 @@
     };
 }
 
+<style>
+    :root {
+        --cream: #fdf7e4;
+        --gold: #b29b4b;
+        --text-dark: #2e2e2e;
+        --border-light: #e4dec7;
+    }
+
+    .category-card {
+        border-radius: 12px;
+        border: 1px solid var(--border-light);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    }
+
+        .category-card .card-header {
+            background-color: var(--gold);
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .category-card a {
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+            .category-card a:hover {
+                color: var(--gold);
+                font-weight: 500;
+            }
+
+    .form-section {
+        background-color: var(--cream);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    .btn-gold {
+        background-color: var(--gold);
+        color: white;
+        border: none;
+        font-weight: 500;
+        border-radius: 50px;
+    }
+
+        .btn-gold:hover {
+            background-color: #a58d3f;
+        }
+
+    .product-table img {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+    }
+
+    <style >
+    .category-card {
+        background-color: #fdf7e4;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+
+    .category-link {
+        display: block;
+        padding: 4px 8px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: #2e2e2e;
+        font-size: 0.95rem;
+        transition: background-color 0.2s ease;
+    }
+
+        .category-link:hover,
+        .category-link.active {
+            background-color: #b29b4b;
+            color: white !important;
+            font-weight: 500;
+        }
+</style>
+
+</style>
+
 <div class="container-fluid mt-4">
     <div class="row">
-        <!-- ✅ 左侧分类选择 -->
-        <div class="col-md-3">
-            <div class="card shadow-sm">
-                <div class="card-header bg-dark text-white">Categories</div>
+     
+        <div class="col-md-3 mb-4">
+            <div class="card category-card shadow-sm">
+                <div class="card-header bg-white border-bottom fw-bold" style="color: #b29b4b;">
+                    Categories
+                </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         @foreach (var kv in subCategoryMap)
                         {
-                            <li>
-                                <strong>@kv.Key</strong>
-                                <ul class="list-unstyled ms-3">
+                            <li class="mb-2">
+                                <strong class="text-dark">@kv.Key</strong>
+                                <ul class="list-unstyled ms-3 mt-1">
                                     @foreach (var sub in kv.Value)
                                     {
+                                        var isActive = sub == subCategory ? "active" : "";
                                         <li>
                                             <a href="@Url.Action("Product", "Admin", new { category = kv.Key, subCategory = sub })"
-                                               class="@(sub == subCategory ? "fw-bold text-primary" : "text-dark") text-decoration-none">
+                                               class="category-link @isActive">
                                                 @sub
                                             </a>
                                         </li>
@@ -43,18 +134,25 @@
                             </li>
                         }
                     </ul>
+                    <hr />
+                    <a href="@Url.Action("Product", "Admin")" class="btn btn-outline-secondary w-100 btn-sm rounded-pill">
+                        Show All
+                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- ✅ 右侧商品列表 -->
+
+
+       
         <div class="col-md-9">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Products List</h4>
-                <a href="@Url.Action("TopProducts", "Admin")" class="btn btn-sm btn-outline-info">Edit Top Products</a>
+                <a href="@Url.Action("TopProducts", "Admin")" class="btn btn-sm btn-outline-secondary rounded-pill">🎯 Edit Top Products</a>
             </div>
 
-            <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-3 mb-4 border rounded p-3 bg-light">
+          
+            <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-3 form-section mb-4">
                 <div class="col-md-3">
                     <input name="Name" class="form-control" placeholder="Name" required />
                 </div>
@@ -82,7 +180,7 @@
                     <textarea name="Description" class="form-control" placeholder="Description (optional)" rows="2"></textarea>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-success w-100">Add</button>
+                    <button type="submit" class="btn btn-gold w-100">➕ Add</button>
                 </div>
             </form>
 
@@ -92,7 +190,7 @@
             }
             else
             {
-                <table class="table table-bordered">
+                <table class="table table-hover table-bordered product-table">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -124,10 +222,10 @@
                                 <td>@item.SubCategory</td>
                                 <td>@item.Description</td>
                                 <td>
-                                    <a asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Edit</a>
+                                    <a asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-sm btn-gold">Edit</a>
                                     <form asp-action="DeleteProduct" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@item.Id" />
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>

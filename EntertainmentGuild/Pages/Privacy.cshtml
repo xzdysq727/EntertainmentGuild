@@ -2,7 +2,46 @@
 @model PrivacyModel
 @{
     ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5 mb-5" style="background-color: #fdf7e4; border-radius: 12px; padding: 30px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border: 1px solid #e3dcc7;">
+    <h2 class="mb-4 fw-bold text-dark">@ViewData["Title"]</h2>
+
+    <p class="text-secondary">
+        At <strong>EntertainmentGuild</strong>, we value your privacy. This policy outlines how we collect, use, and protect your information when you use our services.
+    </p>
+
+    <h5 class="mt-4 fw-semibold text-dark">1. Information We Collect</h5>
+    <ul class="text-secondary">
+        <li>Email address when you register or log in</li>
+        <li>Order history, delivery information, and payment method (encrypted)</li>
+        <li>Site usage data through cookies (for better user experience)</li>
+    </ul>
+
+    <h5 class="mt-4 fw-semibold text-dark">2. How We Use Your Information</h5>
+    <ul class="text-secondary">
+        <li>To provide and maintain our services</li>
+        <li>To improve and personalize your shopping experience</li>
+        <li>To process transactions and deliver orders</li>
+    </ul>
+
+    <h5 class="mt-4 fw-semibold text-dark">3. Data Protection</h5>
+    <p class="text-secondary">
+        We use industry-standard security practices, including encryption and secure databases, to ensure your data is protected. Your password is never stored in plain text.
+    </p>
+
+    <h5 class="mt-4 fw-semibold text-dark">4. Third-Party Sharing</h5>
+    <p class="text-secondary">
+        We do not sell, trade, or rent your personal information. We may share limited data with delivery partners to fulfill your orders.
+    </p>
+
+    <h5 class="mt-4 fw-semibold text-dark">5. Your Rights</h5>
+    <p class="text-secondary">
+        You have the right to access, update, or delete your information. Please contact our support if you'd like to request changes.
+    </p>
+
+    <p class="mt-4 text-muted fst-italic">
+        Last updated: August 1, 2025
+    </p>
+</div>

@@ -21,8 +21,8 @@ namespace EntertainmentGuild.ViewModels
 
     public class CartItemViewModel
     {
-        public int CartId { get; set; }            // ✅ 用于识别购物车项
-        public Product Product { get; set; }       // 商品对象
+        public int CartId { get; set; }            
+        public Product Product { get; set; }      
         public int Quantity { get; set; }
     }
 

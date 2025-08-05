@@ -4,36 +4,94 @@
     ViewData["Title"] = "Admin Account";
 }
 
-<h2>Admin Account</h2>
+<style>
+    body {
+        background-color: #ffffff;
+    }
 
-<div class="card p-3 mb-4">
-    <p><strong>Email:</strong> @Model.Email</p>
-    <p><strong>UserName:</strong> @Model.UserName</p>
+    .section-title {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #2e2e2e;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-custom {
+        background-color: #fff;
+        border-radius: 16px;
+        border: 1px solid #e3ddc6;
+        padding: 30px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        margin-bottom: 2rem;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        border-radius: 10px;
+    }
+
+    .btn-gold {
+        background-color: #b29b4b;
+        color: #fff;
+        font-weight: 500;
+        border: none;
+        border-radius: 50px;
+        padding: 10px 24px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-gold:hover {
+            background-color: #9e853b;
+        }
+
+    .alert {
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <h2 class="section-title">
+        <i class="bi bi-person-badge-fill me-2 text-warning"></i>Admin Account
+    </h2>
+
+    <div class="card-custom">
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Username:</strong> @Model.UserName</p>
+    </div>
+
+    <h4 class="section-title">
+        <i class="bi bi-key-fill me-2 text-warning"></i>Change Password
+    </h4>
+
+    @if (TempData["ChangeSuccess"] != null)
+    {
+        <div class="alert alert-success">@TempData["ChangeSuccess"]</div>
+    }
+    @if (TempData["ChangeError"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ChangeError"]</div>
+    }
+
+    <form asp-action="ChangePassword" method="post">
+        <div class="mb-3">
+            <label for="CurrentPassword" class="form-label">Current Password</label>
+            <input type="password" name="CurrentPassword" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label for="NewPassword" class="form-label">New Password</label>
+            <input type="password" name="NewPassword" class="form-control" required />
+        </div>
+        <div class="mb-4">
+            <label for="ConfirmPassword" class="form-label">Confirm New Password</label>
+            <input type="password" name="ConfirmPassword" class="form-control" required />
+        </div>
+        <div class="text-end">
+            <button type="submit" class="btn btn-gold">Change Password</button>
+        </div>
+    </form>
 </div>
-
-<h4>Change Password</h4>
-
-@if (TempData["ChangeSuccess"] != null)
-{
-    <div class="alert alert-success">@TempData["ChangeSuccess"]</div>
-}
-@if (TempData["ChangeError"] != null)
-{
-    <div class="alert alert-danger">@TempData["ChangeError"]</div>
-}
-
-<form asp-action="ChangePassword" method="post">
-    <div class="mb-3">
-        <label for="CurrentPassword">Current Password</label>
-        <input type="password" name="CurrentPassword" class="form-control" required />
-    </div>
-    <div class="mb-3">
-        <label for="NewPassword">New Password</label>
-        <input type="password" name="NewPassword" class="form-control" required />
-    </div>
-    <div class="mb-3">
-        <label for="ConfirmPassword">Confirm New Password</label>
-        <input type="password" name="ConfirmPassword" class="form-control" required />
-    </div>
-    <button type="submit" class="btn btn-primary">Change Password</button>
-</form>

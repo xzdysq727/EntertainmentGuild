@@ -1,4 +1,5 @@
 ﻿@model EntertainmentGuild.Models.Order
+
 @{
     ViewData["Title"] = "Shipping Info";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
@@ -11,18 +12,18 @@
 
 <style>
     .shipping-card {
-        border-radius: 10px;
+        border-radius: 15px;
         border: 1px solid #ddd;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        padding: 30px;
+        background-color: #fdf7e4;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     }
 
     .status-stepper {
         display: flex;
         justify-content: space-between;
-        margin: 30px 0;
         position: relative;
+        margin: 40px 0;
     }
 
         .status-stepper::before {
@@ -31,42 +32,46 @@
             top: 50%;
             left: 10%;
             right: 10%;
-            height: 2px;
-            background-color: #ccc;
+            height: 3px;
+            background-color: #ddd;
             z-index: 0;
         }
 
     .status-step {
-        position: relative;
-        z-index: 1;
-        width: 33%;
         text-align: center;
+        z-index: 1;
+        flex: 1;
         font-size: 14px;
+        position: relative;
     }
 
     .status-circle {
-        width: 16px;
-        height: 16px;
-        background-color: #ccc;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
+        background-color: #ccc;
         margin: 0 auto 8px;
+        border: 2px solid #fff;
+        box-shadow: 0 0 0 2px #ccc;
     }
 
     .status-active .status-circle {
-        background-color: #007bff;
+        background-color: #b29b4b;
+        box-shadow: 0 0 0 2px #b29b4b;
     }
 
     .status-active {
         font-weight: bold;
-        color: #007bff;
+        color: #b29b4b;
     }
 </style>
 
-<div class="container mt-5">
-    <h3>Shipping Info - Order #@Model.Id</h3>
-    <div class="shipping-card mt-3">
+<div class="container mt-5 mb-5">
+    <h3 class="mb-4"><i class="bi bi-truck me-2 text-secondary"></i>Shipping Info - Order #@Model.Id</h3>
 
-        <!-- Stepper Indicator -->
+    <div class="shipping-card">
+
+        
         <div class="status-stepper">
             <div class="status-step @(isPending ? "status-active" : "")">
                 <div class="status-circle"></div>
@@ -82,21 +87,59 @@
             </div>
         </div>
 
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <p><strong>Shipping Method:</strong> @Model.ShippingMethod</p>
-                <p><strong>Courier:</strong> @(string.IsNullOrWhiteSpace(Model.Courier) ? "N/A" : Model.Courier)</p>
-                <p><strong>Tracking Number:</strong> @(string.IsNullOrWhiteSpace(Model.TrackingNumber) ? "N/A" : Model.TrackingNumber)</p>
+        <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+                <p><i class="bi bi-box-fill me-1 text-muted"></i><strong>Shipping Method:</strong> @Model.ShippingMethod</p>
+                <p><i class="bi bi-truck me-1 text-muted"></i><strong>Courier:</strong> @(string.IsNullOrWhiteSpace(Model.Courier) ? "N/A" : Model.Courier)</p>
+                <p><i class="bi bi-upc-scan me-1 text-muted"></i><strong>Tracking Number:</strong> @(string.IsNullOrWhiteSpace(Model.TrackingNumber) ? "N/A" : Model.TrackingNumber)</p>
             </div>
-            <div class="col-md-6">
-                <p><strong>Status:</strong> <span class="text-primary">@(string.IsNullOrWhiteSpace(Model.ShippingStatus) ? "Pending" : Model.ShippingStatus)</span></p>
-                <p><strong>Order Date:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
-                <p><strong>Remarks:</strong> @(string.IsNullOrWhiteSpace(Model.Remarks) ? "None" : Model.Remarks)</p>
+            <div class="col-md-6 mb-3">
+                <p><i class="bi bi-clock-history me-1 text-muted"></i><strong>Status:</strong> <span class="text-primary">@(string.IsNullOrWhiteSpace(Model.ShippingStatus) ? "Pending" : Model.ShippingStatus)</span></p>
+                <p><i class="bi bi-calendar-event me-1 text-muted"></i><strong>Order Date:</strong> @Model.CreatedAt.ToString("yyyy/MM/dd HH:mm")</p>
+                <p><i class="bi bi-chat-left-text me-1 text-muted"></i><strong>Remarks:</strong> @(string.IsNullOrWhiteSpace(Model.Remarks) ? "None" : Model.Remarks)</p>
             </div>
         </div>
 
-        <div class="text-end">
-            <a asp-action="History" class="btn btn-outline-secondary">Back to Order History</a>
+        <div class="text-end mt-4">
+            <a asp-action="History" class="btn btn-outline-secondary rounded-pill">
+                <i class="bi bi-arrow-left me-1"></i>Back to Order History
+            </a>
         </div>
     </div>
 </div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>

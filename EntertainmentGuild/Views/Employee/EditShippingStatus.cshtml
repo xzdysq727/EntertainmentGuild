@@ -5,63 +5,123 @@
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
 }
 
-<div class="container mt-5">
-    <h3>Edit Shipping Information - Order #@Model.Id</h3>
-
-    <!-- ✅ 成功消息提示 -->
-    @if (TempData["Success"] != null)
-    {
-        <div class="alert alert-success">@TempData["Success"]</div>
+<style>
+    body {
+        background-color: #ffffff; 
     }
 
-    <form asp-action="EditShippingStatus" method="post">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="ShippingMethod" />
+    .card-custom {
+        background-color: #fcf6dc; 
+        border: 1px solid #e6e0c4;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
 
-        <!-- Shipping Method (只读展示) -->
-        <div class="mb-3">
-            <label class="form-label">Shipping Method (Customer Selected)</label>
-            <input type="text" class="form-control" value="@Model.ShippingMethod" readonly />
-        </div>
+    .btn-gold {
+        background-color: #b29b4b;
+        color: #fff;
+        font-weight: 500;
+        border: none;
+        transition: background-color 0.3s ease;
+        border-radius: 50px;
+    }
 
-        <!-- Shipping Status -->
-        <div class="mb-3">
-            <label asp-for="ShippingStatus" class="form-label"></label>
-            <select class="form-select" asp-for="ShippingStatus">
-                <option value="Pending">Pending</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Delivered">Delivered</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
-        </div>
+        .btn-gold:hover {
+            background-color: #9e853b;
+        }
 
-        <!-- Courier -->
-        <div class="mb-3">
-            <label asp-for="Courier" class="form-label"></label>
-            <select class="form-select" asp-for="Courier">
-                <option value="">-- Select Courier --</option>
-                <option value="SF Express">SF Express</option>
-                <option value="J&T Express">J&T Express</option>
-                <option value="Ninja Van">Ninja Van</option>
-            </select>
-        </div>
+    .btn-outline-secondary {
+        border-radius: 50px;
+    }
 
-        <!-- Tracking Number -->
-        <div class="mb-3">
-            <label asp-for="TrackingNumber" class="form-label"></label>
-            <input asp-for="TrackingNumber" class="form-control" placeholder="Enter tracking number" />
-        </div>
+    .form-label {
+        font-weight: 500;
+        color: #3c3c3c;
+        margin-bottom: 4px;
+    }
 
-        <!-- Remarks -->
-        <div class="mb-3">
-            <label asp-for="Remarks" class="form-label">Remarks (optional)</label>
-            <textarea asp-for="Remarks" class="form-control" placeholder="Any additional info..."></textarea>
-        </div>
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+    }
 
-        <!-- 按钮 -->
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a asp-action="ManageOrders" asp-route-userEmail="@Model.UserEmail" class="btn btn-secondary">Cancel</a>
+    .section-title {
+        font-weight: bold;
+        color: #2e2e2e;
+    }
+
+    .readonly-box {
+        background-color: #f4f2e9;
+        border: none;
+    }
+
+    .alert-success {
+        background-color: #f3ead1;
+        border-color: #e2d3a8;
+        color: #4e4317;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card-custom">
+                <h4 class="mb-4 section-title">
+                    <i class="bi bi-truck me-2 text-warning"></i>Edit Shipping - Order #@Model.Id
+                </h4>
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Success"]</div>
+                }
+
+                <form asp-action="EditShippingStatus" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ShippingMethod" />
+
+                    <div class="mb-3">
+                        <label class="form-label">Shipping Method (Customer Selected)</label>
+                        <input type="text" class="form-control readonly-box" value="@Model.ShippingMethod" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ShippingStatus" class="form-label">Shipping Status</label>
+                        <select class="form-select" asp-for="ShippingStatus">
+                            <option value="Pending">Pending</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Delivered">Delivered</option>
+                            <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Courier" class="form-label">Courier</label>
+                        <select class="form-select" asp-for="Courier">
+                            <option value="">-- Select Courier --</option>
+                            <option value="SF Express">SF Express</option>
+                            <option value="J&T Express">J&T Express</option>
+                            <option value="Ninja Van">Ninja Van</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TrackingNumber" class="form-label">Tracking Number</label>
+                        <input asp-for="TrackingNumber" class="form-control" placeholder="Enter tracking number" />
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Remarks" class="form-label">Remarks (optional)</label>
+                        <textarea asp-for="Remarks" class="form-control" rows="3" placeholder="Any additional info..."></textarea>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-gold px-4">Update</button>
+                        <a asp-action="ManageOrders" asp-route-userEmail="@Model.UserEmail" class="btn btn-outline-secondary px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </div>

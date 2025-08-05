@@ -5,50 +5,95 @@
     ViewData["Title"] = "My Addresses";
 }
 
-<div class="container mt-4">
-    <h2>Saved Addresses</h2>
-    <hr />
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4"><i class="bi bi-geo-alt-fill me-2 text-secondary"></i>Saved Addresses</h2>
 
     @if (TempData["Deleted"] != null)
     {
-        <div class="alert alert-success">@TempData["Deleted"]</div>
+        <div class="alert alert-success rounded-pill px-4 py-2">@TempData["Deleted"]</div>
     }
 
     @if (Model != null && Model.Any())
     {
-        <table class="table table-bordered">
-            <thead class="table-light">
-                <tr>
-                    <th>Address</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Postal Code</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var addr in Model)
-                {
-                    <tr>
-                        <td>@addr.AddressLine</td>
-                        <td>@addr.City</td>
-                        <td>@addr.State</td>
-                        <td>@addr.PostalCode</td>
-                        <td>
-                            <form asp-action="DeleteAddress" method="post" style="display:inline">
-                                <input type="hidden" name="id" value="@addr.Id" />
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Postal Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var addr in Model)
+                        {
+                            <tr>
+                                <td>@addr.AddressLine</td>
+                                <td>@addr.City</td>
+                                <td>@addr.State</td>
+                                <td>@addr.PostalCode</td>
+                                <td>
+                                    <form asp-action="DeleteAddress" method="post" style="display:inline">
+                                        <input type="hidden" name="id" value="@addr.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
+                                            <i class="bi bi-trash-fill me-1"></i>Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     }
     else
     {
-        <div class="alert alert-info">No addresses found.</div>
+        <div class="alert alert-info rounded-pill px-4 py-2">
+            <i class="bi bi-info-circle-fill me-1"></i>No addresses found.
+        </div>
     }
 
-    <a class="btn btn-outline-primary mt-3" asp-action="Account">Back to Account</a>
+    <a class="btn btn-outline-secondary mt-4 rounded-pill" asp-action="Account">
+        <i class="bi bi-arrow-left-circle me-1"></i>Back to Account
+    </a>
 </div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>

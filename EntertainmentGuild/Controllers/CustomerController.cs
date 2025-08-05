@@ -33,14 +33,14 @@ namespace EntertainmentGuild.Controllers
                 Recommendations = await _context.RecommendedTopProducts.ToListAsync()
             };
 
-            // 随机展示 8 个商品
+           
             ViewBag.RandomProducts = await _context.Products
                 .Where(p => !string.IsNullOrEmpty(p.Name))
                 .OrderBy(p => Guid.NewGuid())
                 .Take(8)
                 .ToListAsync();
 
-            // 如果用户输入了搜索关键词
+           
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 var results = await _context.Products
@@ -266,7 +266,7 @@ namespace EntertainmentGuild.Controllers
 
             var userId = _userManager.GetUserId(User);
 
-            // 👇 先查有没有已存在相同商品在购物车
+        
             var existingCartItem = _context.Carts
                 .FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
 
@@ -313,6 +313,29 @@ namespace EntertainmentGuild.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Cart");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelOrder(int orderId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.Items)
+                .FirstOrDefaultAsync(o => o.Id == orderId);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            
+            _context.OrderItems.RemoveRange(order.OrderItems);
+
+          
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Order has been cancelled.";
+            return RedirectToAction("History");
         }
 
 
@@ -367,7 +390,7 @@ namespace EntertainmentGuild.Controllers
                 {
                     CartId = ci.Id,
                     Product = ci.Product,
-                    Quantity = ci.Quantity     // ✅ 加上数量
+                    Quantity = ci.Quantity     
                 }).ToList(),
                 Subtotal = subtotal,
                 Tax = tax
@@ -395,7 +418,7 @@ namespace EntertainmentGuild.Controllers
             }
 
             decimal subtotal = cartItems.Sum(c => c.Product.Price * c.Quantity);
-            decimal shippingFee = decimal.Parse(ShippingMethod); // 👈 注意这里接收的值就是金额数字 0 / 8 / 15
+            decimal shippingFee = decimal.Parse(ShippingMethod); 
             decimal tax = subtotal * 0.1m;
             decimal total = subtotal + shippingFee + tax;
 

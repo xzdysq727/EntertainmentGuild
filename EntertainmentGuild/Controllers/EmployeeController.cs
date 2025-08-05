@@ -21,7 +21,7 @@ namespace EntertainmentGuild.Controllers
             _userManager = userManager;
         }
 
-        // ✅ 商品库存管理
+
         [HttpGet]
         public async Task<IActionResult> Product(string? subCategory)
         {
@@ -39,7 +39,7 @@ namespace EntertainmentGuild.Controllers
             return View(products);
         }
 
-        // ✅ 修改商品数量
+ 
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity(int productId, int newQuantity)
         {
@@ -53,14 +53,14 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product");
         }
 
-        // ✅ 修改密码页面
+ 
         [HttpGet]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
-        // ✅ 提交修改密码请求
+  
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -87,7 +87,7 @@ namespace EntertainmentGuild.Controllers
             return View(model);
         }
 
-        // ✅ 查看订单
+    
         [HttpGet]
         public async Task<IActionResult> ManageOrders(string? userEmail)
         {
@@ -109,7 +109,7 @@ namespace EntertainmentGuild.Controllers
             return View(orders);
         }
 
-        // ✅ 进入编辑物流信息页面
+       
         [HttpGet]
         public async Task<IActionResult> EditShippingStatus(int id)
         {
@@ -119,7 +119,6 @@ namespace EntertainmentGuild.Controllers
             return View(order);
         }
 
-        // ✅ 提交物流修改
         [HttpPost]
         public async Task<IActionResult> EditShippingStatus(Order model)
         {

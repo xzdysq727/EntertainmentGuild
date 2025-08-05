@@ -2,8 +2,54 @@
     ViewData["Title"] = "Payment Successful";
 }
 
-<div class="text-center mt-5">
-    <h2>🎉 Payment Successful!</h2>
-    <p>Your order has been placed successfully.</p>
-    <a href="@Url.Action("Index", "Customer")" class="btn btn-primary mt-4">Back to Home</a>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-5 shadow-sm text-center border-0" style="max-width: 600px; background-color: #fdf7e4;">
+        <div class="mb-4">
+            <div style="font-size: 4rem;">🎉</div>
+            <h2 class="fw-bold mt-3 text-success">Payment Successful!</h2>
+        </div>
+        <p class="text-muted mb-4">Thank you for your purchase!<br />Your order has been placed successfully.</p>
+
+        <a href="@Url.Action("Index", "Customer")"
+           class="btn px-4 py-2 text-white fw-bold rounded-pill"
+           style="background-color: #b29b4b; transition: 0.3s;">
+            <i class="bi bi-house-door me-1"></i>Back to Home
+        </a>
+    </div>
 </div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>

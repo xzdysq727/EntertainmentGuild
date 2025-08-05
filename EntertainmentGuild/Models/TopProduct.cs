@@ -32,6 +32,6 @@ namespace EntertainmentGuild.Models.Admin
 
         [Required]
         [Display(Name = "Section Type")]
-        public string SectionType { get; set; } = "Carousel"; // "Carousel" or "Recommendation"
+        public string SectionType { get; set; } = "Carousel"; 
     }
 }

@@ -14,15 +14,63 @@
     };
 }
 
-<div class="container mt-4">
-    <h3 class="mb-4">Manage Top Products</h3>
+<style>
+    :root {
+        --cream: #fdf7e4;
+        --gold: #b29b4b;
+        --border-light: #e4dec7;
+        --dark-text: #2e2e2e;
+    }
 
-    <!-- ✅ 添加表单 -->
+    .card-header {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .top-form-section {
+        background-color: var(--cream);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .btn-gold {
+        background-color: var(--gold);
+        color: white;
+        font-weight: 500;
+        border-radius: 50px;
+        border: none;
+    }
+
+        .btn-gold:hover {
+            background-color: #a38d3a;
+        }
+
+    .product-table img {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    .table td, .table th {
+        vertical-align: middle;
+    }
+
+    .section-title {
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--dark-text);
+    }
+</style>
+
+<div class="container mt-4">
+    <h3 class="mb-4 section-title">Manage Top Products</h3>
+
+ 
     <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-gold text-white">
             <strong>Add Top Product</strong>
         </div>
-        <div class="card-body">
+        <div class="card-body top-form-section">
             <form asp-action="AddTopProductHandler" method="post" enctype="multipart/form-data" class="row g-3">
                 <div class="col-md-3">
                     <input name="Name" class="form-control" placeholder="Name" required />
@@ -58,13 +106,13 @@
                     <textarea name="Description" class="form-control" rows="2" placeholder="Description (optional)"></textarea>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-success w-100">Add</button>
+                    <button type="submit" class="btn btn-gold w-100">➕ Add</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- ✅ Carousel 商品列表 -->
+
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-info text-white d-flex justify-content-between">
             <strong>🖼️ Carousel Products (Max 4)</strong>
@@ -76,7 +124,7 @@
             }
             else
             {
-                <table class="table table-bordered align-middle">
+                <table class="table table-bordered table-hover product-table">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -111,7 +159,7 @@
                                 <td>
                                     <form asp-action="DeleteCarouselTopProduct" method="post">
                                         <input type="hidden" name="id" value="@item.Id" />
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -122,7 +170,7 @@
         </div>
     </div>
 
-    <!-- ✅ 推荐商品列表 -->
+  
     <div class="card shadow-sm">
         <div class="card-header bg-warning text-dark">
             <strong>⭐ Recommended Products (Max 2)</strong>
@@ -134,7 +182,7 @@
             }
             else
             {
-                <table class="table table-bordered align-middle">
+                <table class="table table-bordered table-hover product-table">
                     <thead class="table-light">
                         <tr>
                             <th>Image</th>
@@ -169,7 +217,7 @@
                                 <td>
                                     <form asp-action="DeleteRecommendedTopProduct" method="post">
                                         <input type="hidden" name="id" value="@item.Id" />
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                                     </form>
                                 </td>
                             </tr>

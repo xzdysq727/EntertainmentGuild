@@ -26,7 +26,7 @@ namespace EntertainmentGuild.Models
 
         [Required]
         [Display(Name = "Role")]
-        public string Role { get; set; }  // Customer / Employee / Admin
+        public string Role { get; set; }  
     }
 }
 

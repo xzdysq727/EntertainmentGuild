@@ -42,14 +42,14 @@ namespace EntertainmentGuild.Controllers
             return View("Login", new LoginViewModel { Role = "Admin" });
         }
 
-        // POST: Perform login
+        
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            // Check if user exists
+            
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
@@ -57,7 +57,7 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction(model.Role);
             }
 
-            // Check if user is disabled
+           
             var disabledUser = await _context.DisabledUsers.FindAsync(user.Id);
             if (disabledUser != null)
             {
@@ -65,14 +65,14 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction(model.Role);
             }
 
-            // Check role
+          
             if (!await _userManager.IsInRoleAsync(user, model.Role))
             {
                 TempData["LoginError"] = $"This user is not a {model.Role}.";
                 return RedirectToAction(model.Role);
             }
 
-            // Attempt login
+         
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
@@ -81,7 +81,7 @@ namespace EntertainmentGuild.Controllers
                     "Admin" => RedirectToAction("Product", "Admin"),
                     "Employee" => RedirectToAction("Product", "Employee"),
                     "Customer" => RedirectToAction("Index", "Customer"),
-                    _ => RedirectToAction("Customer") // fallback
+                    _ => RedirectToAction("Customer") 
                 };
             }
 

@@ -5,8 +5,8 @@
     ViewData["Title"] = "My Account";
 }
 
-<div class="container mt-4">
-    <h2>My Account</h2>
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4"><i class="bi bi-person-circle me-2" style="color:#b29b4b;"></i>My Account</h2>
     <hr />
 
     @if (TempData["AddressSaved"] != null)
@@ -18,73 +18,121 @@
         <div class="alert alert-success">@TempData["CardSaved"]</div>
     }
 
-    <div class="mb-4">
-        <p><strong>Email:</strong> @Model.Email</p>
-        <p><strong>User Name:</strong> @Model.UserName</p>
-    </div>
-
-    <!-- 地址部分 -->
-    <div class="mb-5">
-        <h5>Shipping Address</h5>
-        <form method="post" asp-action="AddAddress">
-            <div class="mb-3">
-                <label class="form-label">Address</label>
-                <input type="text" class="form-control" name="Address" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">City</label>
-                <input type="text" class="form-control" name="City" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">State</label>
-                <input type="text" class="form-control" name="State" required />
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Postal Code</label>
-                <input type="text" class="form-control" name="PostalCode" required />
-            </div>
-            <button type="submit" class="btn btn-primary">Save Address</button>
-            <a asp-action="ViewAddress" class="btn btn-secondary mt-3">View Saved Address</a>
-        </form>
-    </div>
-
-    <!-- 银行卡部分 -->
-    <div class="mb-5">
-        <h5>Add Bank Card</h5>
-        <form method="post" asp-action="AddCard">
-            <div class="mb-3">
-                <label class="form-label">Card Number</label>
-                <input type="text" class="form-control" name="CardNumber" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Expiration Month</label>
-                <input type="text" class="form-control" name="ExpiryMonth" placeholder="MM" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Expiration Year</label>
-                <input type="text" class="form-control" name="ExpiryYear" placeholder="YY" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Card Type</label>
-                <input type="text" class="form-control" name="CardType" required />
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Name on Card</label>
-                <input type="text" class="form-control" name="CardHolder" required />
-            </div>
-
-            <button type="submit" class="btn btn-primary">Save Card</button>
-            <a class="btn btn-secondary" asp-action="ViewCards">View Saved Cards</a>
-        </form>
+    <div class="card shadow-sm mb-4 border-0" style="background-color: #fdf7e4;">
+        <div class="card-body">
+            <h5 class="card-title"><i class="bi bi-envelope me-2 text-secondary"></i>Account Info</h5>
+            <p><strong>Email:</strong> @Model.Email</p>
+            <p><strong>User Name:</strong> @Model.UserName</p>
+        </div>
     </div>
 
 
-    <div>
-        <h5>Security</h5>
-        <a class="btn btn-outline-secondary" asp-action="ChangePassword">Change Password</a>
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3"><i class="bi bi-geo-alt-fill me-2 text-secondary"></i>Shipping Address</h5>
+            <form method="post" asp-action="AddAddress">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" name="Address" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="City" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">State</label>
+                        <input type="text" class="form-control" name="State" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" name="PostalCode" required />
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn text-white fw-bold" style="background-color: #b29b4b;">Save Address</button>
+                    <a asp-action="ViewAddress" class="btn btn-outline-secondary">View Saved Address</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3"><i class="bi bi-credit-card-2-front-fill me-2 text-secondary"></i>Add Bank Card</h5>
+            <form method="post" asp-action="AddCard">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Card Number</label>
+                        <input type="text" class="form-control" name="CardNumber" required />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Expiry Month</label>
+                        <input type="text" class="form-control" name="ExpiryMonth" placeholder="MM" required />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Expiry Year</label>
+                        <input type="text" class="form-control" name="ExpiryYear" placeholder="YY" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Card Type</label>
+                        <input type="text" class="form-control" name="CardType" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" name="CardHolder" required />
+                    </div>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <button type="submit" class="btn text-white fw-bold" style="background-color: #b29b4b;">Save Card</button>
+                    <a asp-action="ViewCards" class="btn btn-outline-secondary">View Saved Cards</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3"><i class="bi bi-shield-lock-fill me-2 text-secondary"></i>Security</h5>
+            <a class="btn btn-outline-secondary" asp-action="ChangePassword">Change Password</a>
+        </div>
     </div>
 </div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>

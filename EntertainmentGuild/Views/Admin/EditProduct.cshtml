@@ -6,72 +6,126 @@
     ViewData["Title"] = "Edit Product";
 }
 
-<div class="container mt-5">
-    <h3 class="mb-4">Edit Product</h3>
+<style>
+    body {
+        background-color: #ffffff;
+    }
 
-    <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
-        <input type="hidden" asp-for="Id" />
+    .card-custom {
+        background-color: #fff;
+        border-radius: 16px;
+        border: 1px solid #e6e0c4;
+        padding: 32px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
 
-        <div class="row">
-            <!-- 左侧图片预览 + 上传 -->
-            <div class="col-md-6">
-                <div class="mb-3">
+    .form-label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 4px;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 10px;
+    }
+
+    .btn-gold {
+        background-color: #b29b4b;
+        color: white;
+        border: none;
+        font-weight: 500;
+        padding: 10px 24px;
+        border-radius: 50px;
+        transition: background-color 0.3s ease;
+    }
+
+        .btn-gold:hover {
+            background-color: #9e853b;
+        }
+
+    .btn-outline-secondary {
+        border-radius: 50px;
+        font-weight: 500;
+    }
+
+    .img-thumbnail {
+        border-radius: 12px;
+        border: 1px solid #ddd;
+    }
+
+    h3 {
+        font-weight: bold;
+        color: #2e2e2e;
+    }
+</style>
+
+<div class="container mt-5 mb-5">
+    <div class="card-custom">
+        <h3 class="mb-4">
+            <i class="bi bi-pencil-square me-2 text-warning"></i>Edit Product
+        </h3>
+
+        <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                
+                <div class="col-md-6 mb-4">
                     <label class="form-label">Product Image</label>
-                    <div>
-                        <img id="imagePreview"
-                             src="/Image/Product/@Model.Id"
-                             class="img-thumbnail mb-2"
-                             style="max-width: 100%; height: auto;" />
+                    <img id="imagePreview"
+                         src="/Image/Product/@Model.Id"
+                         class="img-thumbnail mb-2"
+                         style="max-width: 100%; height: auto;" />
+                    <input type="file" name="ImageFile" class="form-control mt-2" onchange="previewImage(this)" accept="image/*" />
+                </div>
+
+               
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label asp-for="Name" class="form-label">Product Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
-                    <input type="file" name="ImageFile" class="form-control" onchange="previewImage(this)" accept="image/*" />
+
+                    <div class="mb-3">
+                        <label asp-for="Price" class="form-label">Price</label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Category" class="form-label">Category</label>
+                        <select asp-for="Category" class="form-select" id="categorySelect">
+                            <option value="">Select Category</option>
+                            <option>Clothing</option>
+                            <option>Pants</option>
+                            <option>Skirts</option>
+                            <option>Hats</option>
+                            <option>Shoes</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="SubCategory" class="form-label">SubCategory</label>
+                        <select asp-for="SubCategory" class="form-select" id="subCategorySelect">
+                            <option value="">Select SubCategory</option>
+                        </select>
+                    </div>
+
+                    <div class="mt-4 d-flex gap-3">
+                        <button type="submit" class="btn btn-gold">💾 Save Changes</button>
+                        <a asp-action="Product" class="btn btn-outline-secondary">↩ Cancel</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- 右侧表单字段 -->
-            <div class="col-md-6">
-                <div class="form-group mb-2">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-2">
-                    <label asp-for="Price"></label>
-                    <input asp-for="Price" class="form-control" />
-                    <span asp-validation-for="Price" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-2">
-                    <label asp-for="Description"></label>
-                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-                </div>
-
-                <div class="form-group mb-2">
-                    <label asp-for="Category">Category</label>
-                    <select asp-for="Category" class="form-select" id="categorySelect">
-                        <option value="">Select Category</option>
-                        <option>Clothing</option>
-                        <option>Pants</option>
-                        <option>Skirts</option>
-                        <option>Hats</option>
-                        <option>Shoes</option>
-                    </select>
-                </div>
-
-                <div class="form-group mb-2">
-                    <label asp-for="SubCategory">SubCategory</label>
-                    <select asp-for="SubCategory" class="form-select" id="subCategorySelect">
-                        <option value="">Select SubCategory</option>
-                    </select>
-                </div>
-
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-success">💾 Save Changes</button>
-                    <a asp-action="Product" class="btn btn-secondary ms-2">↩ Cancel</a>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
 @section Scripts {
@@ -108,7 +162,6 @@
             updateSubCategories("@Model.Category", "@Model.SubCategory");
         });
 
-        // ✅ 图片预览功能
         function previewImage(input) {
             const preview = document.getElementById('imagePreview');
             if (input.files && input.files[0]) {

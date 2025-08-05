@@ -1,47 +1,108 @@
 ﻿@model List<EntertainmentGuild.Models.CreditCard>
 @using EntertainmentGuild.Models
-@if (TempData["CardDeleted"] != null)
-{
-    <div class="alert alert-success">@TempData["CardDeleted"]</div>
-}
 
 @{
     ViewData["Title"] = "Your Saved Cards";
+    Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<h2>Your Saved Cards</h2>
+<div class="container mt-5 mb-5">
+    <h2 class="mb-4"><i class="bi bi-credit-card-fill me-2 text-secondary"></i>Your Saved Cards</h2>
 
-@if (!Model.Any())
-{
-    <p>No cards saved yet.</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Card Holder</th>
-                <th>Card Number</th>
-                <th>Expiry</th>
-                <th>Card Type</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var card in Model)
-            {
-                <tr>
-                    <td>@card.CardHolder</td>
-                    <td>**** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)</td>
-                    <td>@card.ExpiryMonth/@card.ExpiryYear</td>
-                    <td>@card.CardType</td>
-                    <td>
-                        <form method="post" asp-action="DeleteCard" asp-route-id="@card.Id" onsubmit="return confirm('Are you sure you want to delete this card?');">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
+    @if (TempData["CardDeleted"] != null)
+    {
+        <div class="alert alert-success rounded-pill px-4 py-2">@TempData["CardDeleted"]</div>
+    }
 
-    </table>
-}
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info rounded-pill px-4 py-2 d-inline-flex align-items-center">
+            <i class="bi bi-info-circle-fill me-2"></i>No cards saved yet.
+        </div>
+    }
+    else
+    {
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <table class="table align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Card Holder</th>
+                            <th>Card Number</th>
+                            <th>Expiry</th>
+                            <th>Card Type</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var card in Model)
+                        {
+                            <tr>
+                                <td>@card.CardHolder</td>
+                                <td>
+                                    <i class="bi bi-credit-card-2-back-fill text-muted me-1"></i>
+                                    **** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)
+                                </td>
+                                <td>@card.ExpiryMonth/@card.ExpiryYear</td>
+                                <td>@card.CardType</td>
+                                <td>
+                                    <form method="post"
+                                          asp-action="DeleteCard"
+                                          asp-route-id="@card.Id"
+                                          onsubmit="return confirm('Are you sure you want to delete this card?');"
+                                          style="display:inline;">
+                                        <button type="submit"
+                                                class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                                title="Delete this card">
+                                            <i class="bi bi-trash-fill me-1"></i>Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+    <a href="@Url.Action("Account", "Customer")" class="btn btn-outline-secondary mt-4 rounded-pill">
+        <i class="bi bi-arrow-left-circle me-1"></i>Back to Account
+    </a>
+</div>
+<footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
+                <p class="text-muted small">
+                    Your curated fashion corner.
+                    Blending style & soul with a touch of music.
+                </p>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Quick Links</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
+                    <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
+                    <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
+                    <li><a href="/Customer/Account" class="text-decoration-none text-dark">My Account</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <h6 class="fw-bold">Contact</h6>
+                <p class="small mb-1"><i class="bi bi-envelope me-1"></i> support@ecloset.com</p>
+                <p class="small">
+                    <i class="bi bi-music-note-beamed me-1"></i> Follow us on
+                    <a href="#" class="text-decoration-none text-dark">Instagram</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 border-top pt-3 small text-muted">
+            © @DateTime.Now.Year e-Closet. All rights reserved.
+        </div>
+    </div>
+</footer>
