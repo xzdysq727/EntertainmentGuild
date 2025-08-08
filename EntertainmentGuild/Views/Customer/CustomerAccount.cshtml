@@ -1,18 +1,24 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityUser
 
 @{
+    // Set layout and page title
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
     ViewData["Title"] = "My Account";
 }
 
 <div class="container mt-5 mb-5">
-    <h2 class="mb-4"><i class="bi bi-person-circle me-2" style="color:#b29b4b;"></i>My Account</h2>
+    <h2 class="mb-4">
+        <!-- Page heading with icon and custom color -->
+        <i class="bi bi-person-circle me-2" style="color:#b29b4b;"></i>My Account
+    </h2>
     <hr />
 
+    <!-- Show success alert if address saved successfully -->
     @if (TempData["AddressSaved"] != null)
     {
         <div class="alert alert-success">@TempData["AddressSaved"]</div>
     }
+    <!-- Show success alert if card saved successfully -->
     @if (TempData["CardSaved"] != null)
     {
         <div class="alert alert-success">@TempData["CardSaved"]</div>
@@ -20,18 +26,25 @@
 
     <div class="card shadow-sm mb-4 border-0" style="background-color: #fdf7e4;">
         <div class="card-body">
-            <h5 class="card-title"><i class="bi bi-envelope me-2 text-secondary"></i>Account Info</h5>
+            <h5 class="card-title">
+                <!-- Account info section with icon -->
+                <i class="bi bi-envelope me-2 text-secondary"></i>Account Info
+            </h5>
+            <!-- Display user's email and username -->
             <p><strong>Email:</strong> @Model.Email</p>
             <p><strong>User Name:</strong> @Model.UserName</p>
         </div>
     </div>
 
-
     <div class="card shadow-sm mb-4 border-0">
         <div class="card-body">
-            <h5 class="card-title mb-3"><i class="bi bi-geo-alt-fill me-2 text-secondary"></i>Shipping Address</h5>
+            <h5 class="card-title mb-3">
+                <!-- Shipping address section with icon -->
+                <i class="bi bi-geo-alt-fill me-2 text-secondary"></i>Shipping Address
+            </h5>
             <form method="post" asp-action="AddAddress">
                 <div class="row g-3">
+                    <!-- Input fields for address details, all required -->
                     <div class="col-md-6">
                         <label class="form-label">Address</label>
                         <input type="text" class="form-control" name="Address" required />
@@ -50,62 +63,78 @@
                     </div>
                 </div>
                 <div class="mt-4 d-flex gap-3">
+                    <!-- Submit button styled with brand color -->
                     <button type="submit" class="btn text-white fw-bold" style="background-color: #b29b4b;">Save Address</button>
+                    <!-- Link to view saved addresses -->
                     <a asp-action="ViewAddress" class="btn btn-outline-secondary">View Saved Address</a>
                 </div>
             </form>
         </div>
     </div>
 
-
     <div class="card shadow-sm mb-4 border-0">
         <div class="card-body">
-            <h5 class="card-title mb-3"><i class="bi bi-credit-card-2-front-fill me-2 text-secondary"></i>Add Bank Card</h5>
+            <h5 class="card-title mb-3">
+                <!-- Add bank card section with icon -->
+                <i class="bi bi-credit-card-2-front-fill me-2 text-secondary"></i>Add Bank Card
+            </h5>
             <form method="post" asp-action="AddCard">
                 <div class="row g-3">
+                    <!-- Card number input -->
                     <div class="col-md-6">
                         <label class="form-label">Card Number</label>
                         <input type="text" class="form-control" name="CardNumber" required />
                     </div>
+                    <!-- Expiry month input with placeholder -->
                     <div class="col-md-3">
                         <label class="form-label">Expiry Month</label>
                         <input type="text" class="form-control" name="ExpiryMonth" placeholder="MM" required />
                     </div>
+                    <!-- Expiry year input with placeholder -->
                     <div class="col-md-3">
                         <label class="form-label">Expiry Year</label>
                         <input type="text" class="form-control" name="ExpiryYear" placeholder="YY" required />
                     </div>
+                    <!-- Card type input -->
                     <div class="col-md-6">
                         <label class="form-label">Card Type</label>
                         <input type="text" class="form-control" name="CardType" required />
                     </div>
+                    <!-- Name on card input -->
                     <div class="col-md-6">
                         <label class="form-label">Name on Card</label>
                         <input type="text" class="form-control" name="CardHolder" required />
                     </div>
                 </div>
                 <div class="mt-4 d-flex gap-3">
+                    <!-- Submit button styled with brand color -->
                     <button type="submit" class="btn text-white fw-bold" style="background-color: #b29b4b;">Save Card</button>
+                    <!-- Link to view saved cards -->
                     <a asp-action="ViewCards" class="btn btn-outline-secondary">View Saved Cards</a>
                 </div>
             </form>
         </div>
     </div>
 
-
     <div class="card shadow-sm border-0">
         <div class="card-body">
-            <h5 class="card-title mb-3"><i class="bi bi-shield-lock-fill me-2 text-secondary"></i>Security</h5>
+            <h5 class="card-title mb-3">
+                <!-- Security section with icon -->
+                <i class="bi bi-shield-lock-fill me-2 text-secondary"></i>Security
+            </h5>
+            <!-- Link to change password page -->
             <a class="btn btn-outline-secondary" asp-action="ChangePassword">Change Password</a>
         </div>
     </div>
 </div>
+
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3">
                 <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
                 <p class="text-muted small">
+                    <!-- Footer branding message -->
                     Your curated fashion corner.
                     Blending style & soul with a touch of music.
                 </p>
@@ -114,6 +143,7 @@
             <div class="col-md-4 mb-3">
                 <h6 class="fw-bold">Quick Links</h6>
                 <ul class="list-unstyled small">
+                    <!-- Navigation links -->
                     <li><a href="/Customer/Index" class="text-decoration-none text-dark">Home</a></li>
                     <li><a href="/Customer/Product" class="text-decoration-none text-dark">Products</a></li>
                     <li><a href="/Customer/Cart" class="text-decoration-none text-dark">Cart</a></li>
@@ -132,6 +162,7 @@
         </div>
 
         <div class="text-center mt-4 border-top pt-3 small text-muted">
+            <!-- Dynamic copyright -->
             © @DateTime.Now.Year e-Closet. All rights reserved.
         </div>
     </div>

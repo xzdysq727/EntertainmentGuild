@@ -1,6 +1,6 @@
 ﻿@model ErrorViewModel
 @{
-    ViewData["Title"] = "Error";
+    ViewData["Title"] = "Error"; // Sets the page title to "Error"
 }
 
 <h1 class="text-danger">Error.</h1>
@@ -8,6 +8,7 @@
 
 @if (Model.ShowRequestId)
 {
+    // If a request ID is available, show it to help with diagnostics
     <p>
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
     </p>

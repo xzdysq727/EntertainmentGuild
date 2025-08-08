@@ -10,37 +10,38 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace EntertainmentGuild.Controllers
 {
-    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Customer")] // Restrict access to users with the Customer role only
     public class CustomerController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager; // Service to manage user identity
+        private readonly ApplicationDbContext _context; // Database context for data operations
 
+        // Constructor: inject UserManager and DbContext dependencies
         public CustomerController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
         {
             _userManager = userManager;
             _context = context;
         }
 
+        // Home page action: shows carousel, recommended products, random products, and supports keyword search
         public async Task<IActionResult> Index(string? keyword)
         {
             var vm = new TopProductsViewModel
             {
-                Carousel = await _context.CarouselTopProducts.ToListAsync(),
-                Recommendations = await _context.RecommendedTopProducts.ToListAsync()
+                Carousel = await _context.CarouselTopProducts.ToListAsync(), // Load carousel products
+                Recommendations = await _context.RecommendedTopProducts.ToListAsync() // Load recommended products
             };
 
-           
+            // Load 8 random products with non-empty names
             ViewBag.RandomProducts = await _context.Products
                 .Where(p => !string.IsNullOrEmpty(p.Name))
-                .OrderBy(p => Guid.NewGuid())
+                .OrderBy(p => Guid.NewGuid()) // Randomize order
                 .Take(8)
                 .ToListAsync();
 
-           
+            // If keyword is provided, perform search on Name, Description, or SubCategory
             if (!string.IsNullOrWhiteSpace(keyword))
             {
                 var results = await _context.Products
@@ -50,8 +51,8 @@ namespace EntertainmentGuild.Controllers
                         (!string.IsNullOrEmpty(p.SubCategory) && p.SubCategory.Contains(keyword)))
                     .ToListAsync();
 
-                ViewBag.Keyword = keyword;
-                ViewBag.SearchResults = results;
+                ViewBag.Keyword = keyword; // Pass keyword to view
+                ViewBag.SearchResults = results; // Pass search results to view
             }
 
             return View(vm);
@@ -64,9 +65,10 @@ namespace EntertainmentGuild.Controllers
 
             if (string.IsNullOrWhiteSpace(keyword))
             {
-                return View("Search", new List<Product>());
+                return View("Search", new List<Product>()); // Return empty list if no keyword
             }
 
+            // Use EF.Functions.Like for database LIKE search on multiple fields
             var results = _context.Products
                 .Where(p =>
                     EF.Functions.Like(p.Name, $"%{keyword}%") ||
@@ -80,6 +82,7 @@ namespace EntertainmentGuild.Controllers
         [HttpGet]
         public JsonResult GetRandomProducts()
         {
+            // Return 6 random product names as JSON
             var products = _context.Products
                 .Where(p => !string.IsNullOrEmpty(p.Name))
                 .OrderBy(p => Guid.NewGuid())
@@ -90,13 +93,12 @@ namespace EntertainmentGuild.Controllers
             return Json(products);
         }
 
-
-
         [HttpGet]
         public IActionResult Product(string? category, string? subCategory)
         {
-            var products = _context.Products.ToList(); 
+            var products = _context.Products.ToList(); // Load all products
 
+            // Filter by category if provided (case-insensitive, trimmed)
             if (!string.IsNullOrEmpty(category))
             {
                 products = products
@@ -105,6 +107,7 @@ namespace EntertainmentGuild.Controllers
                     .ToList();
             }
 
+            // Filter by sub-category if provided (case-insensitive, trimmed)
             if (!string.IsNullOrEmpty(subCategory))
             {
                 products = products
@@ -113,8 +116,8 @@ namespace EntertainmentGuild.Controllers
                     .ToList();
             }
 
-            ViewBag.SelectedCategory = category;
-            ViewBag.SelectedSubCategory = subCategory;
+            ViewBag.SelectedCategory = category; // Pass selected category to view
+            ViewBag.SelectedSubCategory = subCategory; // Pass selected subcategory to view
 
             return View(products);
         }
@@ -122,14 +125,14 @@ namespace EntertainmentGuild.Controllers
         [HttpGet]
         public async Task<IActionResult> Account()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User); // Get current logged-in user
             return View("CustomerAccount", user);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddAddress(string Address, string City, string State, string PostalCode)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.GetUserAsync(User); // Get current user
             var address = new Address
             {
                 UserId = user.Id,
@@ -138,9 +141,9 @@ namespace EntertainmentGuild.Controllers
                 State = State,
                 PostalCode = PostalCode
             };
-            _context.Addresses.Add(address);
+            _context.Addresses.Add(address); // Add new address to database
             await _context.SaveChangesAsync();
-            TempData["AddressSaved"] = "Address saved successfully.";
+            TempData["AddressSaved"] = "Address saved successfully."; // Temporary message
             return View("CustomerAccount", user);
         }
 
@@ -148,7 +151,7 @@ namespace EntertainmentGuild.Controllers
         public async Task<IActionResult> ViewAddress()
         {
             var user = await _userManager.GetUserAsync(User);
-            var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).ToListAsync();
+            var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).ToListAsync(); // Get user's addresses
             return View("ViewAddress", addresses);
         }
 
@@ -156,10 +159,10 @@ namespace EntertainmentGuild.Controllers
         public async Task<IActionResult> DeleteAddress(int id)
         {
             var user = await _userManager.GetUserAsync(User);
-            var address = await _context.Addresses.FirstOrDefaultAsync(a => a.Id == id && a.UserId == user.Id);
+            var address = await _context.Addresses.FirstOrDefaultAsync(a => a.Id == id && a.UserId == user.Id); // Find address by id and user
             if (address != null)
             {
-                _context.Addresses.Remove(address);
+                _context.Addresses.Remove(address); // Remove address
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction("ViewAddress");
@@ -171,8 +174,8 @@ namespace EntertainmentGuild.Controllers
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return RedirectToAction("Login", "Account");
 
-            int month = int.Parse(ExpiryMonth);
-            int year = int.Parse(ExpiryYear);
+            int month = int.Parse(ExpiryMonth); // Parse expiry month
+            int year = int.Parse(ExpiryYear); // Parse expiry year
 
             var card = new CreditCard
             {
@@ -184,7 +187,7 @@ namespace EntertainmentGuild.Controllers
                 CardType = CardType
             };
 
-            _context.CreditCards.Add(card);
+            _context.CreditCards.Add(card); // Add new credit card
             await _context.SaveChangesAsync();
 
             TempData["CardSaved"] = "Card added successfully.";
@@ -198,10 +201,9 @@ namespace EntertainmentGuild.Controllers
             if (user == null) return RedirectToAction("Login", "Account");
 
             var card = await _context.CreditCards.FirstOrDefaultAsync(c => c.Id == id && c.UserId == user.Id);
-
             if (card != null)
             {
-                _context.CreditCards.Remove(card);
+                _context.CreditCards.Remove(card); // Remove card if found
                 await _context.SaveChangesAsync();
                 TempData["CardDeleted"] = "Card deleted successfully.";
             }
@@ -215,24 +217,28 @@ namespace EntertainmentGuild.Controllers
             var user = await _userManager.GetUserAsync(User);
             var cards = await _context.CreditCards
                                       .Where(c => c.UserId == user.Id)
-                                      .ToListAsync();
+                                      .ToListAsync(); // Get all user's cards
             return View(cards);
         }
 
         [HttpGet]
-        public IActionResult ChangePassword() => View();
+        public IActionResult ChangePassword() => View(); // Show change password form
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
+
             var user = await _userManager.GetUserAsync(User);
             var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
             if (result.Succeeded)
             {
                 TempData["SuccessMessage"] = "Password changed successfully!";
                 return RedirectToAction("ChangePassword");
             }
+
+            // Add errors to model state to display on form
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
@@ -243,7 +249,7 @@ namespace EntertainmentGuild.Controllers
         [HttpGet]
         public IActionResult ProductDetails(int id)
         {
-            var product = _context.Products.FirstOrDefault(p => p.Id == id);
+            var product = _context.Products.FirstOrDefault(p => p.Id == id); // Find product by id
             if (product == null) return NotFound();
             return View(product);
         }
@@ -264,15 +270,15 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction("ProductDetails", new { id = productId });
             }
 
-            var userId = _userManager.GetUserId(User);
+            var userId = _userManager.GetUserId(User); // Get current user ID
 
-        
+            // Check if the cart item already exists for this user and product
             var existingCartItem = _context.Carts
                 .FirstOrDefault(c => c.ProductId == productId && c.UserId == userId);
 
             if (existingCartItem != null)
             {
-                existingCartItem.Quantity += quantity;
+                existingCartItem.Quantity += quantity; // Update quantity if exists
                 _context.Carts.Update(existingCartItem);
             }
             else
@@ -283,7 +289,7 @@ namespace EntertainmentGuild.Controllers
                     Quantity = quantity,
                     UserId = userId
                 };
-                _context.Carts.Add(cartItem);
+                _context.Carts.Add(cartItem); // Add new cart item
             }
 
             _context.SaveChanges();
@@ -292,13 +298,12 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("ProductDetails", new { id = productId });
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Cart()
         {
             var user = await _userManager.GetUserAsync(User);
             var cartItems = await _context.Carts.Include(c => c.Product).Where(c => c.UserId == user.Id).ToListAsync();
-            return View(cartItems);
+            return View(cartItems); // Show all cart items for current user
         }
 
         [HttpPost]
@@ -309,11 +314,12 @@ namespace EntertainmentGuild.Controllers
                 .Where(c => selectedCartIds.Contains(c.Id) && c.UserId == user.Id)
                 .ToListAsync();
 
-            _context.Carts.RemoveRange(itemsToDelete);
+            _context.Carts.RemoveRange(itemsToDelete); // Remove selected cart items
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Cart");
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CancelOrder(int orderId)
@@ -327,17 +333,13 @@ namespace EntertainmentGuild.Controllers
                 return NotFound();
             }
 
-            
-            _context.OrderItems.RemoveRange(order.OrderItems);
-
-          
-            _context.Orders.Remove(order);
+            _context.OrderItems.RemoveRange(order.OrderItems); // Remove all order items
+            _context.Orders.Remove(order); // Remove the order itself
             await _context.SaveChangesAsync();
 
             TempData["SuccessMessage"] = "Order has been cancelled.";
             return RedirectToAction("History");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Checkout()
@@ -346,8 +348,9 @@ namespace EntertainmentGuild.Controllers
             var addresses = await _context.Addresses.Where(a => a.UserId == user.Id).ToListAsync();
             var cartItems = await _context.Carts.Include(c => c.Product).Where(c => c.UserId == user.Id).ToListAsync();
             var cards = await _context.CreditCards.Where(c => c.UserId == user.Id).ToListAsync();
-            decimal subtotal = cartItems.Sum(c => c.Product.Price);
-            decimal tax = subtotal * 0.08m;
+
+            decimal subtotal = cartItems.Sum(c => c.Product.Price); // Calculate subtotal from cart products
+            decimal tax = subtotal * 0.08m; // Calculate 8% tax
 
             var vm = new CheckoutViewModel
             {
@@ -379,7 +382,7 @@ namespace EntertainmentGuild.Controllers
             var cards = await _context.CreditCards.Where(c => c.UserId == user.Id).ToListAsync();
 
             decimal subtotal = selectedCartItems.Sum(ci => (ci.Product.Price * ci.Quantity));
-            decimal tax = subtotal * 0.1m;
+            decimal tax = subtotal * 0.1m; // Calculate 10% tax on selected items
 
             var vm = new CheckoutViewModel
             {
@@ -390,7 +393,7 @@ namespace EntertainmentGuild.Controllers
                 {
                     CartId = ci.Id,
                     Product = ci.Product,
-                    Quantity = ci.Quantity     
+                    Quantity = ci.Quantity
                 }).ToList(),
                 Subtotal = subtotal,
                 Tax = tax
@@ -398,7 +401,6 @@ namespace EntertainmentGuild.Controllers
 
             return View("Checkout", vm);
         }
-
 
         [HttpPost]
         public async Task<IActionResult> PayNow(List<int> SelectedCartIds, int AddressId, int CardId, string ShippingMethod)
@@ -418,7 +420,7 @@ namespace EntertainmentGuild.Controllers
             }
 
             decimal subtotal = cartItems.Sum(c => c.Product.Price * c.Quantity);
-            decimal shippingFee = decimal.Parse(ShippingMethod); 
+            decimal shippingFee = decimal.Parse(ShippingMethod); // Shipping cost as decimal
             decimal tax = subtotal * 0.1m;
             decimal total = subtotal + shippingFee + tax;
 
@@ -441,19 +443,17 @@ namespace EntertainmentGuild.Controllers
                 }).ToList()
             };
 
-            _context.Orders.Add(order);
-            _context.Carts.RemoveRange(cartItems);
+            _context.Orders.Add(order); // Add new order
+            _context.Carts.RemoveRange(cartItems); // Clear purchased items from cart
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Success");
         }
 
-
-
         [HttpGet]
         public IActionResult Success()
         {
-            return View();
+            return View(); // Show order success page
         }
 
         [HttpGet]
@@ -467,21 +467,21 @@ namespace EntertainmentGuild.Controllers
                 .OrderByDescending(o => o.Id)
                 .ToListAsync();
 
-            return View("History", orders);
+            return View("History", orders); // Show order history for current user
         }
 
         [HttpGet]
         public async Task<IActionResult> ViewShipping(int id)
         {
             var order = await _context.Orders
-                .Include(o => o.Items)  
+                .Include(o => o.Items)
                     .ThenInclude(i => i.Product)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null)
                 return NotFound();
 
-            return View(order);  
+            return View(order);  // Show shipping details for order
         }
 
     }

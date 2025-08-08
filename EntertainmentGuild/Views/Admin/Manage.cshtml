@@ -3,14 +3,16 @@
 @using EntertainmentGuild.Models.Admin
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Manage Users";
-    var role = ViewBag.Role as string ?? "Customer";
-    var disabledList = ViewBag.DisabledUsers as List<DisabledUser> ?? new();
-    bool isAdminView = role == "Admin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";  // Use admin layout
+    ViewData["Title"] = "Manage Users";              // Page title
+
+    var role = ViewBag.Role as string ?? "Customer"; // Current user role filter
+    var disabledList = ViewBag.DisabledUsers as List<DisabledUser> ?? new(); // Disabled users list
+    bool isAdminView = role == "Admin";               // Flag to check if viewing Admins
 }
 
 <style>
+    /* Color variables */
     :root {
         --cream: #fdf7e4;
         --gold: #b29b4b;
@@ -18,6 +20,7 @@
         --border-light: #e4dec7;
     }
 
+    /* Card style */
     .card-custom {
         background-color: #fff;
         border-radius: 16px;
@@ -26,12 +29,14 @@
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
     }
 
+    /* Card header style */
     .card-header {
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
         font-weight: 600;
     }
 
+    /* Active tab style */
     .list-group-item.active {
         background-color: var(--gold) !important;
         border-color: var(--gold) !important;
@@ -39,6 +44,7 @@
         font-weight: 600;
     }
 
+    /* Gold button style */
     .btn-gold {
         background-color: var(--gold);
         color: white;
@@ -47,14 +53,16 @@
         border: none;
     }
 
-        .btn-gold:hover {
-            background-color: #a58d3f;
-        }
+    .btn-gold:hover {
+        background-color: #a58d3f;
+    }
 
+    /* Table cell vertical alignment */
     .table th, .table td {
         vertical-align: middle;
     }
 
+    /* Modal styling */
     .modal-content {
         border-radius: 16px;
     }
@@ -69,10 +77,12 @@
 </style>
 
 <div class="row mt-4">
- 
+    <!-- Sidebar: Role filter and Add User button -->
     <div class="col-md-3">
+        <!-- Button to open Add User modal -->
         <button class="btn btn-gold w-100 mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">➕ Add User</button>
 
+        <!-- Role filter links -->
         <div class="list-group">
             <a asp-action="Manage" asp-route-role="Customer"
                class="list-group-item list-group-item-action @(role == "Customer" ? "active" : "")">
@@ -89,8 +99,9 @@
         </div>
     </div>
 
- 
+    <!-- Main content: User lists -->
     <div class="col-md-9">
+        <!-- Active users list -->
         <div class="card-custom mb-4">
             <div class="card-header bg-light">
                 <strong>@role - Active Users</strong>
@@ -98,10 +109,12 @@
             <div class="card-body">
                 @if (!Model.Any())
                 {
+                    <!-- Show message if no users -->
                     <p class="text-muted">No active @role accounts found.</p>
                 }
                 else
                 {
+                    <!-- Table of active users -->
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
@@ -110,7 +123,7 @@
                                 <th>User ID</th>
                                 @if (!isAdminView)
                                 {
-                                    <th>Action</th>
+                                    <th>Action</th>  <!-- Show Disable button if not Admin view -->
                                 }
                             </tr>
                         </thead>
@@ -124,6 +137,7 @@
                                     @if (!isAdminView)
                                     {
                                         <td>
+                                            <!-- Form to disable user -->
                                             <form asp-action="ToggleDisable" method="post" class="d-inline">
                                                 <input type="hidden" name="userId" value="@user.Id" />
                                                 <button class="btn btn-sm btn-danger rounded-pill">Disable</button>
@@ -138,7 +152,7 @@
             </div>
         </div>
 
-    
+        <!-- Disabled users list, only if not viewing Admins -->
         @if (!isAdminView)
         {
             <div class="card-custom">
@@ -148,17 +162,19 @@
                 <div class="card-body">
                     @if (!disabledList.Any())
                     {
+                        <!-- Show message if no disabled users -->
                         <p class="text-muted">No disabled @role users.</p>
                     }
                     else
                     {
+                        <!-- Table of disabled users -->
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
                                     <th>Email</th>
                                     <th>Username</th>
                                     <th>User ID</th>
-                                    <th>Action</th>
+                                    <th>Action</th> <!-- Enable button -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -169,6 +185,7 @@
                                         <td>@user.UserName</td>
                                         <td>@user.UserId</td>
                                         <td>
+                                            <!-- Form to enable user -->
                                             <form asp-action="ToggleDisable" method="post" class="d-inline">
                                                 <input type="hidden" name="userId" value="@user.UserId" />
                                                 <button class="btn btn-sm btn-success rounded-pill">Enable</button>
@@ -185,7 +202,7 @@
     </div>
 </div>
 
-
+<!-- Modal to add a new user -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -195,6 +212,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Role selection -->
                     <div class="mb-3">
                         <label for="role" class="form-label">Role</label>
                         <select class="form-select" name="role" required>
@@ -203,16 +221,19 @@
                             <option value="Admin">Admin</option>
                         </select>
                     </div>
+                    <!-- Email input -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input type="email" name="email" class="form-control" required />
                     </div>
+                    <!-- Password input -->
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" required />
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <!-- Submit and cancel buttons -->
                     <button type="submit" class="btn btn-gold">Add User</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>

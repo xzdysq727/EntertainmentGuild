@@ -2,12 +2,13 @@
 @model IEnumerable<Product>
 
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Manage Products";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";  // Use admin layout
+    ViewData["Title"] = "Manage Products";          // Page title
 
-    var category = ViewBag.SelectedCategory as string;
-    var subCategory = ViewBag.SelectedSubCategory as string;
+    var category = ViewBag.SelectedCategory as string;      // Selected category filter
+    var subCategory = ViewBag.SelectedSubCategory as string; // Selected subcategory filter
 
+    // Map of categories to their subcategories for filtering and form dropdowns
     var subCategoryMap = new Dictionary<string, List<string>> {
         { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
         { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
@@ -18,6 +19,7 @@
 }
 
 <style>
+    /* Color variables */
     :root {
         --cream: #fdf7e4;
         --gold: #b29b4b;
@@ -25,12 +27,17 @@
         --border-light: #e4dec7;
     }
 
+    /* Category card styling */
     .category-card {
         border-radius: 12px;
         border: 1px solid var(--border-light);
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        background-color: #fdf7e4;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
+        /* Category card header */
         .category-card .card-header {
             background-color: var(--gold);
             color: white;
@@ -39,16 +46,26 @@
             border-top-right-radius: 12px;
         }
 
-        .category-card a {
-            text-decoration: none;
-            color: var(--text-dark);
+    /* Category links */
+    .category-link {
+        display: block;
+        padding: 4px 8px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 0.95rem;
+        transition: background-color 0.2s ease;
+    }
+
+        /* Hover and active states for category links */
+        .category-link:hover,
+        .category-link.active {
+            background-color: var(--gold);
+            color: white !important;
+            font-weight: 500;
         }
 
-            .category-card a:hover {
-                color: var(--gold);
-                font-weight: 500;
-            }
-
+    /* Form section styling */
     .form-section {
         background-color: var(--cream);
         border: 1px solid var(--border-light);
@@ -56,6 +73,7 @@
         padding: 16px;
     }
 
+    /* Gold button styling */
     .btn-gold {
         background-color: var(--gold);
         color: white;
@@ -68,49 +86,24 @@
             background-color: #a58d3f;
         }
 
+    /* Product images styling */
     .product-table img {
         border-radius: 6px;
         border: 1px solid #ccc;
     }
 
+    /* Table cell vertical alignment */
     .table th, .table td {
         vertical-align: middle;
     }
-
-    <style >
-    .category-card {
-        background-color: #fdf7e4;
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
-    .category-link {
-        display: block;
-        padding: 4px 8px;
-        border-radius: 6px;
-        text-decoration: none;
-        color: #2e2e2e;
-        font-size: 0.95rem;
-        transition: background-color 0.2s ease;
-    }
-
-        .category-link:hover,
-        .category-link.active {
-            background-color: #b29b4b;
-            color: white !important;
-            font-weight: 500;
-        }
-</style>
-
 </style>
 
 <div class="container-fluid mt-4">
     <div class="row">
-     
+        <!-- Left: Category filter panel -->
         <div class="col-md-3 mb-4">
             <div class="card category-card shadow-sm">
-                <div class="card-header bg-white border-bottom fw-bold" style="color: #b29b4b;">
+                <div class="card-header bg-white border-bottom fw-bold" style="color: var(--gold);">
                     Categories
                 </div>
                 <div class="card-body">
@@ -124,6 +117,7 @@
                                     {
                                         var isActive = sub == subCategory ? "active" : "";
                                         <li>
+                                            <!-- Link to filter by category and subcategory -->
                                             <a href="@Url.Action("Product", "Admin", new { category = kv.Key, subCategory = sub })"
                                                class="category-link @isActive">
                                                 @sub
@@ -135,6 +129,7 @@
                         }
                     </ul>
                     <hr />
+                    <!-- Show all products link -->
                     <a href="@Url.Action("Product", "Admin")" class="btn btn-outline-secondary w-100 btn-sm rounded-pill">
                         Show All
                     </a>
@@ -142,16 +137,15 @@
             </div>
         </div>
 
-
-
-       
+        <!-- Right: Products list and add product form -->
         <div class="col-md-9">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4>Products List</h4>
+                <!-- Link to edit top products -->
                 <a href="@Url.Action("TopProducts", "Admin")" class="btn btn-sm btn-outline-secondary rounded-pill">🎯 Edit Top Products</a>
             </div>
 
-          
+            <!-- Add product form -->
             <form asp-action="AddProduct" method="post" enctype="multipart/form-data" class="row g-3 form-section mb-4">
                 <div class="col-md-3">
                     <input name="Name" class="form-control" placeholder="Name" required />
@@ -186,10 +180,12 @@
 
             @if (!Model.Any())
             {
+                <!-- Message if no products -->
                 <p class="text-muted">No products found.</p>
             }
             else
             {
+                <!-- Products table -->
                 <table class="table table-hover table-bordered product-table">
                     <thead class="table-light">
                         <tr>
@@ -209,6 +205,7 @@
                                 <td>
                                     @if (item.ImageData != null)
                                     {
+                                        <!-- Show product image -->
                                         <img src="@Url.Action("ProductImage", "Image", new { id = item.Id })" width="60" />
                                     }
                                     else
@@ -222,7 +219,9 @@
                                 <td>@item.SubCategory</td>
                                 <td>@item.Description</td>
                                 <td>
+                                    <!-- Edit product button -->
                                     <a asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-sm btn-gold">Edit</a>
+                                    <!-- Delete product form -->
                                     <form asp-action="DeleteProduct" method="post" class="d-inline">
                                         <input type="hidden" name="id" value="@item.Id" />
                                         <button class="btn btn-sm btn-outline-danger">Delete</button>
@@ -239,6 +238,7 @@
 
 @section Scripts {
     <script>
+        // Map of categories to subcategories for the add product form dropdowns
         const subCategoryMap = {
             "Clothing": ["Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit"],
             "Pants": ["Long Pants", "Shorts", "Cargo Pants", "Dress Pants"],
@@ -250,6 +250,7 @@
         const categorySelect = document.getElementById('categorySelect');
         const subCategorySelect = document.getElementById('subCategorySelect');
 
+        // Update subcategory options based on selected category
         categorySelect.addEventListener('change', function () {
             const selected = categorySelect.value;
             const subs = subCategoryMap[selected] || [];

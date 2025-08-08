@@ -67,25 +67,34 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Custom styled card container -->
             <div class="card-custom">
+                <!-- Heading with icon and order ID -->
                 <h4 class="mb-4 section-title">
                     <i class="bi bi-truck me-2 text-warning"></i>Edit Shipping - Order #@Model.Id
                 </h4>
 
+                <!-- Display success message after update -->
                 @if (TempData["Success"] != null)
                 {
                     <div class="alert alert-success">@TempData["Success"]</div>
                 }
 
+                <!-- Form to edit shipping status and details -->
                 <form asp-action="EditShippingStatus" method="post">
+                    <!-- Hidden input for Order ID -->
                     <input type="hidden" asp-for="Id" />
+
+                    <!-- Hidden input for Shipping Method (readonly) -->
                     <input type="hidden" asp-for="ShippingMethod" />
 
+                    <!-- Display shipping method selected by customer (readonly) -->
                     <div class="mb-3">
                         <label class="form-label">Shipping Method (Customer Selected)</label>
                         <input type="text" class="form-control readonly-box" value="@Model.ShippingMethod" readonly />
                     </div>
 
+                    <!-- Dropdown to select/update shipping status -->
                     <div class="mb-3">
                         <label asp-for="ShippingStatus" class="form-label">Shipping Status</label>
                         <select class="form-select" asp-for="ShippingStatus">
@@ -96,6 +105,7 @@
                         </select>
                     </div>
 
+                    <!-- Dropdown to select courier -->
                     <div class="mb-3">
                         <label asp-for="Courier" class="form-label">Courier</label>
                         <select class="form-select" asp-for="Courier">
@@ -106,16 +116,19 @@
                         </select>
                     </div>
 
+                    <!-- Input for tracking number -->
                     <div class="mb-3">
                         <label asp-for="TrackingNumber" class="form-label">Tracking Number</label>
                         <input asp-for="TrackingNumber" class="form-control" placeholder="Enter tracking number" />
                     </div>
 
+                    <!-- Optional remarks textarea -->
                     <div class="mb-4">
                         <label asp-for="Remarks" class="form-label">Remarks (optional)</label>
                         <textarea asp-for="Remarks" class="form-control" rows="3" placeholder="Any additional info..."></textarea>
                     </div>
 
+                    <!-- Buttons for submitting or cancelling the form -->
                     <div class="d-flex gap-3">
                         <button type="submit" class="btn btn-gold px-4">Update</button>
                         <a asp-action="ManageOrders" asp-route-userEmail="@Model.UserEmail" class="btn btn-outline-secondary px-4">Cancel</a>

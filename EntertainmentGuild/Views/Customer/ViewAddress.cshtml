@@ -1,18 +1,27 @@
-﻿@model List<EntertainmentGuild.Models.Address>
+﻿<!--
+    My Addresses Page
+    Displays a list of saved addresses for the user with options to delete.
+-->
+@model List<EntertainmentGuild.Models.Address>
 
 @{
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+    <!-- Use the customer layout -->
     ViewData["Title"] = "My Addresses";
+
+    <!-- Set page title -->
 }
 
 <div class="container mt-5 mb-5">
     <h2 class="mb-4"><i class="bi bi-geo-alt-fill me-2 text-secondary"></i>Saved Addresses</h2>
 
+    <!-- Show success message if an address was deleted -->
     @if (TempData["Deleted"] != null)
     {
         <div class="alert alert-success rounded-pill px-4 py-2">@TempData["Deleted"]</div>
     }
 
+    <!-- Check if the user has any saved addresses -->
     @if (Model != null && Model.Any())
     {
         <div class="card shadow-sm border-0">
@@ -28,6 +37,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Loop through each address and display it in a row -->
                         @foreach (var addr in Model)
                         {
                             <tr>
@@ -36,6 +46,7 @@
                                 <td>@addr.State</td>
                                 <td>@addr.PostalCode</td>
                                 <td>
+                                    <!-- Form to delete this address -->
                                     <form asp-action="DeleteAddress" method="post" style="display:inline">
                                         <input type="hidden" name="id" value="@addr.Id" />
                                         <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill">
@@ -52,15 +63,19 @@
     }
     else
     {
+        <!-- Show info alert if no addresses are found -->
         <div class="alert alert-info rounded-pill px-4 py-2">
             <i class="bi bi-info-circle-fill me-1"></i>No addresses found.
         </div>
     }
 
+    <!-- Button to go back to the Account page -->
     <a class="btn btn-outline-secondary mt-4 rounded-pill" asp-action="Account">
         <i class="bi bi-arrow-left-circle me-1"></i>Back to Account
     </a>
 </div>
+
+<!-- Footer section -->
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">

@@ -2,12 +2,17 @@
 @model IEnumerable<Product>
 
 @{
+    // Use employee layout
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+
+    // Set page title
     ViewData["Title"] = "Product Management";
 
+    // Get selected category and subcategory from ViewBag (used for filtering/highlighting)
     var selectedCategory = ViewBag.SelectedCategory as string;
     var selectedSubCategory = ViewBag.SelectedSubCategory as string;
 
+    // Define the mapping of main categories to their subcategories
     var subCategoryMap = new Dictionary<string, List<string>> {
         { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
         { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
@@ -89,6 +94,7 @@
 
 <div class="container-fluid mt-4">
     <div class="row">
+        <!-- Sidebar: Categories and subcategories navigation -->
         <div class="col-md-3 mb-4">
             <div class="card category-card shadow-sm">
                 <div class="card-header bg-white border-bottom fw-bold" style="color: #b29b4b;">
@@ -96,15 +102,20 @@
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
+                        <!-- Loop through each main category -->
                         @foreach (var kv in subCategoryMap)
                         {
                             <li class="mb-2">
+                                <!-- Display main category name -->
                                 <strong class="text-dark">@kv.Key</strong>
                                 <ul class="list-unstyled ms-3 mt-1">
+                                    <!-- Loop through subcategories -->
                                     @foreach (var sub in kv.Value)
                                     {
+                                        // Determine if this subcategory is currently selected to highlight link
                                         var isActive = sub == selectedSubCategory ? "active" : "";
                                         <li>
+                                            <!-- Link to filter products by subcategory -->
                                             <a href="@Url.Action("Product", "Employee", new { subCategory = sub })"
                                                class="category-link @isActive">
                                                 @sub
@@ -116,6 +127,7 @@
                         }
                     </ul>
                     <hr />
+                    <!-- Button to show all products without filtering -->
                     <a href="@Url.Action("Product", "Employee")" class="btn btn-outline-secondary w-100 btn-sm rounded-pill">
                         Show All
                     </a>
@@ -123,11 +135,13 @@
             </div>
         </div>
 
+        <!-- Main content: Product cards -->
         <div class="col-md-9">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 style="color: #2e2e2e;">Manage Products</h4>
             </div>
 
+            @* If no products are found for the selected category/subcategory *@
             @if (!Model.Any())
             {
                 <div class="alert alert-warning text-center">No products found for this category.</div>
@@ -135,10 +149,12 @@
             else
             {
                 <div class="row">
+                    <!-- Loop through each product to show product card -->
                     @foreach (var item in Model)
                     {
                         <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                             <div class="card card-product h-100">
+                                @* Show product image if available, else placeholder *@
                                 @if (item.ImageData != null)
                                 {
                                     <img src="data:image/png;base64,@Convert.ToBase64String(item.ImageData)" class="card-img-top" />
@@ -150,18 +166,25 @@
 
                                 <div class="card-body d-flex flex-column justify-content-between">
                                     <div>
+                                        <!-- Product name -->
                                         <h6 class="card-title text-truncate">@item.Name</h6>
+                                        <!-- Product description -->
                                         <p class="card-text text-muted text-truncate">@item.Description</p>
+                                        <!-- Product price styled -->
                                         <p class="card-text fw-bold" style="color: #b29b4b;">¥@item.Price.ToString("F2")</p>
                                     </div>
+
+                                    <!-- Form to update product quantity -->
                                     <form asp-action="UpdateQuantity" asp-controller="Employee" method="post">
                                         <input type="hidden" name="productId" value="@item.Id" />
                                         <label for="qty-@item.Id" class="form-label">Quantity</label>
                                         <div class="input-group input-group-sm mb-2">
+                                            <!-- Input number for new quantity with min/max validation -->
                                             <input type="number" id="qty-@item.Id" name="newQuantity" class="form-control"
                                                    min="0" max="999" value="@item.Quantity" />
                                         </div>
                                         <div class="d-grid">
+                                            <!-- Save button -->
                                             <button type="submit" class="btn btn-save">Save</button>
                                         </div>
                                     </form>

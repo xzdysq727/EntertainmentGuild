@@ -1,12 +1,16 @@
 ﻿@model List<EntertainmentGuild.Models.Product>
 @{
+    // Set layout and page title
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
     ViewData["Title"] = "Search Results";
+
+    // Get the search keyword from ViewBag or default to empty string
     var keyword = ViewBag.Keyword as string ?? "";
 }
 
 <div class="container mt-5 mb-5">
-   
+
+    <!-- Search form with autocomplete suggestion popup -->
     <form asp-action="Search" method="get" class="position-relative mb-4">
         <input type="text"
                name="keyword"
@@ -17,6 +21,7 @@
                autocomplete="off"
                style="border: 1px solid #ccc;" />
 
+        <!-- Suggestion popup, initially hidden -->
         <div id="suggestionPopup"
              class="bg-white border rounded shadow-sm position-absolute w-100 mt-1"
              style="display: none; z-index: 2000;">
@@ -24,8 +29,10 @@
         </div>
     </form>
 
+    <!-- Display the current search keyword -->
     <h5>Search Results for "<strong>@keyword</strong>"</h5>
 
+    @* Show message if no products found *@
     @if (!Model.Any())
     {
         <p class="text-muted">No products found.</p>
@@ -33,10 +40,12 @@
     else
     {
         <div class="row mt-4">
+            @* Display each product in a card *@
             @foreach (var product in Model)
             {
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                     <div class="card h-100 border-0 shadow-sm rounded-3 product-card">
+                        @* Show product image or placeholder if none *@
                         @if (product.ImageData != null)
                         {
                             <img src="data:image/png;base64,@Convert.ToBase64String(product.ImageData)"
@@ -67,19 +76,23 @@
     }
 </div>
 
-
 @section Scripts {
     <script>
+        // References to search input and suggestion popup elements
         const searchInput = document.getElementById("searchInput");
         const popup = document.getElementById("suggestionPopup");
         const list = document.getElementById("suggestionList");
 
+        // Show suggestions when search input is focused
         searchInput.addEventListener("focus", async () => {
             try {
+                // Fetch random product names for suggestions
                 const res = await fetch("/Customer/GetRandomProducts");
                 const data = await res.json();
 
+                // Clear current suggestions
                 list.innerHTML = "";
+                // Add each suggestion as a clickable link
                 data.forEach(name => {
                     const li = document.createElement("li");
                     li.innerHTML = `<a href="/Customer/Search?keyword=${encodeURIComponent(name)}"
@@ -88,45 +101,27 @@
                     list.appendChild(li);
                 });
 
+                // Show the suggestion popup
                 popup.style.display = "block";
             } catch (err) {
                 console.error("Suggestion fetch error", err);
             }
         });
 
+        // Hide suggestion popup if clicking outside input or popup
         document.addEventListener("click", function (e) {
             if (!searchInput.contains(e.target) && !popup.contains(e.target)) {
                 popup.style.display = "none";
             }
         });
     </script>
+
     <style>
-        .hover-bg:hover {
-            background-color: #f0f0f0;
-        }
-
-        .btn-gold {
-            background-color: #b29b4b;
-            color: white;
-            border: none;
-            border-radius: 50px;
-            transition: 0.3s ease;
-        }
-
-            .btn-gold:hover {
-                background-color: #a08935;
-                color: white;
-            }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
+        /* Button and card hover styles omitted as per your request */
     </style>
 }
 
-
+<!-- Footer section -->
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">

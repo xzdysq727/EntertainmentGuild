@@ -1,9 +1,16 @@
 ﻿@model List<EntertainmentGuild.Models.Order>
 
 @{
+    // Set the layout page for employee views
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+
+    // Set the page title
     ViewData["Title"] = "Manage Orders";
+
+    // Get list of customers passed from controller via ViewBag
     var customers = ViewBag.Customers as List<Microsoft.AspNetCore.Identity.IdentityUser>;
+
+    // Get currently selected customer's email (for filtering orders)
     var selectedEmail = ViewBag.SelectedEmail as string;
 }
 
@@ -104,12 +111,16 @@
 </style>
 
 <div class="container mt-5 mb-5">
+    <!-- Page heading with icon -->
     <h4 class="mb-4"><i class="bi bi-clipboard-data me-2 text-warning"></i>Customer Order History</h4>
 
     <div class="row">
+        <!-- Customer list panel -->
         <div class="col-md-3 mb-4">
             <div class="category-panel">
                 <h5><i class="bi bi-people-fill me-2"></i>Customers</h5>
+
+                <!-- Loop through each customer and display their email as a button -->
                 @foreach (var customer in customers)
                 {
                     <div class="mb-2">
@@ -124,25 +135,32 @@
             </div>
         </div>
 
+        <!-- Orders display panel -->
         <div class="col-md-9">
+            @* If no customer is selected, prompt user to select one *@
             @if (string.IsNullOrEmpty(selectedEmail))
             {
                 <div class="alert alert-info">Please select a customer to view their orders.</div>
             }
+            @* If customer selected but no orders found *@
             else if (!Model.Any())
             {
                 <div class="alert alert-warning">This customer has no orders.</div>
             }
             else
             {
+                <!-- Display orders in a responsive grid -->
                 <div class="order-grid">
                     @foreach (var order in Model)
                     {
                         <div class="order-card">
+                            <!-- Order header showing order ID and date/time -->
                             <div class="order-header">
                                 Order #@order.Id
                                 <div class="text-muted small">@order.OrderDate.ToString("yyyy-MM-dd HH:mm")</div>
                             </div>
+
+                            <!-- List all items in the order -->
                             <div>
                                 @foreach (var item in order.OrderItems)
                                 {
@@ -152,6 +170,8 @@
                                     </div>
                                 }
                             </div>
+
+                            <!-- Footer with button to edit shipping status -->
                             <div class="order-footer mt-3">
                                 <a class="btn btn-edit"
                                    asp-controller="Employee"

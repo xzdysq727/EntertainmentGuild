@@ -1,10 +1,11 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityUser
 @{
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
-    ViewData["Title"] = "Admin Account";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";// Use shared admin layout
+    ViewData["Title"] = "Admin Account"; // Set page title
 }
 
 <style>
+    /* Styles for background, titles, cards, form inputs, buttons, alerts */
     body {
         background-color: #ffffff;
     }
@@ -67,7 +68,7 @@
     <h4 class="section-title">
         <i class="bi bi-key-fill me-2 text-warning"></i>Change Password
     </h4>
-
+    <!-- Show success or error messages from TempData -->
     @if (TempData["ChangeSuccess"] != null)
     {
         <div class="alert alert-success">@TempData["ChangeSuccess"]</div>
@@ -76,7 +77,7 @@
     {
         <div class="alert alert-danger">@TempData["ChangeError"]</div>
     }
-
+    <!-- Password change form -->
     <form asp-action="ChangePassword" method="post">
         <div class="mb-3">
             <label for="CurrentPassword" class="form-label">Current Password</label>

@@ -9,38 +9,52 @@ using EntertainmentGuild.Models;
 
 namespace EntertainmentGuild.Controllers
 {
+    // This controller handles all admin-related actions.
+    // It is restricted to users with the "Admin" role.
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
+        // Constructor - injects database context and user manager for identity handling
         public AdminController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-        // 商品页
+        // ===========================
+        // Product Management Section
+        // ===========================
+
+        // Displays the product list with optional category/subcategory filtering
         public async Task<IActionResult> Product(string category = null, string subCategory = null)
         {
             var products = _context.Products.AsQueryable();
+
+            // Apply category filter if provided
             if (!string.IsNullOrEmpty(category))
                 products = products.Where(p => p.Category == category);
+
+            // Apply subcategory filter if provided
             if (!string.IsNullOrEmpty(subCategory))
                 products = products.Where(p => p.SubCategory == subCategory);
 
+            // Store selected filters in ViewBag for the view
             ViewBag.SelectedCategory = category;
             ViewBag.SelectedSubCategory = subCategory;
 
             return View(await products.ToListAsync());
         }
 
+        // Handles POST request for adding a new product
         [HttpPost]
         public async Task<IActionResult> AddProduct(Product product, IFormFile? ImageFile)
         {
             if (ModelState.IsValid)
             {
+                // If an image is uploaded, store it as byte[] in the database
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
                     using var ms = new MemoryStream();
@@ -53,9 +67,11 @@ namespace EntertainmentGuild.Controllers
                 await _context.SaveChangesAsync();
             }
 
+            // Redirect to the product list after adding
             return RedirectToAction("Product", new { category = product.Category });
         }
 
+        // Loads product details for editing
         [HttpGet]
         public async Task<IActionResult> EditProduct(int id)
         {
@@ -63,18 +79,21 @@ namespace EntertainmentGuild.Controllers
             return product == null ? NotFound() : View("EditProduct", product);
         }
 
+        // Handles POST request to update product details
         [HttpPost]
         public async Task<IActionResult> EditProduct(Product model, IFormFile? ImageFile)
         {
             var product = await _context.Products.FindAsync(model.Id);
             if (product == null) return NotFound();
 
+            // Update basic product information
             product.Name = model.Name;
             product.Price = model.Price;
             product.Description = model.Description;
             product.Category = model.Category;
             product.SubCategory = model.SubCategory;
 
+            // Update product image if a new one is uploaded
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 using var ms = new MemoryStream();
@@ -87,6 +106,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product", new { category = product.Category });
         }
 
+        // Deletes a product by ID
         [HttpPost]
         public async Task<IActionResult> DeleteProduct(int id)
         {
@@ -99,7 +119,11 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product");
         }
 
+        // ===========================
+        // Account & User Management
+        // ===========================
 
+        // Displays the admin's own account details
         [HttpGet]
         public async Task<IActionResult> Account()
         {
@@ -107,6 +131,7 @@ namespace EntertainmentGuild.Controllers
             return View("AdminAccount", user);
         }
 
+        // Lists active and disabled users for a specific role
         [HttpGet]
         public async Task<IActionResult> Manage(string role = "Customer")
         {
@@ -121,6 +146,7 @@ namespace EntertainmentGuild.Controllers
             return View(activeUsers);
         }
 
+        // Enables or disables a user account
         [HttpPost]
         public async Task<IActionResult> ToggleDisable(string userId)
         {
@@ -130,11 +156,13 @@ namespace EntertainmentGuild.Controllers
             var existing = await _context.DisabledUsers.FindAsync(userId);
             if (existing != null)
             {
+                // Re-enable user
                 _context.DisabledUsers.Remove(existing);
                 await _userManager.AddToRoleAsync(user, existing.OriginalRole);
             }
             else
             {
+                // Disable user
                 var roles = await _userManager.GetRolesAsync(user);
                 var role = roles.FirstOrDefault() ?? "Customer";
 
@@ -152,7 +180,11 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Manage", new { role = "Customer" });
         }
 
+        // ===========================
+        // Top Products Management
+        // ===========================
 
+        // Displays current top products (carousel + recommendations)
         [HttpGet]
         public async Task<IActionResult> TopProducts()
         {
@@ -164,6 +196,7 @@ namespace EntertainmentGuild.Controllers
             return View(vm);
         }
 
+        // Handles adding a product to the carousel or recommendation section
         [HttpPost]
         public async Task<IActionResult> AddTopProductHandler(IFormCollection form, IFormFile? ImageFile)
         {
@@ -185,6 +218,7 @@ namespace EntertainmentGuild.Controllers
                 mimeType = ImageFile.ContentType;
             }
 
+            // Add to carousel
             if (sectionType == "Carousel")
             {
                 if (await _context.CarouselTopProducts.CountAsync() >= 4)
@@ -201,6 +235,7 @@ namespace EntertainmentGuild.Controllers
                     ImageMimeType = mimeType
                 });
             }
+            // Add to recommendations
             else if (sectionType == "Recommendation")
             {
                 if (await _context.RecommendedTopProducts.CountAsync() >= 2)
@@ -222,6 +257,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("TopProducts");
         }
 
+        // Deletes a product from the carousel
         [HttpPost]
         public async Task<IActionResult> DeleteCarouselTopProduct(int id)
         {
@@ -234,6 +270,7 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("TopProducts");
         }
 
+        // Deletes a product from the recommendations
         [HttpPost]
         public async Task<IActionResult> DeleteRecommendedTopProduct(int id)
         {
@@ -245,6 +282,8 @@ namespace EntertainmentGuild.Controllers
             }
             return RedirectToAction("TopProducts");
         }
+
+        // Adds a new user with a specific role
         [HttpPost]
         public async Task<IActionResult> AddUser(string Email, string Password, string Role)
         {
@@ -263,8 +302,5 @@ namespace EntertainmentGuild.Controllers
 
             return RedirectToAction("Manage");
         }
-
     }
 }
-
-

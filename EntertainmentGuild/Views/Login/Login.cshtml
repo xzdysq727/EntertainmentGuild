@@ -1,13 +1,15 @@
 ﻿@model EntertainmentGuild.ViewModels.LoginViewModel
 
 @{
+    // Set the page title dynamically based on the role (e.g., Customer Login, Employee Login)
     ViewData["Title"] = $"{Model.Role} Login";
 }
 
 <div class="container mt-5" style="max-width: 500px;">
+    <!-- Page header -->
     <h2 class="text-center mb-4">@Model.Role Login</h2>
 
-   
+    <!-- Display login error message if any -->
     @if (TempData["LoginError"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -16,30 +18,37 @@
         </div>
     }
 
+    <!-- Login form -->
     <form asp-action="Login" method="post">
+        <!-- Hidden input to keep track of the user's role -->
         <input type="hidden" asp-for="Role" />
 
+        <!-- Email input -->
         <div class="form-group mb-3">
             <label asp-for="Email" class="form-label"></label>
             <input asp-for="Email" type="email" autocomplete="email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
 
+        <!-- Password input -->
         <div class="form-group mb-3">
             <label asp-for="Password" class="form-label"></label>
             <input asp-for="Password" type="password" autocomplete="current-password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
 
+        <!-- Remember Me checkbox -->
         <div class="form-check mb-3">
             <input asp-for="RememberMe" class="form-check-input" />
             <label asp-for="RememberMe" class="form-check-label">Remember Me</label>
         </div>
 
+        <!-- Submit button -->
         <div class="d-grid mb-3">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
 
+        <!-- Link to register page for users without an account -->
         <p class="text-center">
             Don't have a customer account?
             <a asp-controller="Register" asp-action="Index">Register here</a>
@@ -48,5 +57,6 @@
 </div>
 
 @section Scripts {
+    <!-- Include client-side validation scripts -->
     <partial name="_ValidationScriptsPartial" />
 }

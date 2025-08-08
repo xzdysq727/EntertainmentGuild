@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     ViewData["Title"] = "Top Products Management";
 
+    // Dictionary mapping each main category to its list of subcategories
     var subCategoryMap = new Dictionary<string, List<string>> {
         { "Clothing", new() { "Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit" } },
         { "Pants", new() { "Long Pants", "Shorts", "Cargo Pants", "Dress Pants" } },
@@ -15,6 +16,7 @@
 }
 
 <style>
+    /* Define CSS variables for consistent color scheme */
     :root {
         --cream: #fdf7e4;
         --gold: #b29b4b;
@@ -22,11 +24,13 @@
         --dark-text: #2e2e2e;
     }
 
+    /* Card header rounded corners */
     .card-header {
         border-top-left-radius: 12px;
         border-top-right-radius: 12px;
     }
 
+    /* Styling for the top form section with background and border */
     .top-form-section {
         background-color: var(--cream);
         border: 1px solid var(--border-light);
@@ -34,6 +38,7 @@
         padding: 20px;
     }
 
+    /* Gold-colored button with rounded shape and no border */
     .btn-gold {
         background-color: var(--gold);
         color: white;
@@ -42,19 +47,23 @@
         border: none;
     }
 
+        /* Hover effect for gold button */
         .btn-gold:hover {
             background-color: #a38d3a;
         }
 
+    /* Product image styling: rounded corners and light border */
     .product-table img {
         border-radius: 6px;
         border: 1px solid #ccc;
     }
 
+    /* Vertically center table cell contents */
     .table td, .table th {
         vertical-align: middle;
     }
 
+    /* Section title styling */
     .section-title {
         font-weight: 600;
         font-size: 18px;
@@ -63,21 +72,25 @@
 </style>
 
 <div class="container mt-4">
+    <!-- Main page heading -->
     <h3 class="mb-4 section-title">Manage Top Products</h3>
 
- 
+    <!-- Form for adding a new top product -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-gold text-white">
             <strong>Add Top Product</strong>
         </div>
         <div class="card-body top-form-section">
             <form asp-action="AddTopProductHandler" method="post" enctype="multipart/form-data" class="row g-3">
+                <!-- Input for product name -->
                 <div class="col-md-3">
                     <input name="Name" class="form-control" placeholder="Name" required />
                 </div>
+                <!-- Input for product price -->
                 <div class="col-md-2">
                     <input name="Price" type="number" step="0.01" class="form-control" placeholder="Price" required />
                 </div>
+                <!-- Dropdown for selecting main category -->
                 <div class="col-md-2">
                     <select id="category" name="Category" class="form-select" required>
                         <option value="">Select Category</option>
@@ -87,11 +100,13 @@
                         }
                     </select>
                 </div>
+                <!-- Dropdown for selecting subcategory, dynamically populated -->
                 <div class="col-md-2">
                     <select id="subCategory" name="SubCategory" class="form-select" required>
                         <option value="">Select SubCategory</option>
                     </select>
                 </div>
+                <!-- Dropdown for selecting the section type (Carousel or Recommendation) -->
                 <div class="col-md-3">
                     <select name="SectionType" class="form-select" required>
                         <option value="">Select Section</option>
@@ -99,12 +114,15 @@
                         <option value="Recommendation">Recommendation</option>
                     </select>
                 </div>
+                <!-- File input for product image -->
                 <div class="col-md-12">
                     <input name="ImageFile" type="file" accept="image/*" class="form-control" />
                 </div>
+                <!-- Textarea for optional product description -->
                 <div class="col-md-12">
                     <textarea name="Description" class="form-control" rows="2" placeholder="Description (optional)"></textarea>
                 </div>
+                <!-- Submit button to add the product -->
                 <div class="col-md-2">
                     <button type="submit" class="btn btn-gold w-100">➕ Add</button>
                 </div>
@@ -112,7 +130,7 @@
         </div>
     </div>
 
-
+    <!-- Section displaying products in the Carousel (up to 4 items) -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-info text-white d-flex justify-content-between">
             <strong>🖼️ Carousel Products (Max 4)</strong>
@@ -120,10 +138,12 @@
         <div class="card-body">
             @if (!Model.Carousel.Any())
             {
+                <!-- Message if no carousel products exist -->
                 <p class="text-muted">No products in Carousel.</p>
             }
             else
             {
+                <!-- Table listing carousel products -->
                 <table class="table table-bordered table-hover product-table">
                     <thead class="table-light">
                         <tr>
@@ -141,6 +161,7 @@
                         {
                             <tr>
                                 <td>
+                                    @* Show product image if available as base64 embedded image *@
                                     @if (item.ImageData != null && item.ImageMimeType != null)
                                     {
                                         var base64 = Convert.ToBase64String(item.ImageData);
@@ -157,6 +178,7 @@
                                 <td>@item.SubCategory</td>
                                 <td>@item.Description</td>
                                 <td>
+                                    <!-- Form to delete the product from carousel -->
                                     <form asp-action="DeleteCarouselTopProduct" method="post">
                                         <input type="hidden" name="id" value="@item.Id" />
                                         <button class="btn btn-sm btn-outline-danger">Delete</button>
@@ -170,7 +192,7 @@
         </div>
     </div>
 
-  
+    <!-- Section displaying recommended products (up to 2 items) -->
     <div class="card shadow-sm">
         <div class="card-header bg-warning text-dark">
             <strong>⭐ Recommended Products (Max 2)</strong>
@@ -178,10 +200,12 @@
         <div class="card-body">
             @if (!Model.Recommendations.Any())
             {
+                <!-- Message if no recommendations exist -->
                 <p class="text-muted">No recommended products yet.</p>
             }
             else
             {
+                <!-- Table listing recommended products -->
                 <table class="table table-bordered table-hover product-table">
                     <thead class="table-light">
                         <tr>
@@ -199,6 +223,7 @@
                         {
                             <tr>
                                 <td>
+                                   
                                     @if (item.ImageData != null && item.ImageMimeType != null)
                                     {
                                         var base64 = Convert.ToBase64String(item.ImageData);
@@ -215,6 +240,7 @@
                                 <td>@item.SubCategory</td>
                                 <td>@item.Description</td>
                                 <td>
+                                    <!-- Form to delete the product from recommendations -->
                                     <form asp-action="DeleteRecommendedTopProduct" method="post">
                                         <input type="hidden" name="id" value="@item.Id" />
                                         <button class="btn btn-sm btn-outline-danger">Delete</button>
@@ -231,10 +257,14 @@
 
 @section Scripts {
     <script>
+        // Pass the server-side subCategoryMap dictionary as JSON to client-side JS
         const subCategoryMap = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(subCategoryMap));
+
+        // Get references to category and subcategory select elements
         const categorySelect = document.getElementById("category");
         const subCategorySelect = document.getElementById("subCategory");
 
+        // When main category changes, update the subcategory options dynamically
         categorySelect.addEventListener("change", () => {
             const selected = categorySelect.value;
             const subs = subCategoryMap[selected] || [];

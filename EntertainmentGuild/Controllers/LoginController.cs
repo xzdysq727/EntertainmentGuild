@@ -8,12 +8,14 @@ using EntertainmentGuild.ViewModels;
 
 namespace EntertainmentGuild.Controllers
 {
+    // Controller handling login for different user roles
     public class LoginController : Controller
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _context;
 
+        // Constructor injecting SignInManager, UserManager, and database context
         public LoginController(SignInManager<IdentityUser> signInManager,
                                UserManager<IdentityUser> userManager,
                                ApplicationDbContext context)
@@ -23,33 +25,36 @@ namespace EntertainmentGuild.Controllers
             _context = context;
         }
 
-        // GET: Login pages for each role
+        // GET action for Customer login page, passes role info in view model
         [HttpGet]
         public IActionResult Customer()
         {
             return View("Login", new LoginViewModel { Role = "Customer" });
         }
 
+        // GET action for Employee login page, passes role info in view model
         [HttpGet]
         public IActionResult Employee()
         {
             return View("Login", new LoginViewModel { Role = "Employee" });
         }
 
+        // GET action for Admin login page, passes role info in view model
         [HttpGet]
         public IActionResult Admin()
         {
             return View("Login", new LoginViewModel { Role = "Admin" });
         }
 
-        
+        // POST action to process login form submission
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            // Validate submitted model
             if (!ModelState.IsValid)
                 return View("Login", model);
 
-            
+            // Try to find user by email
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
@@ -57,7 +62,7 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction(model.Role);
             }
 
-           
+            // Check if user is disabled in the system
             var disabledUser = await _context.DisabledUsers.FindAsync(user.Id);
             if (disabledUser != null)
             {
@@ -65,26 +70,28 @@ namespace EntertainmentGuild.Controllers
                 return RedirectToAction(model.Role);
             }
 
-          
+            // Verify user belongs to the specified role
             if (!await _userManager.IsInRoleAsync(user, model.Role))
             {
                 TempData["LoginError"] = $"This user is not a {model.Role}.";
                 return RedirectToAction(model.Role);
             }
 
-         
+            // Attempt password sign-in
             var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (result.Succeeded)
             {
+                // Redirect to role-specific landing page on successful login
                 return model.Role switch
                 {
                     "Admin" => RedirectToAction("Product", "Admin"),
                     "Employee" => RedirectToAction("Product", "Employee"),
                     "Customer" => RedirectToAction("Index", "Customer"),
-                    _ => RedirectToAction("Customer") 
+                    _ => RedirectToAction("Customer") // fallback
                 };
             }
 
+            // Handle invalid login attempts
             TempData["LoginError"] = "Invalid login attempt.";
             return RedirectToAction(model.Role);
         }

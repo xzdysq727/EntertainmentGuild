@@ -2,25 +2,29 @@
 @model Product
 
 @{
+    // Set the page title and layout
     ViewData["Title"] = "Product Details";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
 <div class="container mt-5 mb-5">
     <div class="row">
+        <!-- Product Image Column -->
         <div class="col-md-6 mb-4 d-flex justify-content-center align-items-center">
             <img src="@(Model.ImageData != null
-                         ? $"data:image/png;base64,{Convert.ToBase64String(Model.ImageData)}"
-                         : "/images/placeholder.png")"
+                                          ? $"data:image/png;base64,{Convert.ToBase64String(Model.ImageData)}"
+                                          : "/images/placeholder.png")"
                  class="img-fluid rounded-3 shadow-sm border"
                  style="max-height: 600px; max-width: 100%; object-fit: contain; background-color: #f9f7f2;"
                  alt="Product Image" />
         </div>
 
-
-
+        <!-- Product Details Column -->
         <div class="col-md-6">
+            <!-- Product Name -->
             <h2 class="mb-3 fw-bold">@Model.Name</h2>
+
+            <!-- Category and Subcategory Info -->
             <p class="text-muted mb-1">
                 <i class="bi bi-tag-fill text-secondary me-1"></i>Category:
                 <strong>@Model.Category</strong>
@@ -29,13 +33,16 @@
                 <i class="bi bi-bookmark-fill text-secondary me-1"></i>Subcategory:
                 <strong>@Model.SubCategory</strong>
             </p>
+
+            <!-- Product Price -->
             <h4 class="text-primary fw-bold mb-3">$@Model.Price.ToString("F2")</h4>
 
-
+            <!-- Stock Quantity Status -->
             <p class="text-muted mb-4">
                 <i class="bi bi-box-seam me-1"></i>
                 Remaining:
                 <strong>
+                    @* Show stock status with different colors *@
                     @if (Model.Quantity == 0)
                     {
                         <span class="text-danger">Out of Stock</span>
@@ -51,18 +58,19 @@
                 </strong>
             </p>
 
-
+            @* Display success message if product added to cart *@
             @if (TempData["CartMessage"] != null)
             {
                 <div class="alert alert-success">@TempData["CartMessage"]</div>
             }
 
-
+            @* Show Add to Cart form if product is in stock *@
             @if (Model.Quantity > 0)
             {
                 <form asp-action="AddToCart" method="post" class="d-flex align-items-center mb-4">
                     <input type="hidden" name="productId" value="@Model.Id" />
 
+                    @* Quantity selector limited to max 10 or stock quantity *@
                     <select name="quantity" class="form-select me-2 rounded-pill" style="width: 100px;">
                         @for (int i = 1; i <= Math.Min(Model.Quantity, 10); i++)
                         {
@@ -78,21 +86,26 @@
             }
             else
             {
+                @* Disabled button shown when out of stock *@
                 <button class="btn btn-secondary mt-3 rounded-pill" disabled>
                     Out of Stock
                 </button>
             }
 
             <hr />
+            <!-- Product Description -->
             <h5 class="fw-bold mb-2">Description</h5>
             <p class="text-muted">@Model.Description</p>
 
+            <!-- Back to products link -->
             <a asp-action="Product" class="btn btn-outline-secondary mt-3 rounded-pill">
                 <i class="bi bi-arrow-left me-1"></i>Back to Products
             </a>
         </div>
     </div>
 </div>
+
+<!-- Footer section -->
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">

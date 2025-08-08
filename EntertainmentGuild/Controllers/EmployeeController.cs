@@ -9,24 +9,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EntertainmentGuild.Controllers
 {
+    // Controller for employee-only actions
+    // Access restricted to users with the "Employee" role
     [Authorize(Roles = "Employee")]
     public class EmployeeController : Controller
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
+        // Constructor - inject database context and user manager
         public EmployeeController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
-
+        // GET action to display products, optionally filtered by subcategory
         [HttpGet]
         public async Task<IActionResult> Product(string? subCategory)
         {
             var products = await _context.Products.ToListAsync();
 
+            // Filter products by subcategory if provided (case-insensitive)
             if (!string.IsNullOrEmpty(subCategory))
             {
                 products = products
@@ -39,7 +43,7 @@ namespace EntertainmentGuild.Controllers
             return View(products);
         }
 
- 
+        // POST action to update the stock quantity of a product
         [HttpPost]
         public async Task<IActionResult> UpdateQuantity(int productId, int newQuantity)
         {
@@ -53,14 +57,14 @@ namespace EntertainmentGuild.Controllers
             return RedirectToAction("Product");
         }
 
- 
+        // GET action to show change password page
         [HttpGet]
         public IActionResult ChangePassword()
         {
             return View();
         }
 
-  
+        // POST action to handle password change request
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -79,6 +83,7 @@ namespace EntertainmentGuild.Controllers
                 return View();
             }
 
+            // Add errors to ModelState to display in the view
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
@@ -87,13 +92,15 @@ namespace EntertainmentGuild.Controllers
             return View(model);
         }
 
-    
+        // GET action to display orders, optionally filtered by customer email
         [HttpGet]
         public async Task<IActionResult> ManageOrders(string? userEmail)
         {
+            // Retrieve all customers in the system
             var customers = await _userManager.GetUsersInRoleAsync("Customer");
 
             List<Order> orders = new();
+            // If userEmail is provided, filter orders for that customer
             if (!string.IsNullOrEmpty(userEmail))
             {
                 orders = await _context.Orders
@@ -109,7 +116,7 @@ namespace EntertainmentGuild.Controllers
             return View(orders);
         }
 
-       
+        // GET action to display shipping status edit form for an order
         [HttpGet]
         public async Task<IActionResult> EditShippingStatus(int id)
         {
@@ -119,12 +126,14 @@ namespace EntertainmentGuild.Controllers
             return View(order);
         }
 
+        // POST action to update shipping details for an order
         [HttpPost]
         public async Task<IActionResult> EditShippingStatus(Order model)
         {
             var order = await _context.Orders.FindAsync(model.Id);
             if (order == null) return NotFound();
 
+            // Update shipping-related fields from the submitted model
             order.ShippingMethod = model.ShippingMethod;
             order.ShippingStatus = model.ShippingStatus;
             order.Courier = model.Courier;

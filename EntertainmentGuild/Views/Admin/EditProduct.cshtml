@@ -7,6 +7,7 @@
 }
 
 <style>
+    /* Styles for background, card, form labels, inputs, buttons, images, and headings */
     body {
         background-color: #ffffff;
     }
@@ -65,7 +66,7 @@
         <h3 class="mb-4">
             <i class="bi bi-pencil-square me-2 text-warning"></i>Edit Product
         </h3>
-
+        <!-- Form to edit product, supports file upload -->
         <form asp-action="EditProduct" method="post" enctype="multipart/form-data">
             <input type="hidden" asp-for="Id" />
 
@@ -80,7 +81,7 @@
                     <input type="file" name="ImageFile" class="form-control mt-2" onchange="previewImage(this)" accept="image/*" />
                 </div>
 
-               
+                <!-- Right column: product details inputs -->
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label asp-for="Name" class="form-label">Product Name</label>
@@ -131,6 +132,7 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
+        // Mapping of categories to their subcategories
         const subCategoryMap = {
             "Clothing": ["Shirt", "Vest", "T-shirt", "Jacket", "Down Coat", "Suit"],
             "Pants": ["Long Pants", "Shorts", "Cargo Pants", "Dress Pants"],
@@ -141,7 +143,7 @@
 
         const categorySelect = document.getElementById('categorySelect');
         const subCategorySelect = document.getElementById('subCategorySelect');
-
+        // Populate subcategory options based on selected category
         function updateSubCategories(selectedCategory, selectedSub) {
             const subs = subCategoryMap[selectedCategory] || [];
             subCategorySelect.innerHTML = '<option value="">Select SubCategory</option>';
@@ -153,15 +155,15 @@
                 subCategorySelect.appendChild(option);
             }
         }
-
+         // Update subcategories when category changes
         categorySelect.addEventListener('change', () => {
             updateSubCategories(categorySelect.value, "");
         });
-
+         // On page load, initialize subcategory dropdown based on model values
         document.addEventListener("DOMContentLoaded", () => {
             updateSubCategories("@Model.Category", "@Model.SubCategory");
         });
-
+        // Preview the uploaded image before submitting
         function previewImage(input) {
             const preview = document.getElementById('imagePreview');
             if (input.files && input.files[0]) {

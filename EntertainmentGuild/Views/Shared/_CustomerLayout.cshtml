@@ -3,8 +3,10 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <!-- Dynamic page title with suffix " - Customer" -->
     <title>@ViewData["Title"] - Customer</title>
 
+    <!-- Bootstrap CSS and Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
@@ -53,17 +55,22 @@
 </head>
 <body>
 
+    <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom sticky-top">
         <div class="container-fluid px-4">
+            <!-- Brand link to Customer Home -->
             <a class="navbar-brand" asp-controller="Customer" asp-action="Index">
                 <i class="bi bi-shirt nav-icon"></i> e-Closet
             </a>
 
+            <!-- Navbar toggler for mobile responsiveness -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- Collapsible nav links -->
             <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Left-aligned navigation links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Customer" asp-action="Index">
@@ -92,9 +99,11 @@
                     </li>
                 </ul>
 
+                <!-- Right-aligned authentication links -->
                 <ul class="navbar-nav ms-auto">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <!-- Show Logout if user is logged in -->
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Logout" asp-action="Index">
                                 <i class="bi bi-box-arrow-right nav-icon"></i>Logout
@@ -103,6 +112,7 @@
                     }
                     else
                     {
+                        <!-- Show Login if user is not logged in -->
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Login" asp-action="Customer">
                                 <i class="bi bi-box-arrow-in-right nav-icon"></i>Login
@@ -114,11 +124,15 @@
         </div>
     </nav>
 
+    <!-- Main content container where page content is rendered -->
     <div class="container mt-4">
         @RenderBody()
     </div>
 
+    <!-- Bootstrap JS bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Optional scripts section -->
     @RenderSection("Scripts", required: false)
 
 </body>

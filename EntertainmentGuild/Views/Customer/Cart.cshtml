@@ -6,20 +6,26 @@
 }
 
 <div class="container mt-4 mb-5">
+
     <h3 class="fw-bold mb-4" style="color: #b29b4b;">🛒 Your Shopping Cart</h3>
 
     @if (!Model.Any())
     {
+        <!-- Show warning message if cart is empty -->
         <div class="alert alert-warning">Your cart is empty.</div>
     }
     else
     {
         <form asp-controller="Customer" method="post" id="checkoutForm">
+            @Html.AntiForgeryToken()
             <div class="table-responsive">
                 <table class="table align-middle">
                     <thead class="bg-light text-secondary">
                         <tr>
-                            <th><input type="checkbox" id="selectAll" /></th>
+                            <th>
+                                <!-- Checkbox to select/deselect all items -->
+                                <input type="checkbox" id="selectAll" aria-label="Select all items" />
+                            </th>
                             <th>Image</th>
                             <th>Product</th>
                             <th>Category</th>
@@ -34,11 +40,13 @@
                         {
                             <tr class="align-middle">
                                 <td>
+                                    <!-- Checkbox for selecting this item, with data-price for total calculation -->
                                     <input type="checkbox"
                                            name="selectedCartIds"
                                            value="@item.Id"
                                            class="form-check-input select-item"
-                                           data-price="@((item.Product?.Price ?? 0) * item.Quantity)" />
+                                           data-price="@(((item.Product?.Price ?? 0) * item.Quantity).ToString("F2"))"
+                                           aria-label="Select @(item.Product?.Name ?? "item")" />
                                 </td>
                                 <td>
                                     @if (item.Product?.ImageData != null)
@@ -52,11 +60,11 @@
                                         <div class="text-muted">No image</div>
                                     }
                                 </td>
-                                <td class="fw-semibold">@item.Product?.Name</td>
-                                <td>@item.Product?.Category > @item.Product?.SubCategory</td>
-                                <td style="color: #a38b30;">¥@item.Product?.Price.ToString("F2")</td>
+                                <td class="fw-semibold">@(item.Product?.Name ?? "N/A")</td>
+                                <td>@($"{item.Product?.Category ?? "N/A"} &gt; {item.Product?.SubCategory ?? "N/A"}")</td>
+                                <td style="color: #a38b30;">¥@((item.Product?.Price ?? 0).ToString("F2"))</td>
                                 <td>@item.Quantity</td>
-                                <td style="color: #a38b30;">¥@(item.Product?.Price * item.Quantity).ToString("F2")</td>
+                                <td style="color: #a38b30;">¥@(((item.Product?.Price ?? 0) * item.Quantity).ToString("F2"))</td>
                                 <td><small>@item.AddedAt.ToString("g")</small></td>
                             </tr>
                         }
@@ -64,18 +72,21 @@
                 </table>
             </div>
 
+            <!-- Section showing total price and action buttons -->
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mt-4">
                 <div class="mb-3 mb-md-0">
                     <strong>Total: </strong>
                     <span id="totalPrice" class="fs-4 fw-bold" style="color: #b29b4b;">¥0.00</span>
                 </div>
                 <div class="d-flex gap-3">
+                    <!-- Button to delete selected cart items -->
                     <button type="submit"
                             class="btn btn-outline-danger px-4"
                             formaction="@Url.Action("DeleteSelectedFromCart", "Customer")"
                             formmethod="post">
                         🗑 Delete Selected
                     </button>
+                    <!-- Button to proceed to checkout with selected items -->
                     <button type="submit"
                             class="btn btn-warning px-4 text-white"
                             formaction="@Url.Action("Checkout", "Customer")"
@@ -88,14 +99,16 @@
         </form>
     }
 </div>
+
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-3">
                 <h5 class="fw-bold" style="color:#b29b4b;">e-Closet</h5>
                 <p class="text-muted small">
-                    Your curated fashion corner.
-                    Blending style & soul with a touch of music.
+                    <!-- Your curated fashion corner description -->
+                    Your curated fashion corner.<br />
+                    Blending style &amp; soul with a touch of music.
                 </p>
             </div>
 
@@ -120,6 +133,7 @@
         </div>
 
         <div class="text-center mt-4 border-top pt-3 small text-muted">
+            <!-- Copyright text with current year -->
             © @DateTime.Now.Year e-Closet. All rights reserved.
         </div>
     </div>
@@ -127,9 +141,12 @@
 
 @section Scripts {
     <script>
+        // Select all item checkboxes and total price display element
         const checkboxes = document.querySelectorAll('.select-item');
         const totalPriceSpan = document.getElementById('totalPrice');
+        const selectAllCheckbox = document.getElementById('selectAll');
 
+        // Update total price based on checked items
         function updateTotal() {
             let total = 0;
             checkboxes.forEach(cb => {
@@ -140,13 +157,16 @@
             totalPriceSpan.textContent = "¥" + total.toFixed(2);
         }
 
-        document.getElementById('selectAll').addEventListener('change', function () {
+        // Event listener for 'select all' checkbox
+        selectAllCheckbox.addEventListener('change', function () {
             checkboxes.forEach(cb => cb.checked = this.checked);
             updateTotal();
         });
 
+        // Event listeners for individual checkboxes
         checkboxes.forEach(cb => cb.addEventListener('change', updateTotal));
 
+        // Prevent form submission if no items selected
         document.getElementById('checkoutForm').addEventListener('submit', function (e) {
             const selected = Array.from(checkboxes).filter(cb => cb.checked);
             if (selected.length === 0) {
@@ -155,6 +175,7 @@
             }
         });
 
+        // Initialize total price on page load
         updateTotal();
     </script>
 }

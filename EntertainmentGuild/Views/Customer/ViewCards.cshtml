@@ -1,19 +1,28 @@
-﻿@model List<EntertainmentGuild.Models.CreditCard>
+﻿<!--
+    Your Saved Cards Page
+    Displays the list of saved credit cards with options to delete each.
+-->
+@model List<EntertainmentGuild.Models.CreditCard>
 @using EntertainmentGuild.Models
 
 @{
     ViewData["Title"] = "Your Saved Cards";
+    <!-- Set page title -->
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
+
+    <!-- Use customer layout -->
 }
 
 <div class="container mt-5 mb-5">
     <h2 class="mb-4"><i class="bi bi-credit-card-fill me-2 text-secondary"></i>Your Saved Cards</h2>
 
+    <!-- Show success message if a card was deleted -->
     @if (TempData["CardDeleted"] != null)
     {
         <div class="alert alert-success rounded-pill px-4 py-2">@TempData["CardDeleted"]</div>
     }
 
+    <!-- If no cards saved, show info alert -->
     @if (!Model.Any())
     {
         <div class="alert alert-info rounded-pill px-4 py-2 d-inline-flex align-items-center">
@@ -35,17 +44,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!-- Loop through each card -->
                         @foreach (var card in Model)
                         {
                             <tr>
                                 <td>@card.CardHolder</td>
                                 <td>
                                     <i class="bi bi-credit-card-2-back-fill text-muted me-1"></i>
-                                    **** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)
+                                    **** **** **** @card.CardNumber.Substring(card.CardNumber.Length - 4)  <!-- Show last 4 digits -->
                                 </td>
-                                <td>@card.ExpiryMonth/@card.ExpiryYear</td>
-                                <td>@card.CardType</td>
+                                <td>@card.ExpiryMonth/@card.ExpiryYear</td>                            <!-- Show expiry -->
+                                <td>@card.CardType</td>                                                <!-- Show card type -->
                                 <td>
+                                    <!-- Form to delete card with confirmation -->
                                     <form method="post"
                                           asp-action="DeleteCard"
                                           asp-route-id="@card.Id"
@@ -66,10 +77,13 @@
         </div>
     }
 
+    <!-- Button to go back to Account page -->
     <a href="@Url.Action("Account", "Customer")" class="btn btn-outline-secondary mt-4 rounded-pill">
         <i class="bi bi-arrow-left-circle me-1"></i>Back to Account
     </a>
 </div>
+
+<!-- Footer section -->
 <footer class="mt-5 pt-4 pb-3 bg-light text-dark border-top shadow-sm">
     <div class="container">
         <div class="row">
